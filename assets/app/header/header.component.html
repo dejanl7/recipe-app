@@ -1,3 +1,35 @@
-<p>
-  header works!
-</p>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" [routerLink]="['/']">
+            <img src="/images/navlogo.jpg" alt="logo">
+        </a>
+        <button type="button" class="navbar-toggle" (click)="responsiveMenu = !responsiveMenu" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>    
+    </div>
+    <div class="navbar-collapse collapse" [class.in]="responsiveMenu">
+        <ul class="nav navbar-nav">
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/']">Home</a>
+          </li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/profiles']">Profiles</a>
+          </li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/shop']">Shop</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/signup']">Sign Up</a>
+          </li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a [routerLink]="['/login']">Login</a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
