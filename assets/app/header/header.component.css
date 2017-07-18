@@ -9,6 +9,7 @@ img {
     width: 100px;
     height: 50px;
     object-fit: cover;
+    padding-right: 20px;
 }
 .navbar-toggle {
     margin-top: 0;
