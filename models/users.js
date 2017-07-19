@@ -2,7 +2,8 @@ var mongoose        = require('mongoose');
 var Schema          = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
 
-// Blueprint for Users Table
+
+// Blueprint for Users Document
 var schema = new Schema({
     firstName: {
         type: String
@@ -29,6 +30,11 @@ var schema = new Schema({
     },
     profileImage: {
         type: String
+    },
+    userRole: {
+        type: String,
+        enum: ['admin', 'moderator', 'viewer'],
+        default: 'moderator'
     },
     dateCreated: {
         type: Date,
