@@ -13,6 +13,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },
+    recipeRated: {
+        type: Schema.Types.ObjectId,
+        ref: 'Recipes'
+    },
     dateCreated: {
         type: Date,
         default: Date.now()

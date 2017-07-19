@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
+var User     = require('./users');
 
 
-// Blueprint for Recipes Collection
+/*=====================================
+    Blueprint for Recipes Collection
+=======================================*/
 var schema = new Schema({
     recipeName: {
         type: String,
@@ -46,12 +49,16 @@ var schema = new Schema({
 });
 
 
-schema.post('remove', function(message) {
-    User.findById(message.user, function(err, user) {
-        user.messages.pull(message);
+/*===============================
+    Additional actions
+=================================*/
+schema.post('remove', function(recipe) {
+    User.findById(recipe.createdFrom, function(err, user) {
+        user.userRecipes.pull(recipe);
         user.save();
     });
 });
+
 
 
 module.exports = mongoose.model(

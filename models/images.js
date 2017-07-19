@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-// Blueprint for Image Collection
+/*=====================================
+    Blueprint for Image Collection
+=======================================*/
 var schema  = new Schema({
     imageName: {
         type: String
@@ -15,10 +17,6 @@ var schema  = new Schema({
     dateCreated: {
         type: Date,
         default: Date.now()
-    },
-    profileImage: {
-        type: Schema.Types.ObjectId,
-        ref: 'Users'
     }
 });
 

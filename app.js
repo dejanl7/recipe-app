@@ -11,8 +11,8 @@ var appRoutes       = require('./routes/app');
 var userRoutes      = require('./routes/users');
 var recipeRoutes    = require('./routes/recipes');
 var categoryRoutes  = require('./routes/categories');
-// var commentRoutes   = require('./routes/comments');
-// var ratingRoutes    = require('./routes/ratings');
+var commentRoutes   = require('./routes/comments');
+var ratingRoutes    = require('./routes/ratings');
 // var imageRoutes     = require('./routes/images');
 
 var app         = express();
@@ -34,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// Access from different origin
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -47,8 +48,8 @@ app.use(function(req, res, next) {
 app.use('/user', userRoutes);
 app.use('/recipe', recipeRoutes);
 app.use('/category', categoryRoutes);
-// app.use('/comment', commentRoutes);
-// app.use('/rating', ratingRoutes);
+app.use('/comment', commentRoutes);
+app.use('/rating', ratingRoutes);
 // app.use('/image', imageRoutes);
 app.use('/', appRoutes);
 

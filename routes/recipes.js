@@ -9,7 +9,7 @@ var User    = require('../models/users');
     Add New Recipe
 ================================*/
 router.post('/', function (req, res, next) {
-    User.findById('596f779f9ab3c42664e8e8b8', function(err, user){
+    User.findById('596fae299366f2056ceb7e44', function(err, user){
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated!',
@@ -17,9 +17,9 @@ router.post('/', function (req, res, next) {
             });
         }
         var recipe = new Recipe({
-            recipeName: 'Recipe for Lunch',
+            recipeName: 'Recipe for Breakfast',
             recipeContent: 'Lorem ipsum dolor set umit. Lorem ipsum dolor set umit...',
-            createdFrom: '596f779f9ab3c42664e8e8b8',
+            createdFrom: '596fae299366f2056ceb7e44',
         });
 
         // Save
@@ -45,12 +45,11 @@ router.post('/', function (req, res, next) {
 });
 
 
-
 /*=============================
     Delete Recipe
 ===============================*/
 router.delete('/:id', function(req, res, next){
-    Recipe.findById('596f816777974414705e38b4', function(err, recipe){
+    Recipe.findById('596fb03219f5e7053848a8a0', function(err, recipe){
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
