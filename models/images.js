@@ -1,23 +1,29 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-// Blueprint for Gallery Collection
+// Blueprint for Image Collection
 var schema  = new Schema({
-    categoryName: {
+    imageName: {
         type: String
     },
-    categoryRecipe: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Recipes'
-    }],
+    newImageName: {
+        type: String
+    },
+    imageSize: {
+        type: String
+    },
     dateCreated: {
         type: Date,
         default: Date.now()
+    },
+    profileImage: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
     }
 });
 
 
 module.exports = mongoose.model(
-    'Categories',
+    'Images',
     schema
 );

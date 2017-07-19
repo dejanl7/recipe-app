@@ -3,13 +3,15 @@ var Schema          = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
 
 
-// Blueprint for Users Document
+// Blueprint for Users Collection
 var schema = new Schema({
     firstName: {
-        type: String
+        type: String,
+        default: ''
     },
     lastName: {
-        type: String
+        type: String,
+        default: ''
     },
     email: {
         type: String,
@@ -26,10 +28,12 @@ var schema = new Schema({
         required: true
     },
     address: {
-        type: String
+        type: String,
+        default: ''
     },
     profileImage: {
-        type: String
+        type: String,
+        default: ''
     },
     userRole: {
         type: String,
@@ -42,12 +46,12 @@ var schema = new Schema({
     },
     dateCreated: {
         type: Date,
-        default: Data.now(),
+        default: Date.now(),
         required: true
     },
     dateUpdated: {
         type: Date,
-        default: Data.now()
+        default: Date.now()
     },
     userRecipes: [{
         type: Schema.Types.ObjectId,

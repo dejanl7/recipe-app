@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 /*===================================
     Module Dependencies
 =====================================*/
-var app = require('../app');
+var app   = require('../app');
 var debug = require('debug')('public-environment:server');
-var http = require('http');
+var http  = require('http');
 
 // Get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || '3000');

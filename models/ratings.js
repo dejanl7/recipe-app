@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 
-// Blueprint for Ratings Document
+// Blueprint for Ratings Collection
 var schema = new Schema({
     rating: {
         type: Number,
@@ -11,7 +11,7 @@ var schema = new Schema({
     },
     ratedFrom: {
         type: Schema.Types.ObjectId,
-        ref: 'Recipes'
+        ref: 'Users'
     },
     dateCreated: {
         type: Date,

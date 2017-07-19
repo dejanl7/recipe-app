@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 
-// Blueprint for Ratings Document
+// Blueprint for Ratings Collection
 var schema = new Schema({
     comment: {
-        type: Array
+        type: String
     },
     commentedBy: {
         type: Schema.Types.ObjectId,

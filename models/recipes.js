@@ -2,22 +2,25 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 
-// Blueprint for Recipes Document
+// Blueprint for Recipes Collection
 var schema = new Schema({
     recipeName: {
-        type: String
+        type: String,
+        default: ''
     },
     recipeContent: {
-        type: String
+        type: String,
+        default: ''
     },
     recipeImage: {
-        type: String
+        type: String,
+        default: ''
     },
     dateCreated: {
         type: Date,
         default: Date.now()
     },
-    recipeCategory: [{
+    recipeCategories: [{
         type: Schema.Types.ObjectId,
         ref: 'Categories'
     }],
@@ -25,8 +28,9 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },
-    recipeDelete: {
-        type: Boolean
+    recipeRemoved: {
+        type: Boolean,
+        default: false
     },
     recipeGallery: {
         type: Array
@@ -39,6 +43,14 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Comments'
     }]
+});
+
+
+schema.post('remove', function(message) {
+    User.findById(message.user, function(err, user) {
+        user.messages.pull(message);
+        user.save();
+    });
 });
 
 

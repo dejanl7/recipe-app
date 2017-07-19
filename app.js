@@ -4,9 +4,19 @@ var favicon       = require('serve-favicon');
 var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
+var mongoose      = require('mongoose'); // Working with MongoDB
 
-var appRoutes = require('./routes/app');
-var app       = express();
+// Routes
+var appRoutes       = require('./routes/app');
+var userRoutes      = require('./routes/users');
+var recipeRoutes    = require('./routes/recipes');
+var categoryRoutes  = require('./routes/categories');
+// var commentRoutes   = require('./routes/comments');
+// var ratingRoutes    = require('./routes/ratings');
+// var imageRoutes     = require('./routes/images');
+
+var app         = express();
+mongoose.connect('localhost:27017/recipes'); // Connect to database 
 
 
 /*===============================
@@ -33,6 +43,13 @@ app.use(function(req, res, next) {
 });
 
 
+// Target Routes Middleware
+app.use('/user', userRoutes);
+app.use('/recipe', recipeRoutes);
+app.use('/category', categoryRoutes);
+// app.use('/comment', commentRoutes);
+// app.use('/rating', ratingRoutes);
+// app.use('/image', imageRoutes);
 app.use('/', appRoutes);
 
 
