@@ -31,9 +31,7 @@ img {
     -ms-transition: all .2s;
     -o-transition: all .2s;
 }
-.navbar-nav li:not(.active) a:hover {
-    opacity: .7;
-}
+
 
 @media screen and (min-width: 768px) {
     .navbar-nav {
