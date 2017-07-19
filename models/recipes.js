@@ -27,6 +27,13 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },
+    recipeDelete: {
+        type: Boolean
+    },
+    recipeGalleryImages: {
+        type: Schema.Types.ObjectId,
+        ref: 'Gallery'
+    },
     recipeRating: {
         type: Schema.Types.ObjectId,
         ref: 'Ratings'
