@@ -39,10 +39,10 @@ var schema = new Schema({
         type: Date,
         default: Data.now()
     },
-    userRecipes: {
+    userRecipes: [{
         type: Schema.Types.ObjectId,
         ref: 'Recipes'
-    }
+    }]
 });
 
 
