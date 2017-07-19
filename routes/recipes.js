@@ -5,6 +5,37 @@ var Recipe  = require('../models/recipes');
 var User    = require('../models/users');
 
 
+/*=============================
+  Get All Recipes
+===============================*/
+router.get('/', function(req, res, next){
+    Recipe.find()
+        .populate('createdFrom', 'firstName lastName username')
+        .populate({
+            path: 'recipeComments',
+            populate: { path: 'commentedBy', select: 'username firstName lastName' }
+        })
+        .populate({
+            path: 'recipeRating',
+            select: 'ratedFrom rating',
+            populate: { path: 'ratedFrom', select: 'username' }
+        })
+        .populate('recipeCategories', 'categoryName')
+        .exec(function(err, result) {
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Successful getting data...',
+                obj: result
+            });
+        });
+});
+
+
 /*==============================
     Add New Recipe
 ================================*/

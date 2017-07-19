@@ -1,8 +1,12 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
+var Recipe   = require('./recipes');
 
-// Blueprint for Ratings Collection
+
+/*====================================
+    Blueprint for Ratings Collection
+======================================*/
 var schema = new Schema({
     rating: {
         type: Number,
@@ -22,6 +26,8 @@ var schema = new Schema({
         default: Date.now()
     }
 });
+
+
 
 
 module.exports = mongoose.model(
