@@ -13,16 +13,14 @@ var schema = new Schema({
     recipeImage: {
         type: String
     },
-    recipeGallery: {
-        type: Array
-    },
     dateCreated: {
         type: Date,
         default: Date.now()
     },
-    category: {
-        type: Array
-    },
+    recipeCategory: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Categories'
+    }],
     createdFrom: {
         type: Schema.Types.ObjectId,
         ref: 'Users'
@@ -30,18 +28,17 @@ var schema = new Schema({
     recipeDelete: {
         type: Boolean
     },
-    recipeGalleryImages: {
-        type: Schema.Types.ObjectId,
-        ref: 'Gallery'
+    recipeGallery: {
+        type: Array
     },
-    recipeRating: {
+    recipeRating: [{
         type: Schema.Types.ObjectId,
         ref: 'Ratings'
-    },
-    recipeComments: {
+    }],
+    recipeComments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comments'
-    }
+    }]
 });
 
 

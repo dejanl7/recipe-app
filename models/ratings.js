@@ -4,12 +4,14 @@ var Schema   = mongoose.Schema;
 
 // Blueprint for Ratings Document
 var schema = new Schema({
-    rating: [{
-        type: number
-    }],
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
     ratedFrom: {
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Recipes'
     },
     dateCreated: {
         type: Date,

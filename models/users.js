@@ -36,6 +36,10 @@ var schema = new Schema({
         enum: ['admin', 'moderator', 'viewer'],
         default: 'moderator'
     },
+    userBlocked: {
+        type: Boolean,
+        default: true,
+    },
     dateCreated: {
         type: Date,
         default: Data.now(),

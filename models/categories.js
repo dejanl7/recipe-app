@@ -3,10 +3,10 @@ var Schema   = mongoose.Schema;
 
 // Blueprint for Gallery Document
 var schema  = new Schema({
-    galleryImgs: {
-        type: Array
+    categoryName: {
+        type: String
     },
-    forRecipe: {
+    categoryRecipe: {
         type: Schema.Types.ObjectId,
         ref: 'Recipes'
     },
@@ -18,6 +18,6 @@ var schema  = new Schema({
 
 
 module.exports = mongoose.model(
-    'Gallery',
+    'Categories',
     schema
 );
