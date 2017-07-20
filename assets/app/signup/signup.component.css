@@ -1,22 +1,46 @@
+.sign-in {
+    margin-top: -30px;
+}
 form {
     margin-bottom: 200px;
 }
-h4 {
+.registration {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+p:not(.registration) {
+    margin-top: 0;
+    line-height: 23px;
+}
+.form-group p:first-of-type,
+.form-group p span:first-of-type {
+    margin-bottom: 20px;
+}
+.mismatch {
+    margin-bottom: 0;
 }
 .checkbox {
     margin-top: 30px;
     margin-bottom: 30px;
 }
 input.ng-invalid.ng-touched {
-    border-left: 10px solid #e74c3c;
+    border-left: 10px solid #e74c3c;    
+    background-color: rgba(231, 76, 60, .2);
+
 }
 input.ng-touched {
     border-left: 10px solid #2ecc71;
+    background-color: rgb(250, 255, 189);
 }
-.glyphicon-ok {
+.glyphicon-ok,
+.glyphicon-remove {
     position: relative;
     top: -25px;
     right: calc(-100% + 25px);
+    margin-bottom: -20px;
+}
+.help-block {
+    margin-top: -17px;
+    margin-bottom: -10px;
+    padding-left: 10px;
 }

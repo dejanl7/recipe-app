@@ -1,44 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
+import { SignUpService } from "./signup.service";
+import { SignUpModel } from "./signup.model";
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
+
 export class SignupComponent implements OnInit {
     signinForm: FormGroup;
-    forbiddenUsernames = ['Chris', 'Anna'];
     passwordValue: string;
     repeatPassValue: string;
+    forbiddenEmails = [];
+    forbiddenUsernames = [];
 
-    constructor() { }
+    constructor( private signupService: SignUpService) { }
 
     ngOnInit() {
         this.signinForm = new FormGroup({
-            'name': new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]),
-            'lastName': new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]),
-            'email': new FormControl(null, [Validators.required, Validators.email]),
-            'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_.-]*$'), this.forbiddenNames.bind(this)]),
-            'pwd': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_.-]*$')]),
-            'repeatpwd': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_.-]*$')]),
-            'remember': new FormControl(false)
+            'name': new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
+            'lastName': new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
+            'email': new FormControl(null, [Validators.required, Validators.email, this.forbiddenMails.bind(this)]),
+            'username': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_À-ž\u0400-\u04ff.-]*$'), this.forbiddenUNames.bind(this)]),
+            'pwd': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_À-ž\u0400-\u04ff.-]*$')]),
+            'repeatpwd': new FormControl(null, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_À-ž\u0400-\u04ff.-]*$')]),
         });
+
+        // Check email and username matches
+          this.signupService.getUserInfo()
+          .subscribe((userInfo: SignUpModel[]) => {
+              for( let i=0; i<userInfo.length; i++) {
+                  this.forbiddenEmails.push(userInfo[i].email);
+                  this.forbiddenUsernames.push(userInfo[i].username);
+              }
+          });
 
         // Track form value changes
         this.signinForm.valueChanges.subscribe(
           data => {
               this.passwordValue = data.pwd;
               this.repeatPassValue = data.repeatpwd;
-              if( this.passwordValue == this.repeatPassValue ){
-                console.log('Jednake su!');
+              if( this.passwordValue != this.repeatPassValue ){
+                  this.signinForm.controls.repeatpwd.setErrors({'mismatch': true});
               }
-                else {
-                    this.signinForm.controls.repeatpwd.setErrors({'mismatch': true});
-                    console.log('Nisu jednake!');
-                }
           }
         );
+
     }
 
     // Sumbit Form
@@ -47,9 +58,15 @@ export class SignupComponent implements OnInit {
     }
 
     // Custom Validator
-    forbiddenNames(control: FormControl): {[s: string]: boolean} {
+    forbiddenUNames(control: FormControl): {[s: string]: boolean} {
         if( this.forbiddenUsernames.indexOf(control.value) !== -1 ) {
-            return { 'nameIsForbidden': true };
+            return { 'usernameIsForbidden': true };
+        }
+          return null;
+    }
+    forbiddenMails(control: FormControl): {[s: string]: boolean} {
+        if( this.forbiddenEmails.indexOf(control.value) !== -1 ) {
+            return { 'emailIsForbidden': true };
         }
           return null;
     }

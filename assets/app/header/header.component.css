@@ -17,6 +17,8 @@ img {
 }
 .navbar-collapse.in {
     background-color: #f8f8f8;
+    position: relative;
+    z-index: 1;
 }
 .navbar-nav li.active a {
     background-color: transparent;

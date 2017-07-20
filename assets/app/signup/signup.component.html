@@ -1,7 +1,7 @@
-<div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-2 col-xs-offset-0"> 
+<div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-0 col-sm-offset-2 col-xs-offset-0 sign-in"> 
 
-    <h2 class="text-center">Sign In</h2>
-    <h4>Please fill the form bellow.</h4>
+    <h2 class="text-center">Registration</h2>
+    <p class="registration">Please fill the form bellow. You will give validation e-mail to confirm your account.</p>
 
     <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -13,9 +13,12 @@
                 placeholder="Enter name" 
                 formControlName="name"
             >
-            <p *ngIf="!signinForm.get('name').valid && signinForm.get('name').touched">
-              <span class="help-block">Please insert your name.</span>
-            </p>
+                <p *ngIf="!signinForm.get('name').valid && signinForm.get('name').touched">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span class="help-block" *ngIf="signinForm.get('name').errors['required']">Please insert your name.</span>
+                    <span class="help-block" *ngIf="signinForm.get('name').errors['pattern']">Please avoid special characters.</span>
+                </p> 
+                <span *ngIf="signinForm.get('name').valid && signinForm.get('name').touched"><i class="glyphicon glyphicon-ok"></i></span>   
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
@@ -27,8 +30,11 @@
                 formControlName="lastName"
             >
             <p *ngIf="!signinForm.get('lastName').valid && signinForm.get('lastName').touched">
-              <span class="help-block">Please insert last name.</span>
+                <i class="glyphicon glyphicon-remove"></i>
+                <span class="help-block" *ngIf="signinForm.get('lastName').errors['required']">Please insert last name.</span>
+                <span *ngIf="signinForm.get('lastName').errors['pattern']">Please avoid special characters.</span>   
             </p>
+            <span *ngIf="signinForm.get('lastName').valid && signinForm.get('lastName').touched"><i class="glyphicon glyphicon-ok"></i></span>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
@@ -40,8 +46,12 @@
                 formControlName="email"
             >
             <p *ngIf="!signinForm.get('email').valid && signinForm.get('email').touched">
-              <span class="help-block">Please insert valid email.</span>
+                <i class="glyphicon glyphicon-remove"></i>
+                <span class="help-block"  *ngIf="signinForm.get('email').errors['required']">E-mail is required.</span>
+                <span class="help-block" *ngIf="signinForm.get('email').errors['email']">Input must been e-mail.</span>
+                <span class="help-block" *ngIf="signinForm.get('email').errors['emailIsForbidden']">E-mail <strong>"{{ signinForm.get('email').value }}"</strong> already exists! Try with another e-mail.</span>
             </p>
+            <span *ngIf="signinForm.get('email').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>  
         </div>
         <div class="form-group">
             <label for="username">Choose Username:</label>
@@ -53,10 +63,13 @@
                 formControlName="username" 
             >
             <p *ngIf="!signinForm.get('username').valid && signinForm.get('username').touched">
-                <span class="help-block"  *ngIf="signinForm.get('username').errors['required']">Minimum number of characters is 5.</span>
+                <i class="glyphicon glyphicon-remove"></i>
+                <span class="help-block"  *ngIf="signinForm.get('username').errors['required']">Username is required.</span>
                 <span class="help-block" *ngIf="signinForm.get('username').value?.length > 0 && signinForm.get('username').value.length < 5">Minimum number of characters is 5.</span>
-                <span class="help-block" *ngIf="signinForm.get('username').errors['nameIsForbidden']">Username "{{ signinForm.get('username').value }}"is already used.</span>
+                <span class="help-block" *ngIf="signinForm.get('username').errors['usernameIsForbidden']">Username <strong>"{{ signinForm.get('username').value }}"</strong> already exists! Try with another e-mail.</span>
+                <span class="help-block"  *ngIf="signinForm.get('username').errors['pattern']">Please avoid special characters.</span>
             </p>
+            <span *ngIf="signinForm.get('username').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>  
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
@@ -67,6 +80,14 @@
                 placeholder="Enter password"
                 formControlName="pwd" 
             >
+            <p *ngIf="!signinForm.get('pwd').valid && signinForm.get('pwd').touched">
+                <i class="glyphicon glyphicon-remove"></i>
+                <span class="help-block"  *ngIf="signinForm.get('pwd').errors['required']">Password is required.</span>
+                <span class="help-block" *ngIf="signinForm.get('pwd').value?.length > 0 && signinForm.get('pwd').value.length < 5">
+                    Minimum number of characters is 5.
+                </span>
+                <span class="help-block"  *ngIf="signinForm.get('pwd').errors['pattern']">Please don't use SPACE and special characters.</span>
+            </p>
             <span *ngIf="signinForm.get('repeatpwd').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>    
         </div>
         <div class="form-group">
@@ -79,22 +100,20 @@
                 formControlName="repeatpwd" 
             >
             <p *ngIf="!signinForm.get('repeatpwd').valid && signinForm.get('repeatpwd').touched">
-                <span class="help-block"  *ngIf="signinForm.get('repeatpwd').errors['required']">Minimum number of characters is 5.</span>
-                <span class="help-block" *ngIf="signinForm.get('repeatpwd').value?.length > 0 && signinForm.get('repeatpwd').value.length < 5">Minimum number of characters is 5.</span>
-                <span class="help-block" *ngIf="signinForm.get('repeatpwd').errors['mismatch']">Passwords mismatch error!</span>
+                <i class="glyphicon glyphicon-remove"></i>
+                <span class="help-block"  *ngIf="signinForm.get('repeatpwd').errors['required']">Repeated password is required.</span>
+                <span class="help-block" *ngIf="signinForm.get('repeatpwd').value?.length > 0 && signinForm.get('repeatpwd').value.length < 5">
+                    Minimum number of characters is 5.
+                </span>
+                <span class="help-block" *ngIf="signinForm.get('repeatpwd').errors['mismatch']">Password mismatch error!</span>
+                <span class="help-block"  *ngIf="signinForm.get('repeatpwd').errors['pattern']">Please don't use SPACE and special characters.</span>
             </p>
+
             <span *ngIf="signinForm.get('repeatpwd').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>            
         </div>
-        <div class="checkbox">
-            <label>
-              <input 
-                  type="checkbox" 
-                  id="remember"
-                  formControlName="remember" 
-              >Remember me
-            </label>
-        </div>
+
         <button type="submit" class="btn btn-primary" [disabled]="!signinForm.valid">Sign In</button>
+        
     </form>
 
 </div>

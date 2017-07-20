@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { SignUpService } from "./signup/signup.service";
+
 
 @NgModule({
     declarations: [
@@ -40,7 +42,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
         ReactiveFormsModule
     ],
     bootstrap: [AppComponent],
-    providers: []
+    providers: [SignUpService]
 })
 
 
