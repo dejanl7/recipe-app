@@ -1,48 +1,11 @@
-<!-- <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-        <a class="navbar-brand" [routerLink]="['/']">
-            <img src="/images/recipe-logo.png" alt="logo">
-        </a>
-        <button type="button" class="navbar-toggle" (click)="responsiveMenu = !responsiveMenu" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>    
-    </div>
-    <div class="navbar-collapse collapse" [class.in]="responsiveMenu">
-        <ul class="nav navbar-nav">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a [routerLink]="['/']">Home</a>
-          </li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a [routerLink]="['/profiles']">Profiles</a>
-          </li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a [routerLink]="['/shop']">Shop</a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a [routerLink]="['/signup']">Sign Up</a>
-          </li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a [routerLink]="['/login']">Login</a>
-          </li>
-        </ul>
-    </div>
-  </div>
-</nav> -->
-
-
 <nav class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
     <a class="navbar-brand" [routerLink]="['/']">
-        <img src="/images/recipe-logo.png" alt="logo">
+        <img src="/images/recipe-logo.png" alt="logo" (click)="responsiveMenu == false">
     </a>
     <button class="navbar-toggler pull-right" type="button" data-toggle="collapse" data-target="#recipeNavbarToggle" (click)="responsiveMenu = !responsiveMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse show" id="recipeNavbarToggle" [class.show]="responsiveMenu">
+    <div class="collapse navbar-collapse show" id="recipeNavbarToggle" [class.show]="responsiveMenu" (click)="responsiveMenu = !responsiveMenu">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
                 <a [routerLink]="['/']" class="nav-link">Home</a>
