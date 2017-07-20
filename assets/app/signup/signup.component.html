@@ -1,3 +1,100 @@
-<p>
-  signup works!
-</p>
+<div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-2 col-xs-offset-0"> 
+
+    <h2 class="text-center">Sign In</h2>
+    <h4>Please fill the form bellow.</h4>
+
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+            <label for="name">Name:</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                placeholder="Enter name" 
+                formControlName="name"
+            >
+            <p *ngIf="!signinForm.get('name').valid && signinForm.get('name').touched">
+              <span class="help-block">Please insert your name.</span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="lastName" 
+                placeholder="Enter password" 
+                formControlName="lastName"
+            >
+            <p *ngIf="!signinForm.get('lastName').valid && signinForm.get('lastName').touched">
+              <span class="help-block">Please insert last name.</span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                placeholder="Enter email" 
+                formControlName="email"
+            >
+            <p *ngIf="!signinForm.get('email').valid && signinForm.get('email').touched">
+              <span class="help-block">Please insert valid email.</span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="username">Choose Username:</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                placeholder="Enter username"
+                formControlName="username" 
+            >
+            <p *ngIf="!signinForm.get('username').valid && signinForm.get('username').touched">
+                <span class="help-block"  *ngIf="signinForm.get('username').errors['required']">Minimum number of characters is 5.</span>
+                <span class="help-block" *ngIf="signinForm.get('username').value?.length > 0 && signinForm.get('username').value.length < 5">Minimum number of characters is 5.</span>
+                <span class="help-block" *ngIf="signinForm.get('username').errors['nameIsForbidden']">Username "{{ signinForm.get('username').value }}"is already used.</span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input 
+                type="password" 
+                class="form-control" 
+                id="pwd" 
+                placeholder="Enter password"
+                formControlName="pwd" 
+            >
+            <span *ngIf="signinForm.get('repeatpwd').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>    
+        </div>
+        <div class="form-group">
+            <label for="repeatPwd">Repeat Password:</label>
+            <input 
+                type="password" 
+                class="form-control" 
+                id="repeatPwd" 
+                placeholder="Repeat password" 
+                formControlName="repeatpwd" 
+            >
+            <p *ngIf="!signinForm.get('repeatpwd').valid && signinForm.get('repeatpwd').touched">
+                <span class="help-block"  *ngIf="signinForm.get('repeatpwd').errors['required']">Minimum number of characters is 5.</span>
+                <span class="help-block" *ngIf="signinForm.get('repeatpwd').value?.length > 0 && signinForm.get('repeatpwd').value.length < 5">Minimum number of characters is 5.</span>
+                <span class="help-block" *ngIf="signinForm.get('repeatpwd').errors['mismatch']">Passwords mismatch error!</span>
+            </p>
+            <span *ngIf="signinForm.get('repeatpwd').valid"><span><i class="glyphicon glyphicon-ok"></i></span></span>            
+        </div>
+        <div class="checkbox">
+            <label>
+              <input 
+                  type="checkbox" 
+                  id="remember"
+                  formControlName="remember" 
+              >Remember me
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!signinForm.valid">Sign In</button>
+    </form>
+
+</div>

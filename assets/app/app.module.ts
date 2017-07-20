@@ -1,10 +1,10 @@
 // Angular 4 Basic Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { Routes, RouterModule } from "@angular/router";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
 
 // Routes
 import { routing } from "./app.routing";
@@ -28,14 +28,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
         ProfilesComponent, 
         ShopComponent, 
         LoginComponent, 
-        SignupComponent, NotFoundComponent
+        SignupComponent, 
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         NgbModule.forRoot(),
-        routing
+        routing,
+        ReactiveFormsModule
     ],
     bootstrap: [AppComponent],
     providers: []

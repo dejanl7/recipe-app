@@ -13,9 +13,9 @@ var recipeRoutes    = require('./routes/recipes');
 var categoryRoutes  = require('./routes/categories');
 var commentRoutes   = require('./routes/comments');
 var ratingRoutes    = require('./routes/ratings');
-// var imageRoutes     = require('./routes/images');
+var imageRoutes     = require('./routes/images');
 
-var app         = express();
+var app = express();
 mongoose.connect('localhost:27017/recipes'); // Connect to database 
 
 
@@ -50,7 +50,7 @@ app.use('/recipe', recipeRoutes);
 app.use('/category', categoryRoutes);
 app.use('/comment', commentRoutes);
 app.use('/rating', ratingRoutes);
-// app.use('/image', imageRoutes);
+app.use('/image', imageRoutes);
 app.use('/', appRoutes);
 
 

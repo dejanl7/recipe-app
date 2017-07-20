@@ -1,0 +1,22 @@
+form {
+    margin-bottom: 200px;
+}
+h4 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.checkbox {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+input.ng-invalid.ng-touched {
+    border-left: 10px solid #e74c3c;
+}
+input.ng-touched {
+    border-left: 10px solid #2ecc71;
+}
+.glyphicon-ok {
+    position: relative;
+    top: -25px;
+    right: calc(-100% + 25px);
+}
