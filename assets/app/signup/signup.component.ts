@@ -17,6 +17,16 @@ export class SignupComponent implements OnInit {
     repeatPassValue: string;
     forbiddenEmails = [];
     forbiddenUsernames = [];
+    getUsersData = function() {
+        this.signupService.getUserInfo()
+          .subscribe((userInfo: SignUpModel[]) => {
+              for( let i=0; i<userInfo.length; i++) {
+                  this.forbiddenEmails.push(userInfo[i].email);
+                  this.forbiddenUsernames.push(userInfo[i].username);
+              }
+          });
+    };
+
 
     constructor( private signupService: SignUpService) { }
 
@@ -31,13 +41,7 @@ export class SignupComponent implements OnInit {
         });
 
         // Check email and username matches
-          this.signupService.getUserInfo()
-          .subscribe((userInfo: SignUpModel[]) => {
-              for( let i=0; i<userInfo.length; i++) {
-                  this.forbiddenEmails.push(userInfo[i].email);
-                  this.forbiddenUsernames.push(userInfo[i].username);
-              }
-          });
+        this.getUsersData();
 
         // Track form value changes
         this.signinForm.valueChanges.subscribe(
@@ -54,8 +58,15 @@ export class SignupComponent implements OnInit {
 
     // Sumbit Form
     onSubmit() {
-        console.log(this.signinForm);
-    }
+        this.signupService.signup(this.signinForm.value)
+        .subscribe(
+            data => {
+                localStorage.setItem('userId', data.userId);
+            });
+        
+        this.signinForm.reset();
+        return this.getUsersData();
+    }  
 
     // Custom Validator
     forbiddenUNames(control: FormControl): {[s: string]: boolean} {

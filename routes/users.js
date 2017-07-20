@@ -1,9 +1,11 @@
-var express = require('express');
-var router  = express.Router();
-var bcrypt  = require('bcryptjs');
-var jwt     = require('jsonwebtoken');
+var express      = require('express');
+var router       = express.Router();
+var bcrypt       = require('bcryptjs');
+var jwt          = require('jsonwebtoken');
+var sanitize     = require("mongo-sanitize");
+var sanitizeHtml = require('sanitize-html');
 
-var User    = require('../models/users');
+var User         = require('../models/users');
 
 
 /*=============================
@@ -31,12 +33,15 @@ router.get('/signin', function(req, res, next){
     Add New User
 ================================*/
 router.post('/', function (req, res, next) {
+    var sanitizedRecords = sanitize(req.body);
+    console.log(sanitizedRecords);
+
     var user = new User({
-        firstName: 'User Name',
-        lastName: 'User Last Name',
-        email: 'user@email.com',
-        username: 'user_n',
-        password: bcrypt.hashSync('Forextrgovac', 10)
+        firstName: sanitizedRecords.name,
+        lastName: sanitizedRecords.lastName,
+        email: sanitizedRecords.email,
+        username: sanitizedRecords.username,
+        password: bcrypt.hashSync(sanitizedRecords.pwd, 10)
     });
     user.save(function(err, result) {
         if (err) {

@@ -1,3 +1,8 @@
+app-header {
+    position: relative;
+    width: 100%;
+    margin-bottom: 170px;
+}
 h1 {
-    color: #000;
+     color: #000;
 }

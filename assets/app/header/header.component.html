@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<!-- <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
         <a class="navbar-brand" [routerLink]="['/']">
@@ -32,4 +32,35 @@
         </ul>
     </div>
   </div>
+</nav> -->
+
+
+<nav class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
+    <a class="navbar-brand" [routerLink]="['/']">
+        <img src="/images/recipe-logo.png" alt="logo">
+    </a>
+    <button class="navbar-toggler pull-right" type="button" data-toggle="collapse" data-target="#recipeNavbarToggle" (click)="responsiveMenu = !responsiveMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse show" id="recipeNavbarToggle" [class.show]="responsiveMenu">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+                <a [routerLink]="['/']" class="nav-link">Home</a>
+            </li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+                <a [routerLink]="['/profiles']" class="nav-link">Profiles</a>
+            </li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+                <a [routerLink]="['/shop']" class="nav-link">Shop</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mt-2 mt-lg-0">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+                <a [routerLink]="['/signup']" class="nav-link">Sign Up</a>
+            </li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+                <a [routerLink]="['/login']" class="nav-link">Login</a>
+            </li>
+        </ul>
+    </div>
 </nav>
