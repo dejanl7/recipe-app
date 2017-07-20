@@ -44,3 +44,37 @@ input.ng-touched {
     margin-bottom: -10px;
     padding-left: 10px;
 }
+/*Registration Info*/
+.signin-container {
+    position: relative;
+}
+.registration-info {
+    margin-top: 140px;
+    position: relative;
+    height: 400px;
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+}
+.info {
+    width: 95%;
+    margin-left: 5%;
+}
+.info p {
+    margin-bottom: 10px;
+    color: #000;
+}
+
+
+@media screen and (max-width: 991px) {
+    form {
+        margin-bottom: 20px;
+    }
+    .registration-info {
+        margin-top: -20px;
+    }
+    .info {
+        width: 100%;
+        margin-left: 0;
+    }
+}
