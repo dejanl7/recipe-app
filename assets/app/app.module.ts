@@ -22,6 +22,7 @@ import { ErrorsComponent } from './errors/errors.component';
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 
 import { SignUpService } from "./signup/signup.service";
+import { LoginService } from "./login/login.service";
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { SignUpService } from "./signup/signup.service";
         ReactiveFormsModule 
     ],
     bootstrap: [AppComponent],
-    providers: [SignUpService]
+    providers: [SignUpService, LoginService]
 })
 
 

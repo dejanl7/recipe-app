@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from "../login/login.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
     responsiveMenu = false;    
     
-    constructor() { }
+    constructor(private loginService: LoginService, private router: Router) { }
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    // Logout
+    onLogout() {
+        this.loginService.logout();
+        this.router.navigate(['/']);
+    }
+    
+    // Is user logged in
+    isLogged() {
+        return this.loginService.isLoogedIn();
     }
 
 }

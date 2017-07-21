@@ -21,8 +21,11 @@
             <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
                 <a [routerLink]="['/signup']" class="nav-link">Sign Up</a>
             </li>
-            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item" *ngIf="!isLogged()">
                 <a [routerLink]="['/login']" class="nav-link">Login</a>
+            </li>
+            <li class="nav-item" *ngIf="isLogged()">
+                <a [routerLink]="['/login']" class="nav-link" (click)="onLogout()">Logout</a>
             </li>
         </ul>
     </div>

@@ -44,7 +44,7 @@ router.post('/', function (req, res, next) {
 
 
 /*=============================
-    Delete Recipe
+    Delete Category
 ===============================*/
 router.delete('/:id', function(req, res, next){
     Category.findById('596fb715869cf827c4753d46', function(err, category){

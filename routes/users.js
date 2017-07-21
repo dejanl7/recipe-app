@@ -10,7 +10,8 @@ var User         = require('../models/users');
 
 
 /*=============================
-    Get user info for Sign In
+    Get user info to check
+    sign up email and username
 ===============================*/
 router.get('/signin', function(req, res, next){
     User.find()
@@ -142,7 +143,38 @@ router.patch('/:id', function(req, res, next){
 });
 
 
-
+/*==============================
+    Login User
+================================*/
+router.post('/login', function(req, res, next) {
+    User.findOne({ username: req.body.username }, function(err, user){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!user) {
+            return res.status(401).json({
+                title: 'Login failed',
+                error: {message: 'Invalid login credentials. User does not exist.'}
+            });
+        }
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).json({
+                title: 'Login failed',
+                error: {message: 'Invalid login credentials...'}
+            });
+        }
+        // Log In (create token)
+        var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+        res.status(200).json({
+            message: 'Successfully logged in...',
+            token: token,
+            userId: user._id
+        });
+    });
+});
 
 
 
