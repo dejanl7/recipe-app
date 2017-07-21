@@ -24,6 +24,7 @@ import { UserVerificationComponent } from "./user-verification/user-verification
 import { SignUpService } from "./signup/signup.service";
 import { LoginService } from "./login/login.service";
 import { ErrorService } from "./errors/error.service";
+import { UserVerificationService } from "./user-verification/user-verification.service";
 import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 
@@ -56,7 +57,8 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
         NgbActiveModal, 
         ErrorService,
         RouteLoggedInService,
-        RouteLoggedOutService
+        RouteLoggedOutService,
+        UserVerificationService
     ]
 })
 
