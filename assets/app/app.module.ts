@@ -24,6 +24,7 @@ import { UserVerificationComponent } from "./user-verification/user-verification
 import { SignUpService } from "./signup/signup.service";
 import { LoginService } from "./login/login.service";
 import { ErrorService } from "./errors/error.service";
+import { RouteGuardService } from "./route-guard.service";
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ErrorService } from "./errors/error.service";
         SignUpService, 
         LoginService, 
         NgbActiveModal, 
-        ErrorService
+        ErrorService,
+        RouteGuardService
     ]
 })
 
