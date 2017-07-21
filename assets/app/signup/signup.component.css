@@ -32,10 +32,10 @@ input.ng-touched {
     border-left: 10px solid #2ecc71;
     background-color: rgb(250, 255, 189);
 }
-.glyphicon-ok,
-.glyphicon-remove {
+.fa-check,
+.fa-times {
     position: relative;
-    top: -25px;
+    top: -31px;
     right: calc(-100% + 25px);
     margin-bottom: -20px;
 }

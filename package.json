@@ -45,6 +45,7 @@
     "@types/core-js": "0.9.36",
     "@types/node": "^6.0.45",
     "angular-router-loader": "^0.6.0",
+    "angular2-fontawesome": "^0.9.1",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.2.1",
     "del-cli": "^1.1.0",

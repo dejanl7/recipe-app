@@ -39,7 +39,7 @@ import { SignUpService } from "./signup/signup.service";
         HttpModule,
         NgbModule.forRoot(),
         routing,
-        ReactiveFormsModule
+        ReactiveFormsModule 
     ],
     bootstrap: [AppComponent],
     providers: [SignUpService]
