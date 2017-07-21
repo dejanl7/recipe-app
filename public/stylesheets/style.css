@@ -6,3 +6,6 @@
 .btn-primary:disabled {
     cursor: not-allowed;
 }
+.modal-open .modal {
+    top: 14%;
+}

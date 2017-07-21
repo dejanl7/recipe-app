@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { Routes, RouterModule } from "@angular/router";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
 
 // Routes
 import { routing } from "./app.routing";
@@ -23,6 +23,7 @@ import { UserVerificationComponent } from "./user-verification/user-verification
 
 import { SignUpService } from "./signup/signup.service";
 import { LoginService } from "./login/login.service";
+import { ErrorService } from "./errors/error.service";
 
 
 @NgModule({
@@ -47,7 +48,12 @@ import { LoginService } from "./login/login.service";
         ReactiveFormsModule 
     ],
     bootstrap: [AppComponent],
-    providers: [SignUpService, LoginService]
+    providers: [
+        SignUpService, 
+        LoginService, 
+        NgbActiveModal, 
+        ErrorService
+    ]
 })
 
 
