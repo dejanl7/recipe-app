@@ -5,6 +5,7 @@ import { ShopComponent } from "./shop/shop.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { UserVerificationComponent } from "./user-verification/user-verification.component";
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomeComponent },
@@ -12,6 +13,7 @@ const APP_ROUTES: Routes = [
     { path: 'shop', component: ShopComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'user-verification/:id', component: UserVerificationComponent },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found' },
 ];

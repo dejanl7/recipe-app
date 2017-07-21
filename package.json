@@ -53,10 +53,12 @@
     "html-loader": "^0.4.5",
     "mongoose-unique-validator": "^1.0.5",
     "ng2-file-upload": "^1.2.1",
+    "nodemailer": "^4.0.1",
     "raw-loader": "^0.5.1",
     "ts-loader": "^2.3.0",
     "typescript": "^2.4.1",
     "webpack": "^3.3.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "xoauth2": "^1.2.0"
   }
 }

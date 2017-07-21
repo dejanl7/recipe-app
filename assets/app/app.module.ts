@@ -18,8 +18,10 @@ import { ShopComponent } from './shop/shop.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserVerificationComponent } from './user-verification/user-verification.component';
 
 import { SignUpService } from "./signup/signup.service";
+import { UserVerificationService } from "./user-verification/user-verification.service";
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { SignUpService } from "./signup/signup.service";
         ShopComponent, 
         LoginComponent, 
         SignupComponent, 
-        NotFoundComponent
+        NotFoundComponent, 
+        UserVerificationComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +45,7 @@ import { SignUpService } from "./signup/signup.service";
         ReactiveFormsModule 
     ],
     bootstrap: [AppComponent],
-    providers: [SignUpService]
+    providers: [SignUpService, UserVerificationService]
 })
 
 

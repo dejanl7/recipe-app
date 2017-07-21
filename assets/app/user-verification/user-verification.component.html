@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="alert alert-success text-center" role="alert">
+      <span><strong>Authentification is successfull!</strong></span> <br>
+      <span>User: <strong><i>"{{ verUserInfo?.username }}"</i></strong> with e-mail: <strong><i>"{{ verUserInfo?.email }}"</i></strong> is verified! You can login to your account.</span>
+    </div>
+    <button class="btn btn-primary" type="button" [routerLink]="['/login']">Login</button>
+</div>
