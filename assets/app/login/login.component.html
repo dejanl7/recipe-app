@@ -1,3 +1,35 @@
-<p>
-  login works!
-</p>
+<div class="clearfix login-container"> 
+    <div class="row">
+        <div class="col-lg-6 col-sm-10 col-xs-12 push-lg-3 push-sm-1 sign-in"> 
+
+            <h4 class="text-center">Login credentials</h4>
+  
+            <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-control" 
+                        ngModel
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                        ngModel
+                        required
+                    >
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Log In</button>
+            </form>
+
+        </div>
+    </div>
+</div>

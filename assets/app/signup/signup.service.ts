@@ -2,7 +2,6 @@ import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
-import { SignUpModel } from "./signup.model";
 
 @Injectable()
 

@@ -45,9 +45,7 @@ input.ng-touched {
     padding-left: 10px;
 }
 /*Registration Info*/
-.signin-container {
-    position: relative;
-}
+
 .registration-info {
     margin-top: 140px;
     position: relative;

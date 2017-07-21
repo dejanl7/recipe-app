@@ -61,7 +61,7 @@ router.post('/', function (req, res, next) {
             service: 'gmail',
             auth: {
                 user: 'dejan.loncarfx@gmail.com',
-                pass: '#'
+                pass: '#your-password'
             }
         });
         var mailOptions = {
