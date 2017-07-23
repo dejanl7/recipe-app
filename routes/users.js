@@ -166,6 +166,12 @@ router.post('/login', function(req, res, next) {
                 error: {message: 'Invalid login credentials...'}
             });
         }
+        if (user.userBlocked) {
+            return res.status(401).json({
+                title: 'Account verification is failed',
+                error: {message: 'You did not activate your account. Please confirm e-mail verification.'}
+            })
+        }
         // Log In (create token)
         var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
         res.status(200).json({

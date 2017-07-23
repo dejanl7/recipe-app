@@ -6,3 +6,62 @@ app-header {
 h1 {
      color: #000;
 }
+footer p {
+    position: fixed;
+    bottom: 0;
+    right: 10%;
+    margin-top: 40px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+footer p i {
+    margin-left: 15px;
+    font-size: 34px;
+}
+footer {
+    opacity: 1;
+}
+
+
+@-webkit-keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    16% {
+        opacity: 1;
+    }
+    84% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    16% {
+        opacity: 1;
+    }
+    84% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+footer.hide {
+   /* -webkit-transition: display 7s;
+	transition: display 7s;
+	-moz-transition: display 7s;
+	-o-transition: display 7s;
+	-ms-transition: display 7s;
+    display: none;*/
+    -webkit-animation: fadeInOut 5s;
+    animation: fadeInOut 5s;
+    opacity: 0;
+}
