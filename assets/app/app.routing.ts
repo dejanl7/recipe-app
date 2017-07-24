@@ -1,4 +1,3 @@
-import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from "./home/home.component";
@@ -21,15 +20,9 @@ const APP_ROUTES: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent, canActivate: [RouteLoggedOutService] },
     { path: 'user-verification/:id', component: UserVerificationComponent },
-    { path: 'account', component: AccountComponent, canActivate: [RouteLoggedInService] },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found' },
 ];
 
 
-@NgModule({
-    imports: [ RouterModule.forRoot(APP_ROUTES) ],
-    exports: [ RouterModule ]
-})
-
-export class AppRoutingModule {}
+export const routing = RouterModule.forRoot(APP_ROUTES);

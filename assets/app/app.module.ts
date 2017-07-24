@@ -7,7 +7,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
 
 // Routes
-import { AppRoutingModule } from "./app.routing.module";
+import { routing } from "./app.routing";
 
 // Components, Directives and Services
 import { AppComponent } from "./app.component";
@@ -20,6 +20,7 @@ import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorsComponent } from './errors/errors.component';
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
+import { NavbarComponent } from "./navbar/navbar.component";
 
 import { SignUpService } from "./signup/signup.service";
 import { LoginService } from "./login/login.service";
@@ -44,14 +45,15 @@ import { AccountModule } from "./account/account.module";
         SignupComponent, 
         NotFoundComponent, 
         ErrorsComponent,
-        UserVerificationComponent
+        UserVerificationComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         NgbModule.forRoot(),
-        AppRoutingModule,
+        routing,
         ReactiveFormsModule,
         AccountModule
     ],
