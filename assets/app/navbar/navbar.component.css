@@ -73,6 +73,7 @@ a:hover {
 }
 .left-bigger-menu.hideMenu {
 	width: 40px;
+	background-color: transparent;
 }
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
@@ -107,12 +108,16 @@ a:hover {
 .logged-info {
 	margin-top: 20px;
     margin-bottom: 20px;
-    position: relative;
-    left: 20px;
+	position: relative;
+	left: -7px;
+	text-align: center;
 }
 .user-image {
     width: 40px;
-    margin-right: 7px;
+	margin: auto;
+	display: block;
+	position: relative;
+	top: -14px;
 }
 .logged-info span {
     color: #fff;
@@ -123,6 +128,14 @@ a:hover {
     padding: 5px 15px;
     color: #fff;
     margin-top: 7px;
+}
+.navigation-elements.active a,
+.navigation-subelements.active a {
+	border-left: 4px solid transparent;
+	color: #f1c40f;
+}
+.navigation-elements.active a span.badge {
+	padding-left: 11px;
 }
 .navigation-elements a span:not(.badge),
 .navigation-elements a i {
@@ -184,4 +197,12 @@ a:hover {
 	.left-bigger-menu {
 		width: 220px;
 	}
+}
+@media screen and (max-width: 1580px){ 
+	.vertical-nav-left {
+		top: 80px;
+	}
+}
+@media screen and (min-width: 1581px) {
+
 }
