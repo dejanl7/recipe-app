@@ -6,8 +6,13 @@
     <router-outlet></router-outlet>
 
     <footer [class.default]="!isUserLoggedIn()" [class.hide]="isUserLoggedIn()">    
-        <p class="alert alert-success" *ngIf="isUserLoggedIn()">You are logged in! <i class="fa fa-check-circle-o" aria-hidden="true"></i></p>
+        <p class="alert alert-success" *ngIf="isUserLoggedIn()">
+                <span>You are logged in!</span> 
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+        </p>
     </footer>
 
 </div>
+
+<!-- <app-account></app-account> -->
 <app-errors></app-errors>

@@ -27,12 +27,12 @@ export class LoginComponent {
                     if(user.remember){
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('userId', data.userId);
-                        this.router.navigateByUrl('/');
+                        this.router.navigateByUrl('/account');
                     }
                     else {
                         sessionStorage.setItem('token', data.token);
                         sessionStorage.setItem('userId', data.userId);
-                        this.router.navigateByUrl('/profiles');
+                        this.router.navigateByUrl('/account');
                     }
                 },  
                 error => console.error(error)

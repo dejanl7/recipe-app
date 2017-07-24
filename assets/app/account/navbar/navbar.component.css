@@ -1,0 +1,161 @@
+/*======================================
+	Application Content
+________________________________________
+	0. Basic Style
+	1. Bigger Left Menu (Vertically)
+	2. Smaller Devices
+========================================*/
+		
+
+/*====================
+	0. Basic Style
+======================*/
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+body {
+	text-rendering: optimizeLegibility;
+	word-break: break-word;
+	overflow-y: scroll;
+	min-height: 100%;
+	font-family: "Proxima Nova", sans-serif;
+	color: #606060;
+	margin: 0;
+}
+
+h1 {
+    font-size: 42px;
+}
+h2 {
+	font-size: 36px;
+}
+h3 {
+	font-size: 30px;
+}
+h4{
+    font-size: 24px;
+}
+h5{
+	font-size: 18px;
+}
+h6 {
+    font-size: 14px;
+}
+p {
+	font-size: 14px;
+	color: #606060;
+}
+a {
+	text-decoration: none;
+	color: #ffffff;
+}
+a:hover {
+	text-decoration: none;
+}
+
+.vertical-nav-left {
+	position: fixed;
+	max-width: 305px;
+	height: 100% !important;
+    z-index: 100;
+    left: 0; top: 0;
+}
+.left-bigger-menu {
+	z-index: -1;
+	width: 220px;
+	background-color: #34495e;
+	position: relative;
+	overflow-y: scroll;
+	max-height: 100%;
+	height: 100% !important;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+.active > a {
+	background: transparent !important;
+	border-left: 4px solid #ffffff;
+	text-indent: -4px;
+}
+
+
+/*======================================
+	1. Bigger Left Menu (Vertically)
+========================================*/
+.left-bigger-menu {
+	padding-top: 55px;
+}
+.show-hide-navbar {
+    top: 18px;
+    position: absolute;
+    top: 3px; right: 3px;
+    padding: 6px 11px 6px 12px;
+    font-size: 15px;
+    color: #ecf0f1;
+    background-color: #7f8c8d;
+    opacity: .9;
+}
+.show-hide-navbar:hover {
+    cursor: pointer;
+}
+.logged-info {
+    margin-bottom: 40px;
+    position: relative;
+    left: 20px;
+}
+.user-image {
+    width: 40px;
+    margin-right: 7px;
+}
+.logged-info span {
+    color: #fff;
+    font-size: 12px;
+    opacity: .8;
+}
+.navigation-elements {
+    padding: 5px 15px;
+    color: #fff;
+    margin-top: 7px;
+}
+.navigation-elements a:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+.navigation-elements i {
+    margin-right: 10px;
+    font-size: 15px;
+}
+.navigation-subelements {
+    list-style: none;
+    padding-top: 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    margin-left: -23px;
+}
+
+
+/*=================================
+	2. Smaller Devices
+===================================*/
+@media screen and (max-width: 320px){
+	.logo-circle {
+		font-size: 9px;
+	}
+	.small-nav-bottom-elements {
+		height: 44px;
+	}
+	/* Bigger left menu */
+	.left-bigger-menu {
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 321px) and (max-width: 500px){
+	/* Bigger left menu */
+	.left-bigger-menu {
+		width: 220px;
+	}
+}
