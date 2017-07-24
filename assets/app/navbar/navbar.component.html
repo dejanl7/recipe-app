@@ -1,43 +1,51 @@
-<nav class="vertical-nav-left clearfix">    
-		<div class="left-bigger-menu">
-        <span class="show-hide-navbar"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-				<div class="logged-info">
-					<a>
-						<img [src]="userLogo ? userLogo : '/images/user-avatar.png'" class="user-image">
-						<span class="user-logged-account">dejan.verifolio.com <i class="icon-arrow-right" aria-hidden="true"></i></span>
-					</a>
-				</div>
-			  <ul class="list-group navigation-group">
-          <li class="navigation-elements">
-              <a><i class="fa fa-user-o" aria-hidden="true"></i> <span class="list-name">User Info</span></a>
-          </li>
-          <li class="navigation-elements">
-              <a><i class="fa fa-picture-o" aria-hidden="true"></i> <span class="list-name">Media</span></a> 
-          </li>
-          <li class="navigation-elements">
-              <a><i class="fa fa-book" aria-hidden="true"></i> <span class="list-name">Recipes</span></a>
-              <ul class="navigation-group">
-                  <li class="navigation-subelements">
-                      <a><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span class="list-name">Add New</span></a>
-                  </li>
-                  <li class="navigation-subelements">
-                      <a><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="list-name">Edit</span></a>
-                  </li>
-                  <li class="navigation-subelements">
-                      <a><i class="fa fa-link" aria-hidden="true"></i> <span class="list-name">Category</span></a>
-                  </li>
-              </ul>
-          </li>
-          <li class="navigation-elements">
-              <a><i class="fa fa-comments-o" aria-hidden="true"></i> <span class="list-name">Comments</span> <span class="badge badge-default badge-pill">23</span></a>
-          </li>
-          <li class="navigation-elements">
-              <a><i class="fa fa-star-o" aria-hidden="true"></i> <span class="list-name">Ratings</span></a>
-          </li> 
-          <li class="navigation-elements">
-              <a><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="list-name">Shop</span></a>
-          </li>
+<nav class="vertical-nav-left clearfix3" *ngIf="showVerticalNavbar; else hideNavbar">    
+	<div class="left-bigger-menu">
+        <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-right"></i></span>
+        <div class="logged-info">
+            <a>
+                <img [src]="userLogo ? userLogo : '/images/user-avatar.png'" class="user-image">
+                <span class="user-logged-account">dejan.verifolio.com <i class="icon-arrow-right"></i></span>
+            </a>
+        </div>
+		<ul class="list-group navigation-group">
+            <li class="navigation-elements">
+                <a><i class="fa fa-user-o"></i> <span class="list-name">User Info</span></a>
+            </li>
+            <li class="navigation-elements">
+                <a><i class="fa fa-picture-o"></i> <span class="list-name">Media</span></a> 
+            </li>
+            <li class="navigation-elements">
+                <a><i class="fa fa-book"></i> <span class="list-name" (click)="showSubmenu = !showSubmenu">Recipes <i class="fa" [class.fa-chevron-down]="showSubmenu" [class.fa-chevron-up]="!showSubmenu"></i></span></a>
+                <ul class="navigation-group" *ngIf="showSubmenu">
+                    <li class="navigation-subelements">
+                        <a><i class="fa fa-plus-square-o"></i> <span class="list-name">Add New</span></a>
+                    </li>
+                    <li class="navigation-subelements">
+                        <a><i class="fa fa-pencil-square-o"></i> <span class="list-name">Edit</span></a>
+                    </li>
+                    <li class="navigation-subelements">
+                        <a><i class="fa fa-link"></i> <span class="list-name">Category</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="navigation-elements">
+                <a><i class="fa fa-comments-o"></i> <span class="list-name">Comments</span> <span class="badge badge-default badge-pill">23</span></a>
+            </li>
+            <li class="navigation-elements">
+                <a><i class="fa fa-star-o"></i> <span class="list-name">Ratings</span></a>
+            </li> 
+            <li class="navigation-elements">
+                <a><i class="fa fa-shopping-cart"></i> <span class="list-name">Shop</span></a>
+            </li>
         </ul>
 
-		</div><!-- .left-bigger-menu -->
+	</div><!-- .left-bigger-menu -->
 </nav><!-- .vertical-nav-left -->
+
+<ng-template #hideNavbar>
+    <nav class="vertical-nav-left clearfix"> 
+        <div class="left-bigger-menu hideMenu">
+            <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-left"></i></span>
+        </div>
+    </nav>
+</ng-template>

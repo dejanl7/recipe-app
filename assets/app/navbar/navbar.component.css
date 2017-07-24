@@ -71,6 +71,9 @@ a:hover {
 	max-height: 100%;
 	height: 100% !important;
 }
+.left-bigger-menu.hideMenu {
+	width: 40px;
+}
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
@@ -123,11 +126,11 @@ a:hover {
 }
 .navigation-elements a span:not(.badge),
 .navigation-elements a i {
-	-webkit-transition: color .2s;
-	-moz-transition: color .2s;
-	-ms-transition: color .2s;
-	-o-transition: color .2s;
-	transition: color .2s;
+	-webkit-transition: color .15s;
+	-moz-transition: color .15s;
+	-ms-transition: color .15s;
+	-o-transition: color .15s;
+	transition: color .15s;
 }
 .navigation-elements a:hover span:not(.badge),
 .navigation-elements a:hover i {
@@ -137,6 +140,14 @@ a:hover {
 .navigation-elements i {
     margin-right: 10px;
     font-size: 15px;
+}
+
+.list-name i.fa-chevron-up,
+.list-name i.fa-chevron-down {
+	padding-left: 4px;
+	font-size: 12px;
+	position: relative;
+	top: -2px;
 }
 .navigation-subelements {
     list-style: none;

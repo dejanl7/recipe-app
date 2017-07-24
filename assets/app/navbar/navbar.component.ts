@@ -9,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class NavbarComponent implements OnInit {
+    showVerticalNavbar: boolean = true;
+    showSubmenu: boolean = false;  
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        console.log(this.showVerticalNavbar);
+    }
 
 }
