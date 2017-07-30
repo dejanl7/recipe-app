@@ -1,6 +1,7 @@
 .btn:hover {
     cursor: pointer;
 }
+button:disabled,
 .btn.disabled,
 .btn-primary.disabled,
 .btn-primary:disabled {

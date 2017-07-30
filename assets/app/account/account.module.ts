@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { AccountComponent } from "./account.component";
@@ -14,7 +16,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { AccountRouting } from "./account.routing";
 
 // Services
-import { EditUserInfoService } from "./edit-user-info/edit-user-info.service";
+import { UserService } from "./services/user.service";
+
 
 
 @NgModule({
@@ -29,9 +32,12 @@ import { EditUserInfoService } from "./edit-user-info/edit-user-info.service";
   ],
   imports: [
       CommonModule,
+      HttpModule,
+      FormsModule,
+      ReactiveFormsModule,
       AccountRouting
   ],
-  providers: [ EditUserInfoService ]
+  providers: [ UserService ]
 })
 
 

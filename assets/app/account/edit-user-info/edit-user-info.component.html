@@ -1,11 +1,11 @@
 <div class="col-md-8 col-xs-12">
     <h3 class="text-left user-info-title"><i class="fa fa-user" aria-hidden="true"></i> Update User Info</h3>
-    <form id="edit-user-info-form" *ngIf="userInformation">
+    <form id="edit-user-info-form"  [formGroup]="editUserForm" (ngSubmit)="updateUserInfo()" *ngIf="userInformation" >
         <div class="form-group">
             <p><label>Profile Image</label></p>
             <div>
                 <img [src]="userInformation.profileImage != '' ? userInformation.profileImage : '/images/avatar-profile.png'" alt="Profile image">
-                <button class="btn btn-secondary edit-profile-image" type="button">Choose</button>
+                <button class="btn btn-secondary edit-profile-image" type="button" (click)="open(content)">Choose</button>
             </div>
         </div>
         <div class="form-group">
@@ -15,7 +15,7 @@
                 class="form-control" 
                 id="editFirstName" 
                 placeholder="First Name"
-                [value]="userInformation.firstName"
+                formControlName="editFirstName"
             >
         </div>
         <div class="form-group">
@@ -25,7 +25,7 @@
                 class="form-control" 
                 id="editLastName" 
                 placeholder="Last Name"
-                [value]="userInformation.lastName"
+                formControlName="editLastName"
             >
         </div>
         <div class="form-group">
@@ -35,9 +35,9 @@
                 class="form-control" 
                 id="editEmail"
                 placeholder="E-mail"
-                [value]="userInformation.email"
+                formControlName="editEmail"
             >
-            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small class="form-text text-muted">* We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             <label for="usernameBlocked">Username</label>
@@ -45,8 +45,7 @@
                 type="text" 
                 class="form-control" 
                 id="usernameBlocked"
-                [value]="userInformation.username"
-                disabled
+                formControlName="editUsername"
             >
             <small class="form-text text-muted">You can't change your username here.</small>
         </div>
@@ -57,9 +56,27 @@
                 class="form-control" 
                 id="editAddress" 
                 placeholder="Address"
-                [value]="userInformation.address"
+                formControlName="editAddress"
             >
         </div>
-        <button type="button" class="btn btn-success update-btn" (click)="updateUserInfo()">Update</button>
+        <button type="submit" class="btn update-btn" [disabled]="!editUserForm.valid">Update</button>
     </form>
 </div>
+
+<!-- ==========================================
+    Modal Dialog - choose profile image 
+=============================================== -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

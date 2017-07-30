@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EditUserInfoService } from "./edit-user-info.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserInfoModel } from "../models/userInfo.model";
+import { UserService } from "../services/user.service";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -11,34 +13,60 @@ import { UserInfoModel } from "../models/userInfo.model";
 
 
 export class EditUserInfoComponent implements OnInit {
-    userId: string;
-    userToken: string;
+    editUserForm: FormGroup;
     userInformation: UserInfoModel;
+    allEmails: Array<string> = [];
+    closeResult: string;
 
 
-    constructor( private editUserService: EditUserInfoService ) { }
+    constructor( private editUserService: UserService, private modalService: NgbModal ) { }
 
 
     ngOnInit() {
-        if( localStorage.getItem('token') !== null ) {
-            this.userId    = localStorage.getItem('userId');
-            this.userToken = localStorage.getItem('token');
-        }
-          else if( sessionStorage.getItem('token') !== null ) {
-              this.userId    =  sessionStorage.getItem('userId');
-              this.userToken = sessionStorage.getItem('token');
-          }
+        this.editUserService.getUserEmails()
+        .subscribe( (userMails) => {
+            for( let i=0; i<userMails.length; i++) {
+                const mail = userMails[i].email;
+                this.allEmails.push(mail);
+            }
+        });
+
+        this.editUserService.getUserAccountInfo()
+        .subscribe( (userInfo: UserInfoModel) => {
+            this.userInformation = userInfo;
         
-        this.editUserService.getUserAccountInfo(this.userId, this.userToken)
-          .subscribe( (userAccountInfo: UserInfoModel) => {
-              this.userInformation = userAccountInfo;
-          });
+            this.editUserForm = new FormGroup({
+                'editFirstName': new FormControl(userInfo.firstName, [Validators.required,Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
+                'editLastName': new FormControl(userInfo.lastName, [Validators.required,Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
+                'editUsername': new FormControl({ value: userInfo.username, disabled: true }, Validators.required),
+                'editEmail': new FormControl(userInfo.email, [Validators.required, Validators.email]),
+                'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$'))
+            });
+
+            this.editUserForm.get('editEmail').valueChanges
+            .subscribe( (value) => {
+                if( this.allEmails.indexOf(value) !== -1 && this.userInformation.email !== value ) {
+                    return this.editUserForm.controls.editEmail.setErrors({'ReservedEmail': true});
+                }
+            });
+        });
+        
     }
 
-
-    // Methods
+    /*=======================
+        Methods
+    =========================*/
     updateUserInfo() {
-        
+        console.log(this.editUserForm.value);   
+    }
+    
+    // Modal Dialog
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed`;
+        });
     }
 
 }

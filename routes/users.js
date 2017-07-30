@@ -137,7 +137,6 @@ router.patch('/:id', function(req, res, next){
                 obj: result
             });
         });
-        console.log(user);
     });
 });
 
@@ -172,7 +171,7 @@ router.post('/login', function(req, res, next) {
             })
         }
         // Log In (create token)
-        var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+        var token = jwt.sign({user: user}, 'secret');
         res.status(200).json({
             message: 'Successfully logged in...',
             token: token,
@@ -181,6 +180,26 @@ router.post('/login', function(req, res, next) {
     });
 });
 
+
+/*================================
+    Get all emails (from users)
+==================================*/
+router.get('/account/emails', function(req, res, next){
+    User.find()
+    .select('email')
+    .exec(function(err, result) {
+        if(err){
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'Successful getting email...',
+            obj: result
+        });
+    })
+});
 
 
 /*=============================
@@ -218,9 +237,12 @@ router.get('/account/:id', function(req, res, next) {
             title: 'Successfull getting data.',
             obj: result
         });
-        console.log(result);
     });
 });
+
+
+
+
 
 
 

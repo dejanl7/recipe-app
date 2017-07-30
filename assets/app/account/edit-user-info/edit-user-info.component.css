@@ -6,7 +6,24 @@
 }
 .update-btn {
     margin-top: 30px;
+    cursor: pointer;
+    background-color: #34495e;
+    color: #fff;
+    opacity: .8;
+    font-size: 14px;
 }
 .edit-profile-image {
     margin-left: 10%;
+}
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+    border: 1px solid #e74c3c;
+    background-color: #f1c40f;
+    color: #000;
+}
+input.ng-valid.ng-touched {
+    border: 1px solid #2ecc71;
+}
+button:disabled {
+    cursor: not-allowed;
 }
