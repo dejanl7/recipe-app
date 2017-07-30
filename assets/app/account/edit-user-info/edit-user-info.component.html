@@ -1,3 +1,65 @@
-<p>
-  edit-user-info works!
-</p>
+<div class="col-md-8 col-xs-12">
+    <h3 class="text-left user-info-title"><i class="fa fa-user" aria-hidden="true"></i> Update User Info</h3>
+    <form id="edit-user-info-form" *ngIf="userInformation">
+        <div class="form-group">
+            <p><label>Profile Image</label></p>
+            <div>
+                <img [src]="userInformation.profileImage != '' ? userInformation.profileImage : '/images/avatar-profile.png'" alt="Profile image">
+                <button class="btn btn-secondary edit-profile-image" type="button">Choose</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="editFirstName">First Name</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="editFirstName" 
+                placeholder="First Name"
+                [value]="userInformation.firstName"
+            >
+        </div>
+        <div class="form-group">
+            <label for="editLastName">Last Name</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="editLastName" 
+                placeholder="Last Name"
+                [value]="userInformation.lastName"
+            >
+        </div>
+        <div class="form-group">
+            <label for="editEmail">E-mail</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="editEmail"
+                placeholder="E-mail"
+                [value]="userInformation.email"
+            >
+            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="usernameBlocked">Username</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="usernameBlocked"
+                [value]="userInformation.username"
+                disabled
+            >
+            <small class="form-text text-muted">You can't change your username here.</small>
+        </div>
+        <div class="form-group">
+            <label for="editAddress">Address</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="editAddress" 
+                placeholder="Address"
+                [value]="userInformation.address"
+            >
+        </div>
+        <button type="button" class="btn btn-success update-btn" (click)="updateUserInfo()">Update</button>
+    </form>
+</div>

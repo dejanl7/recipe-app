@@ -92,13 +92,12 @@ router.get('/:id', function(req, res, next){
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - removing image...',
+                title: 'An error occured - activation problem...',
                 error: err
             });
         }
-        // Get Image according to id
         res.status(200).json({
-            title: 'Successfull got image...',
+            title: 'Successfull activation.',
             obj: result
         });
     });
@@ -179,6 +178,47 @@ router.post('/login', function(req, res, next) {
             token: token,
             userId: user._id
         });
+    });
+});
+
+
+
+/*=============================
+    Protect Route
+===============================*/
+router.use('/account/', function(req, res, next) {
+    jwt.verify(req.query.token, 'secret', function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not authenticated! Check out validation of your account.',
+                error: err
+            });
+        }
+        next();
+    })
+});
+
+
+/*=============================
+    Get User Info (by id)
+===============================*/
+router.get('/account/:id', function(req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    
+    User.findById(decoded.user._id)
+    .select('firstName lastName username email profileImage address dateUpdated')
+    .exec(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - getting user data problem...',
+                error: err
+            });
+        }
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: result
+        });
+        console.log(result);
     });
 });
 

@@ -13,7 +13,7 @@ import { RouteLoggedInService } from "../route-protected-services/protected-logg
 
 
 const ACCOUNT_ROUTES: Routes = [
-    { path: 'account', component: AccountComponent, canActivate: [RouteLoggedInService], children: [
+    { path: '', component: AccountComponent, canActivate: [RouteLoggedInService], children: [
         { path: '', component: EditUserInfoComponent },
         { path: 'media', component: MediaComponent },
         { path: 'recipes', component: RecipesComponent },

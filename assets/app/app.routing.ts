@@ -1,4 +1,5 @@
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
+import { NgModule } from "@angular/core";
 
 import { HomeComponent } from "./home/home.component";
 import { ProfilesComponent } from "./profiles/profiles.component";
@@ -20,9 +21,20 @@ const APP_ROUTES: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent, canActivate: [RouteLoggedOutService] },
     { path: 'user-verification/:id', component: UserVerificationComponent },
+    { path: 'account', loadChildren: './account/account.module#AccountModule' },
     { path: 'not-found', component: NotFoundComponent },
     { path: '**', redirectTo: '/not-found' },
 ];
 
 
-export const routing = RouterModule.forRoot(APP_ROUTES);
+@NgModule({
+    imports: [ 
+        RouterModule.forRoot(APP_ROUTES) 
+    ],
+    exports: [ 
+        RouterModule 
+    ]
+})
+
+
+export class AppRoutingModule {}

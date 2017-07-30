@@ -64,7 +64,7 @@ a:hover {
 }
 .left-bigger-menu {
 	z-index: -1;
-	width: 220px;
+	width: 201px;
 	background-color: #34495e;
 	position: relative;
 	overflow-y: scroll;
@@ -98,9 +98,8 @@ a:hover {
     top: 3px; right: 3px;
     padding: 6px 11px 6px 12px;
     font-size: 15px;
-    color: #ecf0f1;
-    background-color: #7f8c8d;
-    opacity: .9;
+    color: #000;
+    background-color: #bdc3c7;
 }
 .show-hide-navbar:hover {
     cursor: pointer;

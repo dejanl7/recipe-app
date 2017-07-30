@@ -29,7 +29,7 @@ img {
     font-weight: 600;
 }
 .navbar-nav li a {
-    color: #000;
+    color: #34495e;
     font-weight: 400;
     -webkit-transition: all .2s;
     transition: all .2s;
@@ -43,10 +43,13 @@ img {
     top: 20px;
 }
 .navbar-collapse {
-    background-color: #f7f7f7;
+    background-color: #bdc3c7;
     z-index: 100;
 }
-
+.bg-faded {
+    background-color: #bdc3c7;
+    z-index: 101;
+}
 @media screen and (max-width: 1580px) {
 	nav[_ngcontent-c1] {
 		width: 100%;

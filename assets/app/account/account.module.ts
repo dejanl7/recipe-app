@@ -13,6 +13,9 @@ import { OrdersComponent } from './orders/orders.component';
 // Import routing module for account application part
 import { AccountRouting } from "./account.routing";
 
+// Services
+import { EditUserInfoService } from "./edit-user-info/edit-user-info.service";
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { AccountRouting } from "./account.routing";
   imports: [
       CommonModule,
       AccountRouting
-  ]
+  ],
+  providers: [ EditUserInfoService ]
 })
 
 

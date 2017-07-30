@@ -7,7 +7,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Angular 4 Bootstrap
 
 // Routes
-import { routing } from "./app.routing";
+import { AppRoutingModule } from "./app.routing";
 
 // Components, Directives and Services
 import { AppComponent } from "./app.component";
@@ -30,7 +30,7 @@ import { RouteLoggedInService } from "./route-protected-services/protected-logge
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 
 // Import Module
-import { AccountModule } from "./account/account.module";
+//import { AccountModule } from "./account/account.module";
 
 
 
@@ -53,9 +53,9 @@ import { AccountModule } from "./account/account.module";
         FormsModule,
         HttpModule,
         NgbModule.forRoot(),
-        routing,
+        AppRoutingModule,
         ReactiveFormsModule,
-        AccountModule
+       // AccountModule
     ],
     bootstrap: [AppComponent],
     providers: [
