@@ -31,9 +31,9 @@ export class UserService {
     =============================*/
     // Get User by id
     getUserAccountInfo() {
-      const token = '?token=' + this.userToken; 
-      if( this.userToken){
-        return this.http.get(this.accountUrlAddress + this.userId + token)
+        const token = '?token=' + this.userToken; 
+        if( this.userToken){
+            return this.http.get(this.accountUrlAddress + this.userId + token)
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -46,15 +46,15 @@ export class UserService {
 
     // Get all emails (from users)
     getUserEmails() {
-      return this.http.get(this.accountUrlAddress + 'emails')
-        .map((response: Response) => {
-            const userInfo  = response.json().obj;
-            return userInfo;
-        })
-        .catch((error: Response) => {
-            this.errorService.handleError(error.json());
-            return Observable.throw(error.json());
-        });
+        return this.http.get(this.accountUrlAddress + 'emails')
+            .map((response: Response) => {
+                const userInfo  = response.json().obj;
+                return userInfo;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
     // Update User Information

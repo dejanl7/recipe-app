@@ -42,7 +42,9 @@ var upload  = multer({ storage: storage, fileFilter: filterFiles, limits: {fileS
     Protect Route
 ===============================*/
 router.use('/', function(req, res, next) {
-    jwt.verify(req.headers.authorization, 'secret', function(err, decoded) {
+    const tokenVerification = req.query.token ? req.query.token : req.headers.authorization;
+
+    jwt.verify(tokenVerification, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated! Check out validation of your account.',
@@ -96,6 +98,50 @@ router.post('/', function(req, res, next) {
     });
 });
 
+
+/*=================================
+    Protect Route (content body)
+===================================*/
+/*router.use('/from', function(req, res, next) {
+    
+    jwt.verify(req.query.token, 'secret', function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not authenticated! Check out validation of your account.',
+                error: err
+            });
+        }
+        next();
+    })
+});*/
+
+
+/*====================================
+    Get images from specific user
+======================================*/
+router.get('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+    
+    User.findById(decoded.user._id)
+    .select('uploadedImages')
+    .populate({
+        path: 'uploadedImages',
+        select: 'imagePath'
+    })
+    .exec(function(err, result) {
+        if(err){
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'Successful getting email...',
+            obj: result
+        });
+    })
+    console.log('Test');
+});
 
 
 module.exports = router;

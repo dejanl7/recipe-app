@@ -18,6 +18,7 @@ import { AccountRouting } from "./account.routing";
 
 // Services
 import { UserService } from "./services/user.service";
+import { ImagesService } from "./services/images.service";
 
 // Import Pipe
 import {TimeAgoPipe} from 'time-ago-pipe';
@@ -43,7 +44,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
       AccountRouting,
       FileUploadModule
   ],
-  providers: [ UserService ]
+  providers: [ UserService, ImagesService ]
 })
 
 

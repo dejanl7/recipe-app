@@ -76,7 +76,7 @@
 
             <div>
                 <div>
-                    Queue progress:
+                    <span>Upload progress</span>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                     </div>
@@ -90,5 +90,16 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <div class="row images-container">
+      <h4>All Images</h4>
+      <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3 media-images" *ngFor="let img of imagesFromUser">
+                <img [src]="img" alt="uploaded-image">
+            </div>
+        </div>
+      </div>
     </div>
 </div>

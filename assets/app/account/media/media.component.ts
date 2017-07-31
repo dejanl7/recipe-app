@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImagesModel } from "../models/images.model";
 import { FileUploader, FileDropDirective } from 'ng2-file-upload';
 import { UserService } from "../services/user.service";
+import { ImagesService } from "../services/images.service";
 
 
 @Component({
@@ -12,7 +13,29 @@ import { UserService } from "../services/user.service";
 
 
 export class MediaComponent implements OnInit {
-    images: ImagesModel[];
+    imagesFromUser = [];
+
+
+    constructor( private userService: UserService, private imagesService: ImagesService ) { }
+    
+
+    ngOnInit() {
+        this.imagesService.getUserImages()
+          .subscribe((imagesFromService) => {
+              for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
+                  this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);
+              }
+          });
+      
+        this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+            return this.imagesService.getUserImages()
+            .subscribe((imagesFromService) => {
+                for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
+                  this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);
+                }
+            });
+        };
+    }
 
 
     /*=============================
@@ -30,11 +53,5 @@ export class MediaComponent implements OnInit {
       this.hasBaseDropZoneOver = e;
     }
 
-
-    constructor( private userService: UserService ) { }
-
-    ngOnInit() {
-        
-    }
 
 }
