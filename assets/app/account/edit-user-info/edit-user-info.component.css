@@ -12,6 +12,9 @@
     opacity: .8;
     font-size: 14px;
 }
+.update-btn:disabled {
+    cursor: not-allowed;
+}
 .edit-profile-image {
     margin-left: 10%;
 }
@@ -24,6 +27,6 @@ input.ng-invalid.ng-dirty {
 input.ng-valid.ng-touched {
     border: 1px solid #2ecc71;
 }
-button:disabled {
-    cursor: not-allowed;
+.help-message {
+    color: #e74c3c;
 }

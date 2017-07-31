@@ -36,11 +36,11 @@ export class EditUserInfoComponent implements OnInit {
             this.userInformation = userInfo;
         
             this.editUserForm = new FormGroup({
-                'editFirstName': new FormControl(userInfo.firstName, [Validators.required,Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
-                'editLastName': new FormControl(userInfo.lastName, [Validators.required,Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$')]),
+                'editFirstName': new FormControl(userInfo.firstName, [Validators.required, Validators.minLength(2), Validators.pattern("^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$")]),
+                'editLastName': new FormControl(userInfo.lastName, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$')]),
                 'editUsername': new FormControl({ value: userInfo.username, disabled: true }, Validators.required),
                 'editEmail': new FormControl(userInfo.email, [Validators.required, Validators.email]),
-                'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \u0400-\u04ff.-]*$'))
+                'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$'))
             });
 
             this.editUserForm.get('editEmail').valueChanges

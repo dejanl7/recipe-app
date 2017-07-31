@@ -17,6 +17,12 @@
                 placeholder="First Name"
                 formControlName="editFirstName"
             >
+            <p *ngIf="!editUserForm.get('editFirstName').valid && editUserForm.get('editFirstName').dirty">
+                <i class="fa fa-times"></i>
+                <span class="help-message" *ngIf="editUserForm.get('editFirstName').errors['required']">Please insert your name.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editFirstName').errors['pattern']">Please avoid special characters.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editFirstName').value?.length < 2">Minimum number of characters is 2.</span>
+            </p> 
         </div>
         <div class="form-group">
             <label for="editLastName">Last Name</label>
@@ -27,6 +33,12 @@
                 placeholder="Last Name"
                 formControlName="editLastName"
             >
+            <p *ngIf="!editUserForm.get('editLastName').valid && editUserForm.get('editLastName').dirty">
+                <i class="fa fa-times"></i>
+                <span class="help-message" *ngIf="editUserForm.get('editLastName').errors['required']">Please insert your last name.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editLastName').errors['pattern']">Please avoid special characters.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editLastName').value?.length < 2">Minimum number of characters is 2.</span>
+            </p> 
         </div>
         <div class="form-group">
             <label for="editEmail">E-mail</label>
@@ -38,6 +50,13 @@
                 formControlName="editEmail"
             >
             <small class="form-text text-muted">* We'll never share your email with anyone else.</small>
+            <p *ngIf="!editUserForm.get('editEmail').valid && editUserForm.get('editEmail').dirty">
+                <i class="fa fa-times"></i>
+                <span class="help-message" *ngIf="editUserForm.get('editEmail').errors['required']">Please insert your e-mail.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editEmail').errors['pattern']">Please avoid special characters.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editEmail').errors['email']">Input must be e-mail.</span>
+                <span class="help-message" *ngIf="editUserForm.get('editEmail').errors['ReservedEmail']">E-mail <strong>"{{ editUserForm.get('editEmail').value }}"</strong> is reserved.</span>
+            </p> 
         </div>
         <div class="form-group">
             <label for="usernameBlocked">Username</label>
@@ -58,6 +77,10 @@
                 placeholder="Address"
                 formControlName="editAddress"
             >
+            <p *ngIf="!editUserForm.get('editAddress').valid && editUserForm.get('editAddress').dirty">
+                <i class="fa fa-times"></i>
+                <span class="help-message" *ngIf="editUserForm.get('editAddress').errors['pattern']">Please avoid special characters.</span>
+            </p> 
         </div>
         <button type="submit" class="btn update-btn" [disabled]="!editUserForm.valid">Update</button>
     </form>
