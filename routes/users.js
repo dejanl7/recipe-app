@@ -36,7 +36,6 @@ router.get('/signin', function(req, res, next){
 ================================*/
 router.post('/', function (req, res, next) {
     var sanitizedRecords = sanitize(req.body);
-    console.log(sanitizedRecords);
 
     var user = new User({
         firstName: sanitizedRecords.name,
@@ -241,7 +240,51 @@ router.get('/account/:id', function(req, res, next) {
 });
 
 
+/*=========================
+    Update User Info
+===========================*/
+router.patch('/account/:id', function(req, res, next){
+   var decoded = jwt.decode(req.query.token);
 
+    User.findById(decoded.user._id, function(err, user) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured during the update user...',
+                error: err
+            });
+        }
+        if(!user) {
+            return res.status(500).json({
+                title: 'No Users Found...',
+                error: { user: 'User not found...' }
+            });
+        }
+
+        
+        // Sanitize records and save user info update
+        sanitizedContent = sanitize(req.body);
+        
+        user.firstName   = sanitizedContent.editFirstName || user.firstName;
+        user.lastName    = sanitizedContent.editLastName || user.lastName;
+        user.email       = sanitizedContent.editEmail || user.email;
+        user.address     = sanitizedContent.editAddress || user.address;
+        user.dateUpdated = Date.now();
+       
+
+        user.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Updated user.',
+                obj: result
+            });
+        });
+    });
+});
 
 
 

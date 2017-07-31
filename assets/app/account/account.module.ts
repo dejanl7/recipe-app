@@ -18,6 +18,9 @@ import { AccountRouting } from "./account.routing";
 // Services
 import { UserService } from "./services/user.service";
 
+// Import Pipe
+import {TimeAgoPipe} from 'time-ago-pipe';
+
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import { UserService } from "./services/user.service";
       RecipesComponent,
       CommentsComponent,
       RatingsComponent,
-      OrdersComponent
+      OrdersComponent,
+      TimeAgoPipe
   ],
   imports: [
       CommonModule,

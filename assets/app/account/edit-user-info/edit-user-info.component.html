@@ -1,6 +1,8 @@
 <div class="col-md-8 col-xs-12">
     <h3 class="text-left user-info-title"><i class="fa fa-user" aria-hidden="true"></i> Update User Info</h3>
+
     <form id="edit-user-info-form"  [formGroup]="editUserForm" (ngSubmit)="updateUserInfo()" *ngIf="userInformation" >
+        <p class="last-update"><i class="fa fa-pencil" aria-hidden="true"></i> Last update: <strong>{{ userInformation.dateUpdated | timeAgo }}</strong>.</p>
         <div class="form-group">
             <p><label>Profile Image</label></p>
             <div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserInfoModel } from "../models/userInfo.model";
 import { UserService } from "../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
@@ -40,7 +40,7 @@ export class EditUserInfoComponent implements OnInit {
                 'editLastName': new FormControl(userInfo.lastName, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$')]),
                 'editUsername': new FormControl({ value: userInfo.username, disabled: true }, Validators.required),
                 'editEmail': new FormControl(userInfo.email, [Validators.required, Validators.email]),
-                'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$'))
+                'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \' \/ \u0400-\u04ff.-]*$'))
             });
 
             this.editUserForm.get('editEmail').valueChanges
@@ -57,7 +57,13 @@ export class EditUserInfoComponent implements OnInit {
         Methods
     =========================*/
     updateUserInfo() {
-        console.log(this.editUserForm.value);   
+        const updatedInfo = this.editUserForm.value;
+        
+        this.editUserService.updateUserInfo(updatedInfo)
+        .subscribe( (result) => {
+            console.log(result);
+            return this.userInformation = result.obj;
+        });
     }
     
     // Modal Dialog

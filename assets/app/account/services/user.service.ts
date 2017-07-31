@@ -2,6 +2,8 @@ import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
+import { UserInfoModel } from "../models/userInfo.model";
+import { ErrorService } from "../../errors/error.service";
 
 @Injectable()
 
@@ -12,7 +14,7 @@ export class UserService {
     accountUrlAddress: string = 'http://localhost:3000/user/account/';
 
     
-    constructor( private http: Http ) { 
+    constructor( private http: Http, private errorService: ErrorService ) { 
         if( localStorage.getItem('token') !== null ) {
             this.userId    = localStorage.getItem('userId');
             this.userToken = localStorage.getItem('token');
@@ -36,6 +38,7 @@ export class UserService {
                 return response.json().obj;
             })
             .catch((error: Response) => {
+                this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             });
         }
@@ -49,8 +52,22 @@ export class UserService {
             return userInfo;
         })
         .catch((error: Response) => {
+            this.errorService.handleError(error.json());
             return Observable.throw(error.json());
         });
+    }
+
+    // Update User Information
+    updateUserInfo(userInfoContent: UserInfoModel) {
+        const headers   = new Headers({ 'Content-Type': 'application/json' });
+        const body      = JSON.stringify(userInfoContent);
+        const token     = '?token=' + this.userToken; 
+        return this.http.patch(this.accountUrlAddress + this.userId + token, body, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
 
