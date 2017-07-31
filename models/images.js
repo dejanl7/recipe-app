@@ -12,12 +12,19 @@ var schema  = new Schema({
     newImageName: {
         type: String
     },
+    uploadedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    },
     imageSize: {
         type: String
     },
     dateCreated: {
         type: Date,
         default: Date.now()
+    },
+    imagePath: {
+        type: String
     }
 });
 

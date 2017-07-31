@@ -61,7 +61,6 @@ export class EditUserInfoComponent implements OnInit {
         
         this.editUserService.updateUserInfo(updatedInfo)
         .subscribe( (result) => {
-            console.log(result);
             return this.userInformation = result.obj;
         });
     }

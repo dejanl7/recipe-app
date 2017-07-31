@@ -1,3 +1,94 @@
-<p>
-  media works!
-</p>
+<div class="container">
+    <div class="row">
+        <h4 id="upload-title">Upload images</h4>
+        <p class="upload-text">Media boxes for all uploaded images. You can choose your profile image, or you can select image for recipe cover and gallery.</p>
+        <p class="upload-text">Max uploaded size iz 2Mb.</p>
+        <div class="col-md-10 offset-md-1">
+            <form class="multiple-images-upload">
+                <div class="form-group">
+                    <input type="file" name="multiple" ng2FileSelect [uploader]="uploader" accept="image/png,image/gif,video/jpg,image/jpeg" multiple />
+                </div>          
+            </form>
+
+             <div 
+                ng2FileDrop
+                [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+                (fileOver)="fileOverBase($event)"
+                [uploader]="uploader"
+                id="my-drop-zone"
+                accept="image/png,image/gif,video/jpg,image/jpeg"
+            >
+                Drop Your Images
+            </div>
+        </div><!-- .col-md-10 -->
+
+
+        <div class="col-md-10 offset-md-1 uploading-mechanism" *ngIf="uploader?.queue?.length > 0">
+            <h4>Uploading images</h4>
+            <p id="number-of-uploaded-images">Number of images: {{ uploader?.queue?.length }}</p> 
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td [ngClass]="{'alert': item.file.size > 2621440}"><strong>{{ item.file.name }}</strong></td>
+                    <td [ngClass]="{'alert': item.file.size > 2621440}" nowrap>{{ item.file.size > 2621440 ? 'Max allowed size is 2' : item.file.size/1024/1024 | number:'.2' }}MB</td>
+                    <td *ngIf="item.file.size < 2621440; else notAllowedSize">
+                        <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </td>
+                    <td class="text-center" *ngIf="item.file.size < 2621440; else notAllowedSize">
+                        <span *ngIf="item.isSuccess"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        <span *ngIf="item.isCancel"><i class="fa fa-ban" aria-hidden="true"></i></span>
+                        <span *ngIf="item.isError"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                    </td>
+                    <ng-template #notAllowedSize>
+                        <td [ngClass]="{'alert': item.file.size > 2621440}">
+                            <span><i class="fa fa-ban" aria-hidden="true"></i></span>
+                        </td>
+                    </ng-template>
+                    <td nowrap [ngClass]="{'alert': item.file.size > 2621440}">
+                        <button 
+                            type="button" 
+                            class="btn btn-success btn-xs"
+                            (click)="item.upload()" 
+                            [disabled]="item.isReady || item.isUploading || item.isSuccess"
+                            *ngIf="item.file.size < 2621440;"
+                        >
+                            <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs"
+                            (click)="item.remove()">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <div>
+                    Queue progress:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-s"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload all
+                </button>
+                <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Remove all
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

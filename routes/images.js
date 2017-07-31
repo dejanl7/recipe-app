@@ -2,9 +2,11 @@ var express = require('express');
 var router  = express.Router();
 var multer  = require('multer');
 var path    = require('path');
+var jwt     = require('jsonwebtoken');
 
 const fs    = require('fs');
 var Images  = require('../models/images');
+var User    = require('../models/users');
 
 
 
@@ -22,7 +24,7 @@ var storage = multer.diskStorage({
         cb(null, myTime + '-' + file.originalname);
     }
 });
-// Filter image extension
+// Filter file extension
 var filterFiles = function (req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
         return cb(new Error('Only image files are allowed!'));
@@ -30,35 +32,70 @@ var filterFiles = function (req, file, cb) {
         cb(null, true);
         
 };
-// Filter size
 var maxFileSize = 2621440;
 
-// Upload
-var upload = multer({ storage: storage, fileFilter: filterFiles, limits: {fileSize: maxFileSize} });
+var upload  = multer({ storage: storage, fileFilter: filterFiles, limits: {fileSize: maxFileSize} }).single('file');
 
+
+
+/*=============================
+    Protect Route
+===============================*/
+router.use('/', function(req, res, next) {
+    jwt.verify(req.headers.authorization, 'secret', function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not authenticated! Check out validation of your account.',
+                error: err
+            });
+        }
+        next();
+    })
+});
 
 
 /*=============================
     Save Images
 ===============================*/
-router.post('/', upload.any(), function(req, res, next) {  
-    var arrayImgs = [];
-    for(var i=0; i<req.files.length; i++){
-        console.log(req.files[i].originalname);
-        arrayImgs.push(req.protocol + '://' + req.get('host') + '/images/uploaded/' + myTime + '-' + req.files[i].originalname);
-    }
+router.post('/', function(req, res, next) { 
+    var decoded = jwt.decode(req.headers.authorization);
+    
+    User.findById(decoded.user._id, function(err, user){
+        upload(req, res, function(err){
+            if(err){
+                res.json({ error_code: 1, err_desc: err });
+                return;
+            }
+            
+            // Save files in database
+            var images = new Images({
+                imageName: req.file.originalname,
+                newImageName: myTime + '-' + req.file.originalname,
+                uploadedBy: decoded.user._id,
+                imageSize: req.file.size,
+                imagePath: req.protocol + '://' + req.get('host') + '/images/uploaded/' + myTime + '-' + req.file.originalname
+            });
 
-    /*var contact = new Image({
-        firstName: req.body.name,
-        lastName: req.body.lastname,
-        address: req.body.location,
-        email: req.body.email,
-        phoneNumber: req.body.phone,
-        profileImages: [arrayImgs]
+            images.save(function(err, result) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occured. Images can\'t be saved!',
+                        error: err        
+                    });
+                }
+                // Save User
+                user.uploadedImages.push(result);
+                user.save();
+
+                res.status(201).json({
+                    image: 'Image(s) are saved!',
+                    obj: result
+                });
+            });
+        });
     });
-    console.log('Informacije: ' + contact);
-    contact.save();*/
 });
+
 
 
 module.exports = router;

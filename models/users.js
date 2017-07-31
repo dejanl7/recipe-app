@@ -2,6 +2,8 @@ var mongoose        = require('mongoose');
 var Schema          = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
 
+var Recipe  = require('./images');
+
 
 // Blueprint for Users Collection
 var schema = new Schema({
@@ -56,6 +58,10 @@ var schema = new Schema({
     userRecipes: [{
         type: Schema.Types.ObjectId,
         ref: 'Recipes'
+    }],
+    uploadedImages: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Images'
     }]
 });
 

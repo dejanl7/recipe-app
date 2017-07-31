@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Components
+// Components and modules
 import { AccountComponent } from "./account.component";
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 import { MediaComponent } from './media/media.component';
@@ -11,6 +11,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { CommentsComponent } from './comments/comments.component';
 import { RatingsComponent } from './ratings/ratings.component';
 import { OrdersComponent } from './orders/orders.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // Import routing module for account application part
 import { AccountRouting } from "./account.routing";
@@ -39,7 +40,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
       HttpModule,
       FormsModule,
       ReactiveFormsModule,
-      AccountRouting
+      AccountRouting,
+      FileUploadModule
   ],
   providers: [ UserService ]
 })

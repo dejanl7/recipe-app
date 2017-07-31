@@ -244,7 +244,7 @@ router.get('/account/:id', function(req, res, next) {
     Update User Info
 ===========================*/
 router.patch('/account/:id', function(req, res, next){
-   var decoded = jwt.decode(req.query.token);
+    var decoded = jwt.decode(req.query.token);
 
     User.findById(decoded.user._id, function(err, user) {
         if(err) {
