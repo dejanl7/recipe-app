@@ -53,6 +53,7 @@
     "html-loader": "^0.4.5",
     "mongoose-unique-validator": "^1.0.5",
     "ng2-file-upload": "^1.2.1",
+    "ngx-pagination": "^3.0.1",
     "nodemailer": "^4.0.1",
     "raw-loader": "^0.5.1",
     "time-ago-pipe": "^1.2.1",

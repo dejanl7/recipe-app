@@ -126,7 +126,7 @@ router.get('/:id', function(req, res, next){
     .select('uploadedImages')
     .populate({
         path: 'uploadedImages',
-        select: 'imagePath'
+        select: 'imagePath imageName'
     })
     .exec(function(err, result) {
         if(err){

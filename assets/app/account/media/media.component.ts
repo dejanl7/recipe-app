@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { ImagesModel } from "../models/images.model";
 import { FileUploader, FileDropDirective } from 'ng2-file-upload';
 import { UserService } from "../services/user.service";
 import { ImagesService } from "../services/images.service";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -13,10 +14,21 @@ import { ImagesService } from "../services/images.service";
 
 
 export class MediaComponent implements OnInit {
+    @ViewChild('drop') element: ElementRef;
     imagesFromUser = [];
+    imagesName = [];
+    closeResult: string;
+    imgName: string;
+    img: string;
 
 
-    constructor( private userService: UserService, private imagesService: ImagesService ) { }
+    constructor ( 
+            private userService: UserService, 
+            private imagesService: ImagesService, 
+            private modalService: NgbModal, 
+            private renderer: Renderer2, 
+            private el: ElementRef 
+    ) { }
     
 
     ngOnInit() {
@@ -24,6 +36,7 @@ export class MediaComponent implements OnInit {
           .subscribe((imagesFromService) => {
               for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
                   this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);
+                  this.imagesName.push(imagesFromService.uploadedImages[i].imageName);
               }
           });
       
@@ -32,8 +45,14 @@ export class MediaComponent implements OnInit {
             .subscribe((imagesFromService) => {
                 for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
                   this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);
+                  this.imagesName.push(imagesFromService.uploadedImages[i].imageName);
                 }
             });
+        };
+
+        this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+            console.log("ImageUpload:uploaded:", item, status);
+            
         };
     }
 
@@ -47,11 +66,24 @@ export class MediaComponent implements OnInit {
         authToken: this.userService.userToken
     });
     hasBaseDropZoneOver:boolean    = false;
-    hasAnotherDropZoneOver:boolean = false; 
 
-    fileOverBase(e:any):void {
-      this.hasBaseDropZoneOver = e;
+    fileOverBase(e:any) {
+        this.hasBaseDropZoneOver = e
+        this.renderer.setStyle(this.element.nativeElement , 'backgroundColor', '#ecf0f1')
     }
 
+    
+
+
+    // Modal Dialog
+    open(content, img: string, imgName: string) {
+        this.img = img;
+        this.imgName = imgName;
+        this.modalService.open(content).result.then((result) => {
+            
+        }, (reason) => {
+            this.closeResult = 'Dismissed';
+        });
+    }
 
 }

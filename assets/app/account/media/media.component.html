@@ -2,7 +2,7 @@
     <div class="row">
         <h4 id="upload-title">Upload images</h4>
         <p class="upload-text">Media boxes for all uploaded images. You can choose your profile image, or you can select image for recipe cover and gallery.</p>
-        <p class="upload-text">Max uploaded size iz 2Mb.</p>
+        <p class="upload-text">Max uploaded size iz 2Mb. Allowed type: ".jpg, .jpeg, .png, .gif".</p>
         <div class="col-md-10 offset-md-1">
             <form class="multiple-images-upload">
                 <div class="form-group">
@@ -11,6 +11,7 @@
             </form>
 
              <div 
+                #drop
                 ng2FileDrop
                 [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
                 (fileOver)="fileOverBase($event)"
@@ -93,13 +94,45 @@
     </div>
 
     <div class="row images-container">
-      <h4>All Images</h4>
-      <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-3 media-images" *ngFor="let img of imagesFromUser">
-                <img [src]="img" alt="uploaded-image">
+        <h4>All Images</h4>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card media-images" *ngFor="let img of imagesFromUser | paginate: { itemsPerPage: 2, currentPage: p }; let i = index">
+                    <img class="card-img-top" [src]="img" alt="uploaded-image">
+                    <div class="card-block">
+                        <h4 class="card-title text-left">{{ imagesName[i] }}</h4>
+                        <button class="btn btn-secondary image-details" type="button" (click)="open(imageContent, img, imagesName[i])">Details</button>
+                    </div>
+                </div>
             </div>
+
+            <pagination-controls
+                (pageChange)="p = $event"
+                previousLabel= ""
+                nextLabel=""
+                totalItems="imagesFromUser.count"
+            ></pagination-controls>
+
         </div>
-      </div>
     </div>
 </div>
+
+<!-- ===================================
+    Modal Dialog - Image Details
+======================================== -->
+<ng-template #imageContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Image</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <img [src]="img" alt="image" class="img-responsive">
+        <p>Image Name: <span><strong>{{ imgName }}</strong></span></p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

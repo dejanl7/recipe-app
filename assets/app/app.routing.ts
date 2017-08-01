@@ -14,6 +14,7 @@ import { RouteLoggedInService } from "./route-protected-services/protected-logge
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 
 
+
 const APP_ROUTES: Routes = [
     { path: '', component: HomeComponent },
     { path: 'profiles', component: ProfilesComponent },
@@ -29,10 +30,10 @@ const APP_ROUTES: Routes = [
 
 @NgModule({
     imports: [ 
-        RouterModule.forRoot(APP_ROUTES) 
+        RouterModule.forRoot(APP_ROUTES)
     ],
     exports: [ 
-        RouterModule 
+        RouterModule
     ]
 })
 

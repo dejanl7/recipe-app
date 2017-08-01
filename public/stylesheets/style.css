@@ -13,3 +13,26 @@ button:disabled,
 .modal-open .modal {
     top: 14%;
 }
+.ngx-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.ngx-pagination {
+    font-size: 17px;
+}
+.ngx-pagination .current {
+    background-color: #34495e !important;
+    opacity: .7;
+}
+.ngx-pagination li:hover a,
+.ngx-pagination li:hover a {
+    background-color: #34495e !important;
+    opacity: .7 !important;
+    color: #fff !important;
+}
+.ngx-pagination li.pagination-previous:hover a,
+.ngx-pagination li.pagination-next:hover a  {
+    background-color: transparent !important;
+    color: #000 !important;
+}

@@ -12,6 +12,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { RatingsComponent } from './ratings/ratings.component';
 import { OrdersComponent } from './orders/orders.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 // Import routing module for account application part
 import { AccountRouting } from "./account.routing";
@@ -21,7 +22,7 @@ import { UserService } from "./services/user.service";
 import { ImagesService } from "./services/images.service";
 
 // Import Pipe
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 
 
@@ -37,6 +38,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
       TimeAgoPipe
   ],
   imports: [
+      NgxPaginationModule,
       CommonModule,
       HttpModule,
       FormsModule,
@@ -44,7 +46,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
       AccountRouting,
       FileUploadModule
   ],
-  providers: [ UserService, ImagesService ]
+  providers: [ UserService, ImagesService ],
 })
 
 
