@@ -13,7 +13,7 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { ProfilesComponent } from './profiles/profiles.component';
+//import { ProfilesComponent } from './profiles/profiles.component';
 import { ShopComponent } from './shop/shop.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -28,10 +28,8 @@ import { ErrorService } from "./errors/error.service";
 import { UserVerificationService } from "./user-verification/user-verification.service";
 import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
-
-// Import Module
-//import { AccountModule } from "./account/account.module";
-
+import { UserService } from "./account/services/user.service";
+import { ImagesService } from "./account/services/images.service";
 
 
 
@@ -41,14 +39,13 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
         AppComponent, 
         HeaderComponent, 
         HomeComponent, 
-        ProfilesComponent, 
         ShopComponent, 
         LoginComponent, 
         SignupComponent, 
         NotFoundComponent, 
         ErrorsComponent,
         UserVerificationComponent,
-        NavbarComponent
+        NavbarComponent,
     ],
     imports: [
         BrowserModule,
@@ -56,8 +53,7 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
         HttpModule,
         NgbModule.forRoot(),
         AppRoutingModule,
-        ReactiveFormsModule,
-       // AccountModule
+        ReactiveFormsModule, 
     ],
     bootstrap: [AppComponent],
     providers: [
@@ -67,7 +63,9 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
         ErrorService,
         RouteLoggedInService,
         RouteLoggedOutService,
-        UserVerificationService
+        UserVerificationService,
+        UserService, 
+        ImagesService
     ]
 })
 

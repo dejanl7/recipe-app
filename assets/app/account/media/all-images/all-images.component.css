@@ -1,0 +1,67 @@
+.images-container {
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+.images-container h4 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.media-images {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.media-images img {
+    width: 100%;
+    padding: 10px;
+}
+.media-images {
+    width: 22%;
+    margin-left: 1.5%;
+    margin-right: .5%;
+}
+.card-title {
+    font-size: 17px;
+}
+.image-details {
+    display: flex;
+    margin: auto;
+    background-color: #34495e;
+    opacity: .7;
+    color: #fff;
+    font-size: 14px;
+}
+.modal-body img {
+    max-width: 100%;
+}
+
+.pagination-previous a:not(span),
+.pagination-next a:not(span){
+    display: none;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .media-images {
+        width: 28%;
+        margin-left: 2.66%;
+        margin-right: 2.66%;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 767px) {
+    .media-images {
+        width: 45%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+}
+
+@media screen and (max-width: 449px) {
+    .media-images {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}

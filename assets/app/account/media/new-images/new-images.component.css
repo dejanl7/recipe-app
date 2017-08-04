@@ -1,0 +1,50 @@
+#my-drop-zone {
+    height: 150px;
+    border: 2px dashed #34495e !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.multiple-images-upload {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+#upload-title {
+    width: 100%;
+}
+.upload-text {
+    width: 100%;
+    margin-bottom: 0;
+}
+.upload-text:last-of-type {
+    margin-bottom: 40px;
+}
+.uploading-mechanism {
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+#number-of-uploaded-images {
+    margin-bottom: 15px;
+}
+.btn-s {
+    margin-top: 20px;
+    font-size: 15px;
+}
+table td {
+    font-size: 14px;
+    vertical-align: middle;
+}
+table td button {
+    font-size: 12px;
+}
+.progress-bar {
+    background-color: #34495e;
+}
+.fa-ban {
+    position: relative;
+    left: 40%;
+}
+.btn-success {
+    background-color: #34495e;
+    border-color: #34495e;
+}

@@ -2,7 +2,6 @@ import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 import { HomeComponent } from "./home/home.component";
-import { ProfilesComponent } from "./profiles/profiles.component";
 import { ShopComponent } from "./shop/shop.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
@@ -17,7 +16,7 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'profiles', component: ProfilesComponent },
+    { path: 'profiles', loadChildren: './profiles/profiles.module#ProfilesModule' },
     { path: 'shop', component: ShopComponent, canActivate: [RouteLoggedInService] },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent, canActivate: [RouteLoggedOutService] },
