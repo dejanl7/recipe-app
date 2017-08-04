@@ -13,7 +13,6 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-//import { ProfilesComponent } from './profiles/profiles.component';
 import { ShopComponent } from './shop/shop.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -31,7 +30,10 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
 import { UserService } from "./account/services/user.service";
 import { ImagesService } from "./account/services/images.service";
 
-
+// Import REDUX
+import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
+import { USER_IMAGES_STATE, messagingReducer, ImageInterface } from "./redux/store";
+import { ImagesModel } from "./account/models/images.model";
 
 
 @NgModule({
@@ -53,9 +55,9 @@ import { ImagesService } from "./account/services/images.service";
         HttpModule,
         NgbModule.forRoot(),
         AppRoutingModule,
-        ReactiveFormsModule, 
+        ReactiveFormsModule,
+        NgReduxModule
     ],
-    bootstrap: [AppComponent],
     providers: [
         SignUpService, 
         LoginService, 
@@ -66,10 +68,13 @@ import { ImagesService } from "./account/services/images.service";
         UserVerificationService,
         UserService, 
         ImagesService
-    ]
+    ],
+    bootstrap: [AppComponent],
 })
 
 
 export class AppModule {
-
+    constructor(ngRedux: NgRedux<ImageInterface>) {
+        ngRedux.configureStore(messagingReducer, USER_IMAGES_STATE);
+    }
 }

@@ -20,17 +20,10 @@ import { AccountRouting } from "./account.routing";
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 
-// import { AllImagesComponent } from "./media/all-images/all-images.component";
-// import { NewImagesComponent } from "./media/new-images/new-images.component";
-// import { MediaComponent } from "./media/media.component";
-
 
 @NgModule({
   declarations: [
       AccountComponent,
-    //   MediaComponent,
-    //   AllImagesComponent,
-    //   NewImagesComponent,
       EditUserInfoComponent,
       RecipesComponent,
       CommentsComponent,

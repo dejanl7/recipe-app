@@ -1,0 +1,1 @@
+export const GET_IMAGES_INFO  = 'GET_IMAGES_INFO';

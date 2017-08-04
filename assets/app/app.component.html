@@ -5,6 +5,7 @@
 
     <router-outlet></router-outlet>
 
+
     <footer [class.default]="!isUserLoggedIn()" [class.hide]="isUserLoggedIn()">    
         <p class="alert alert-success" *ngIf="isUserLoggedIn()">
                 <span>You are logged in!</span> 

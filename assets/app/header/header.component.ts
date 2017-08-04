@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from "../login/login.service";
 import { Router } from "@angular/router";
+import { select } from "ng2-redux";
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { Router } from "@angular/router";
 
 export class HeaderComponent implements OnInit {
     responsiveMenu = false;    
+    @select() imagesInfo; 
     
     constructor(private loginService: LoginService, private router: Router) { }
 

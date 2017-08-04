@@ -2,6 +2,9 @@ import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../services/images.service";
 import { ImagesModel } from "../../models/images.model";
+import { select, NgRedux } from "ng2-redux";
+import { GET_IMAGES_INFO } from "../../../redux/actions";
+import { ImageInterface } from "../../../redux/interfaces";
 
 
 @Component({
@@ -17,23 +20,22 @@ export class AllImagesComponent implements OnInit {
     img: string;
     imagesFromUser = [];
     imagesName = [];
+    @select() imagesInfo;
 
 
     constructor (
         private imagesService: ImagesService, 
         private modalService: NgbModal, 
         private renderer: Renderer2, 
-        private el: ElementRef
+        private el: ElementRef,
+        private ngRedux: NgRedux<ImageInterface>
     ) { }
 
 
     ngOnInit() {
         this.imagesService.getUserImages()
-        .subscribe((imagesFromService) => {
-            for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
-                this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);
-                this.imagesName.push(imagesFromService.uploadedImages[i].imageName);
-            }
+        .subscribe( (result) => {
+            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: result.uploadedImages });
         });
     } 
 

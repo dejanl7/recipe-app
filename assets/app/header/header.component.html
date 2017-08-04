@@ -27,6 +27,9 @@
             <li class="nav-item" *ngIf="isLogged()">
                 <a [routerLink]="['/login']" class="nav-link" (click)="onLogout()">Logout</a>
             </li>
+            <!-- <li>
+                <a>Redux value: New Messages: {{ imagesInfo | async | json }}</a>
+            </li> -->
         </ul>
     </div>
 </nav>

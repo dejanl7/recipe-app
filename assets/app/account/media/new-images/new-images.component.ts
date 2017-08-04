@@ -3,6 +3,9 @@ import { ImagesModel } from "../../models/images.model";
 import { FileUploader, FileDropDirective } from 'ng2-file-upload';
 import { UserService } from "../../services/user.service";
 import { ImagesService } from "../../services/images.service";
+import { GET_IMAGES_INFO } from "../../../redux/actions";
+import { NgRedux, select } from "ng2-redux";
+import { ImageInterface } from "../../../redux/interfaces";
 
 
 @Component({
@@ -14,11 +17,12 @@ import { ImagesService } from "../../services/images.service";
 
 export class NewImagesComponent implements OnInit {
     @ViewChild('drop') element: ElementRef;
+    @select() imagesInfo;
     imagesFromUser = [];
     imagesName = [];
 
 
-    constructor ( private userService: UserService, private imagesService: ImagesService ) { }
+    constructor ( private userService: UserService, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
     
 
     ngOnInit() {
@@ -33,7 +37,10 @@ export class NewImagesComponent implements OnInit {
         };
 
         this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-            console.log("ImageUpload:uploaded:", item, status);
+            this.imagesService.getUserImages()
+            .subscribe( (result) => {
+                this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: result.uploadedImages });
+            });
         };
     }
 

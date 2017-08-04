@@ -3,10 +3,10 @@
         <h4>All Images</h4>
         <div class="col-md-12">
             <div class="row">
-                <div class="card media-images" *ngFor="let img of imagesFromUser | paginate: { itemsPerPage: 8, currentPage: p }; let i = index">
-                    <img class="card-img-top" [src]="img" alt="uploaded-image">
+                <div class="card media-images" *ngFor="let img of imagesInfo | async | paginate: { itemsPerPage: 8, currentPage: p }; let i = index">
+                    <img class="card-img-top" [src]="img.imagePath" alt="uploaded-image">
                     <div class="card-block">
-                        <h4 class="card-title text-left">{{ imagesName[i] }}</h4>
+                        <h4 class="card-title text-left">{{ img.imageName }}</h4>
                         <button class="btn btn-secondary image-details" type="button" (click)="open(imageContent, img, imagesName[i])">Details</button>
                     </div>
                 </div>
@@ -19,8 +19,6 @@
                 totalItems="imagesFromUser.count"
             ></pagination-controls>
 
-
-    <p>Redux value: {{ imageName | async }}</p>
         </div>
     </div>
 </div>
