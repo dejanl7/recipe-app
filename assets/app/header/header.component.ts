@@ -11,7 +11,6 @@ import { select } from "ng2-redux";
 
 export class HeaderComponent implements OnInit {
     responsiveMenu = false;    
-    @select() imagesInfo; 
     
     constructor(private loginService: LoginService, private router: Router) { }
 
