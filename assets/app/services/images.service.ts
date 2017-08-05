@@ -2,7 +2,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
-import { ErrorService } from "../../errors/error.service";
+import { ErrorService } from "../errors/error.service";
 
 @Injectable()
 
@@ -33,13 +33,14 @@ export class ImagesService {
         const token = '?token=' + this.userToken; 
         if( this.userToken){
             return this.http.get(this.imagesUrlAddress + '/' + this.userId + token)
-            .map((response: Response) => {
-                return response.json().obj;
-            })
-            .catch((error: Response) => {
-                this.errorService.handleError(error.json());
-                return Observable.throw(error.json());
-            });
+                .map((response: Response) => {
+                    console.log('test');
+                    return response.json().obj;
+                })
+                .catch((error: Response) => {
+                    this.errorService.handleError(error.json());
+                    return Observable.throw(error.json());
+                });
         }
     }
 

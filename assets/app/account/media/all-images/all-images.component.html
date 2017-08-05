@@ -7,18 +7,18 @@
                     <img class="card-img-top" [src]="img.imagePath" alt="uploaded-image">
                     <div class="card-block">
                         <h4 class="card-title text-left">{{ img.imageName }}</h4>
-                        <button class="btn btn-secondary image-details" type="button" (click)="open(imageContent, img, imagesName[i])">Details</button>
+                        <button class="btn btn-secondary image-details" type="button" (click)="open(imageContent, img.imagePath, img.imageName)">Details</button>
                     </div>
                 </div>
             </div>
 
-            <pagination-controls
-                (pageChange)="p = $event"
-                previousLabel= ""
-                nextLabel=""
-                totalItems="imagesFromUser.count"
-            ></pagination-controls>
-
+            <div class="pagination-me">
+                <pagination-controls
+                    (pageChange)="p = $event"
+                    previousLabel= ""
+                    nextLabel=""
+                ></pagination-controls>
+            </div>
         </div>
     </div>
 </div>

@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from "./account.component";
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 import { RecipesComponent } from './recipes/recipes.component';
-import { CommentsComponent } from './comments/comments.component';
 import { RatingsComponent } from './ratings/ratings.component';
 import { OrdersComponent } from './orders/orders.component';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -26,7 +25,6 @@ import { TimeAgoPipe } from 'time-ago-pipe';
       AccountComponent,
       EditUserInfoComponent,
       RecipesComponent,
-      CommentsComponent,
       RatingsComponent,
       OrdersComponent,
       TimeAgoPipe

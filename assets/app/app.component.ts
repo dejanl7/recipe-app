@@ -3,8 +3,9 @@ import { LoginService } from "./login/login.service";
 import { NgRedux, select } from "ng2-redux";
 import { GET_IMAGES_INFO } from "./redux/actions";
 import { ImagesModel } from "./account/models/images.model";
-import { ImagesService } from "./account/services/images.service";
-import { ImageInterface } from "./redux/store";
+import { ImageInterface } from "./redux/interfaces";
+import { ImagesService } from "./services/images.service";
+
 
 
 @Component({

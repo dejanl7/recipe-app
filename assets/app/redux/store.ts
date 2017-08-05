@@ -1,7 +1,7 @@
 import { tassign } from 'tassign'; 
 import { GET_IMAGES_INFO } from './actions'; 
 import { ImagesModel } from "../account/models/images.model";
-import { ImagesService } from '../account/services/images.service';
+import { ImagesService } from '../services/images.service';
 import { ImageInterface } from "./interfaces";
 
 
@@ -17,7 +17,12 @@ export const USER_IMAGES_STATE: ImageInterface = {
     Get User Images
 =============================*/
 function getUserImages(state, action) {  
-    return tassign(state, { imagesInfo: action.imgPayload });
+    if( action.imgPayload ) { 
+        return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
+    }
+    else {
+        return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
+    }
 }
 
 

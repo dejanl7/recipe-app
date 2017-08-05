@@ -27,13 +27,14 @@ import { ErrorService } from "./errors/error.service";
 import { UserVerificationService } from "./user-verification/user-verification.service";
 import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
-import { UserService } from "./account/services/user.service";
-import { ImagesService } from "./account/services/images.service";
+import { UserService } from "./services/user.service";
+import { ImagesService } from "./services/images.service";
 
 // Import REDUX
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
-import { USER_IMAGES_STATE, messagingReducer, ImageInterface } from "./redux/store";
+import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
 import { ImagesModel } from "./account/models/images.model";
+import { ImageInterface } from "./redux/interfaces";
 
 
 @NgModule({

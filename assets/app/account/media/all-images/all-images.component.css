@@ -34,6 +34,7 @@
 }
 .modal-body img {
     max-width: 100%;
+    margin-bottom: 17px;
 }
 
 .pagination-previous a:not(span),

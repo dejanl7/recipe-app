@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { ImagesModel } from "../../models/images.model";
 import { FileUploader, FileDropDirective } from 'ng2-file-upload';
-import { UserService } from "../../services/user.service";
-import { ImagesService } from "../../services/images.service";
+import { UserService } from "../../../services/user.service";
+import { ImagesService } from "../../../services/images.service";
 import { GET_IMAGES_INFO } from "../../../redux/actions";
 import { NgRedux, select } from "ng2-redux";
 import { ImageInterface } from "../../../redux/interfaces";

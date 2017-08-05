@@ -120,7 +120,7 @@ router.post('/', function(req, res, next) {
     Get images from specific user
 ======================================*/
 router.get('/:id', function(req, res, next){
-    var decoded = jwt.decode(req.query.token);
+    var decoded = jwt.decode(req.query.token);;
     
     User.findById(decoded.user._id)
     .select('uploadedImages')
