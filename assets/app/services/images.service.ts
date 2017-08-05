@@ -34,7 +34,6 @@ export class ImagesService {
         if( this.userToken){
             return this.http.get(this.imagesUrlAddress + '/' + this.userId + token)
                 .map((response: Response) => {
-                    console.log('test');
                     return response.json().obj;
                 })
                 .catch((error: Response) => {
