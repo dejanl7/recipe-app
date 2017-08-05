@@ -20,6 +20,7 @@ export class AllImagesComponent implements OnInit {
     imgName: string;
     img: string;
     @select() imagesInfo;
+    @select() imagesInfoLength;
 
 
     constructor (
@@ -32,10 +33,9 @@ export class AllImagesComponent implements OnInit {
 
 
     ngOnInit() {
-        return this.imagesService.getUserImages()
+        this.imagesService.getUserImages()
         .subscribe( (userImgs) => {
-            console.log(userImgs);
-            return this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
         });
     } 
 
@@ -45,7 +45,7 @@ export class AllImagesComponent implements OnInit {
         this.img = img;
         this.imgName = imgName;
         this.modalService.open(content).result.then((result) => {
-
+            //console.log(result);
         }, (reason) => {
             this.closeResult = 'Dismissed';
         });

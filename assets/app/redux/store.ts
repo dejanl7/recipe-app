@@ -17,12 +17,7 @@ export const USER_IMAGES_STATE: ImageInterface = {
     Get User Images
 =============================*/
 function getUserImages(state, action) {  
-    if( action.imgPayload ) { 
-        return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
-    }
-    else {
-        return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
-    }
+    return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
 }
 
 

@@ -13,6 +13,8 @@ import { NewImagesComponent } from "./new-images/new-images.component";
 import { MediaRouting } from "./media.routing"; // Routing
 import { NgxPaginationModule } from "ngx-pagination/dist/ngx-pagination";
 import { SharedModule } from "../shared/shared.module";
+import { ImagesService } from "../../services/images.service";
+import { UserService } from "../../services/user.service";
 
 
 
@@ -29,6 +31,10 @@ import { SharedModule } from "../shared/shared.module";
       NgxPaginationModule,
       FileUploadModule, 
       SharedModule
+  ],
+  providers: [
+      ImagesService,
+      UserService
   ]
 })
 

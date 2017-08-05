@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <div class="pagination-me">
+            <div class="pagination-me" *ngIf="(imagesInfoLength | async) > 0">
                 <pagination-controls
                     (pageChange)="p = $event"
                     previousLabel= ""
