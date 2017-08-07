@@ -53,10 +53,11 @@ export class NewImagesComponent implements OnInit {
         allowedMimeType: ['image/png', 'image/gif', 'image/jpeg', 'image/jpg'] ,
         authToken: this.userService.userToken
     });
-    hasBaseDropZoneOver:boolean    = false;
+    hasBaseDropZoneOver:boolean = false;
 
     fileOverBase(e:any) {
         this.hasBaseDropZoneOver = e;
+        console.log(e);
         //this.renderer.setStyle(this.element.nativeElement , 'backgroundColor', '#ecf0f1')
     }
 }

@@ -18,7 +18,9 @@ import { UserService } from "../../../services/user.service";
 export class AllImagesComponent implements OnInit {
     closeResult: string;
     imgName: string;
+    newImgName: string;
     img: string;
+    imgId: string;
     @select() imagesInfo;
     @select() imagesInfoLength;
 
@@ -29,7 +31,7 @@ export class AllImagesComponent implements OnInit {
         private renderer: Renderer2, 
         private el: ElementRef,
         private ngRedux: NgRedux<ImageInterface>
-    ) { }
+    ){}
 
 
     ngOnInit() {
@@ -41,13 +43,23 @@ export class AllImagesComponent implements OnInit {
 
 
     // Modal Dialog
-    open(content, img: string, imgName: string) {
-        this.img = img;
-        this.imgName = imgName;
+    open(content, imgId:string, img: string, imgName: string, newImgName: string) {
+        this.img        = img;
+        this.imgName    = imgName;
+        this.newImgName = newImgName;
+        this.imgId      = imgId;
         this.modalService.open(content).result.then((result) => {
             //console.log(result);
         }, (reason) => {
             this.closeResult = 'Dismissed';
+        });
+    }
+
+    // Delete Image
+    deleteImage( selectedImageId: string, selctedImageName: string ){
+        this.imagesService.deleteImage(this.imgId, this.newImgName)
+        .subscribe( (deleteResult) => {
+            console.log(deleteResult);
         });
     }
 }

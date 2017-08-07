@@ -1,4 +1,4 @@
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
@@ -34,6 +34,7 @@ export class ImagesService {
         if( this.userToken){
             return this.http.get(this.imagesUrlAddress + '/' + this.userId + token)
                 .map((response: Response) => {
+                    console.log(response.json().obj);
                     return response.json().obj;
                 })
                 .catch((error: Response) => {
@@ -41,6 +42,23 @@ export class ImagesService {
                     return Observable.throw(error.json());
                 });
         }
+    }
+
+    // Delete Image
+    deleteImage(imageId, imageName){
+        const token = '?token=' + this.userToken;
+        let body    = JSON.stringify({ "content": imageName });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        
+        return this.http.delete(this.imagesUrlAddress + '/delete/' + imageId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                return Observable.throw(error.json());
+            });
     }
 
 }

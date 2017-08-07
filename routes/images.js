@@ -99,34 +99,17 @@ router.post('/', function(req, res, next) {
 });
 
 
-/*=================================
-    Protect Route (content body)
-===================================*/
-/*router.use('/from', function(req, res, next) {
-    
-    jwt.verify(req.query.token, 'secret', function(err, decoded) {
-        if (err) {
-            return res.status(401).json({
-                title: 'Not authenticated! Check out validation of your account.',
-                error: err
-            });
-        }
-        next();
-    })
-});*/
-
-
 /*====================================
     Get images from specific user
 ======================================*/
 router.get('/:id', function(req, res, next){
-    var decoded = jwt.decode(req.query.token);;
+    var decoded = jwt.decode(req.query.token);
     
     User.findById(decoded.user._id)
     .select('uploadedImages')
     .populate({
         path: 'uploadedImages',
-        select: 'imagePath imageName'
+        select: 'imagePath imageName newImageName'
     })
     .exec(function(err, result) {
         if(err){
@@ -142,6 +125,42 @@ router.get('/:id', function(req, res, next){
     })
     console.log('Test');
 });
+
+
+
+/*=============================
+    Delete image
+===============================*/
+router.delete('/delete/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+
+    Images.findById(req.params.id, function(err, image){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - removing image...',
+                error: err
+            });
+        }
+        // Remove image 
+        /*image.remove(function(err, result) {
+            if (err) {
+                return result.status(500).json({
+                    title: 'An error occured during removing image...',
+                    error: err
+                });
+            }
+            
+            fs.unlink(path.join(__dirname, '../public/images/uploaded/' + req.body.content), function(err){
+                res.status(200).json({
+                    image: 'Deleted image!',
+                    obj: result
+                });
+            });
+        }); */
+    });
+});
+
+
 
 
 module.exports = router;

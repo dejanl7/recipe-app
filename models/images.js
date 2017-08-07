@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
+var Users    = require('./users');
 
 
 /*=====================================
@@ -27,6 +28,18 @@ var schema  = new Schema({
         type: String
     }
 });
+
+
+/*===============================
+    Additional actions
+=================================*/
+schema.post('remove', function(image) {
+    Users.findById(image.uploadedBy, function(err, user) {
+        user.uploadedImages.pull(image);
+        user.save();
+    });
+});
+
 
 
 module.exports = mongoose.model(
