@@ -56,6 +56,7 @@ export class ImagesService {
         return this.http.delete(this.imagesUrlAddress + '/delete/' + imageId + token, options)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
+                this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             });
     }

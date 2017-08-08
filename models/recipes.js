@@ -6,7 +6,7 @@ var User     = require('./users');
 /*=====================================
     Blueprint for Recipes Collection
 =======================================*/
-var schema = new Schema({
+var schema  = new Schema({
     recipeName: {
         type: String,
         default: ''

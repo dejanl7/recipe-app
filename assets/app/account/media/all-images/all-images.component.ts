@@ -59,7 +59,7 @@ export class AllImagesComponent implements OnInit {
     deleteImage( selectedImageId: string, selctedImageName: string ){
         this.imagesService.deleteImage(this.imgId, this.newImgName)
         .subscribe( (deleteResult) => {
-            //console.log(deleteResult);
+            console.log(deleteResult);
         });
     }
 }

@@ -123,7 +123,6 @@ router.get('/:id', function(req, res, next){
             obj: result
         });
     })
-    console.log('Test');
 });
 
 
@@ -141,8 +140,8 @@ router.delete('/delete/:id', function(req, res, next){
                 error: err
             });
         }
-        // Remove image 
-        /*image.remove(function(err, result) {
+        // Remove image  
+        image.remove(function(err, result) {
             if (err) {
                 return result.status(500).json({
                     title: 'An error occured during removing image...',
@@ -156,7 +155,7 @@ router.delete('/delete/:id', function(req, res, next){
                     obj: result
                 });
             });
-        }); */
+        });
     });
 });
 
