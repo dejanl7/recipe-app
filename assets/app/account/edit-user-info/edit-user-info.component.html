@@ -92,16 +92,21 @@
     Modal Dialog - choose profile image 
 =============================================== -->
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
+     <div class="modal-header">
+        <h4 class="modal-title">Choose Profile Image</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <p>One fine body&hellip;</p>
+    <div class="modal-body col-md-12">
+        <div class="row">
+            <div class="profile-img-container" *ngFor="let img of userImgs">
+                <img [src]="img" alt="image" class="img-fluid profile-img" (click)="c('Cross click')">
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
+        <!-- <button class="btn btn-success save-profile-image" type="button" (click)="saveImage(); c('Close click')">Save</button> -->
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

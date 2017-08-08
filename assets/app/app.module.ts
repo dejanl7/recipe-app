@@ -48,7 +48,7 @@ import { ImageInterface } from "./redux/interfaces";
         NotFoundComponent, 
         ErrorsComponent,
         UserVerificationComponent,
-        NavbarComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,

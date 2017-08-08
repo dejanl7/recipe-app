@@ -35,3 +35,61 @@ input.ng-valid.ng-touched {
 .help-message {
     color: #e74c3c;
 }
+img {
+    max-width: 100%;
+    min-height: 100%;
+}
+.save-profile-image {
+    background-color: #34495e;
+    color: #fff;
+    opacity: .8;
+    border: 1px solid #34495e;
+}
+.save-profile-image:hover {
+    opacity: 1;
+}
+.profile-img-container {
+    width: 22%;
+    margin-left: 1.5%;
+    margin-right: .5%;
+    padding: 10px;
+}
+.profile-img {
+    width: 100%;
+    max-height: 140px;
+    object-fit: contain;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -ms-transition: background-color .2s;
+    -o-transition: background-color .2s;
+    transition: background-color .2s;
+}
+.profile-img:hover {
+    cursor: pointer;
+    opacity: .7;
+    background-color: rgba(189, 195, 199, 1.0);
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .profile-img-container {
+        width: 28%;
+        margin-left: 2.66%;
+        margin-right: 2.66%;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 767px) {
+    .profile-img-container {
+        width: 45%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+}
+
+@media screen and (max-width: 449px) {
+    .profile-img-container {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}

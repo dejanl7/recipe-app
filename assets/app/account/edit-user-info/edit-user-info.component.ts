@@ -3,6 +3,7 @@ import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserInfoModel } from "../models/userInfo.model";
 import { UserService } from "../../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import { ImagesService } from "../../services/images.service";
 
 
 @Component({
@@ -17,9 +18,10 @@ export class EditUserInfoComponent implements OnInit {
     userInformation: UserInfoModel;
     allEmails: Array<string> = [];
     closeResult: string;
+    userImgs: Array<string> = [];
 
 
-    constructor( private editUserService: UserService, private modalService: NgbModal ) { }
+    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService ) { }
 
 
     ngOnInit() {
@@ -51,6 +53,13 @@ export class EditUserInfoComponent implements OnInit {
             });
         });
         
+        this.imagesService.getUserImages()
+        .subscribe( (userImgs) => {
+            const allUserImages = userImgs.uploadedImages;
+            for( let im=0; im<allUserImages.length; im++) {
+                this.userImgs.push(allUserImages[im].imagePath);
+            }
+        });
     }
 
     /*=======================
@@ -67,8 +76,8 @@ export class EditUserInfoComponent implements OnInit {
     
     // Modal Dialog
     open(content) {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
+        this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+            console.log('Opened');
         }, (reason) => {
             this.closeResult = `Dismissed`;
         });

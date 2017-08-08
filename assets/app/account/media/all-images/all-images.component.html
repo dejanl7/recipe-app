@@ -35,11 +35,11 @@
         </button>
     </div>
     <div class="modal-body">
-        <img [src]="img" alt="image" class="img-responsive">
+        <img [src]="img" alt="image" class="img-fluid">
         <p>Image Name: <span><strong>{{ imgName }}</strong></span></p>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-danger" type="button" (click)="deleteImage(imgId, newImgName); c('Close click')" data-dismiss="imageContent">Delete {{ openModal }}</button>
+        <button class="btn btn-danger" type="button" (click)="deleteImage(imgId, newImgName); c('Close click')" data-dismiss="imageContent">Delete</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
