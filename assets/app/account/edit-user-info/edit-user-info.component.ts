@@ -77,7 +77,7 @@ export class EditUserInfoComponent implements OnInit {
     // Modal Dialog
     open(content) {
         this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-            console.log('Opened');
+            //console.log('Opened');
         }, (reason) => {
             this.closeResult = `Dismissed`;
         });

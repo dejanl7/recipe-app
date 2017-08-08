@@ -17,6 +17,7 @@ import { AccountRouting } from "./account.routing";
 
 // Import Pipe
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ImagesService } from "../services/images.service";
 
 
 
@@ -36,6 +37,9 @@ import { TimeAgoPipe } from 'time-ago-pipe';
       FormsModule,
       ReactiveFormsModule,
       AccountRouting
+  ],
+  providers: [
+      ImagesService
   ]
 })
 
