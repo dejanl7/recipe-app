@@ -12,7 +12,12 @@
                 <a [routerLink]="['/account']"><i class="fa fa-user-o"></i> <span class="list-name">User Info</span></a>
             </li>
             <li class="navigation-elements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a [routerLink]="['/account/media']"><i class="fa fa-picture-o"></i> <span class="list-name">Media</span> <span class="badge badge-default badge-pill" *ngIf="(imagesInfoLength | async) > 0">{{ imagesInfoLength | async }}</span></a> 
+                <a [routerLink]="['/account/media']"><i class="fa fa-picture-o"></i> <span class="list-name">Media</span> 
+                    <span class="badge badge-default badge-pill" *ngIf="(imagesInfoLength | async) > 0; else withoutRedux">{{ imagesInfoLength | async }}</span>
+                    <ng-template #withoutRedux>
+                        <span class="badge badge-default badge-pill">{{ imgInfoLength }}</span>
+                    </ng-template>
+                </a> 
             </li>
             <li class="navigation-elements">
                 <a><i class="fa fa-book"></i> <span class="list-name" (click)="showSubmenu = !showSubmenu">Recipes <i class="fa" [class.fa-chevron-down]="showSubmenu" [class.fa-chevron-up]="!showSubmenu"></i></span></a>
