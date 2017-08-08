@@ -7,7 +7,7 @@
                     <img class="card-img-top" [src]="img.imagePath" alt="uploaded-image">
                     <div class="card-block">
                         <h4 class="card-title text-left">{{ img.imageName }}</h4>
-                        <button class="btn btn-secondary image-details" type="button" (click)="open(imageContent, img._id, img.imagePath, img.imageName, img.newImageName)">Details</button>
+                        <button class="btn btn-secondary image-details" type="button" data-target="imageContent" (click)="open(imageContent, img._id, img.imagePath, img.imageName, img.newImageName)">Details</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <p>Image Name: <span><strong>{{ imgName }}</strong></span></p>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-danger" type="button" (click)="deleteImage(imgId, newImgName)">Delete</button>
+        <button class="btn btn-danger" type="button" (click)="deleteImage(imgId, newImgName); c('Close click')" data-dismiss="imageContent">Delete {{ openModal }}</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

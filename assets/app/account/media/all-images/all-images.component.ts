@@ -1,11 +1,12 @@
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../../services/images.service";
 import { ImagesModel } from "../../models/images.model";
 import { select, NgRedux } from "ng2-redux";
-import { GET_IMAGES_INFO } from "../../../redux/actions";
+import { GET_IMAGES_INFO, GET_IMAGES_STATE } from "../../../redux/actions";
 import { ImageInterface } from "../../../redux/interfaces";
 import { UserService } from "../../../services/user.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -28,9 +29,11 @@ export class AllImagesComponent implements OnInit {
     constructor (
         private imagesService: ImagesService, 
         private modalService: NgbModal, 
+        private modalActive: NgbActiveModal,
         private renderer: Renderer2, 
         private el: ElementRef,
-        private ngRedux: NgRedux<ImageInterface>
+        private ngRedux: NgRedux<ImageInterface>,
+        private router: Router
     ){}
 
 
@@ -58,8 +61,11 @@ export class AllImagesComponent implements OnInit {
     // Delete Image
     deleteImage( selectedImageId: string, selctedImageName: string ){
         this.imagesService.deleteImage(this.imgId, this.newImgName)
-        .subscribe( (deleteResult) => {
-            console.log(deleteResult);
+        .subscribe( (deleteResult) => { 
+            return this.imagesService.getUserImages()
+            .subscribe( (userImgs) => {
+                this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+            });
         });
     }
 }
