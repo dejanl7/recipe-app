@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
-import { UserInfoModel } from "../models/userInfo.model";
 import { UserService } from "../../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../services/images.service";
+import { UserInfoModel } from "../../models/userInfo.model";
 
 
 @Component({
@@ -17,8 +17,10 @@ export class EditUserInfoComponent implements OnInit {
     editUserForm: FormGroup;
     userInformation: UserInfoModel;
     allEmails: Array<string> = [];
-    closeResult: string;
     userImgs: Array<string> = [];
+    imageIds: Array<string> = [];
+    selectedImg: string;
+    closeResult: string;
 
 
     constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService ) { }
@@ -38,6 +40,7 @@ export class EditUserInfoComponent implements OnInit {
             this.userInformation = userInfo;
         
             this.editUserForm = new FormGroup({
+                'editProfileImage': new FormControl(userInfo.profileImage),
                 'editFirstName': new FormControl(userInfo.firstName, [Validators.required, Validators.minLength(2), Validators.pattern("^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$")]),
                 'editLastName': new FormControl(userInfo.lastName, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9_À-ž \' \u0400-\u04ff.-]*$')]),
                 'editUsername': new FormControl({ value: userInfo.username, disabled: true }, Validators.required),
@@ -58,6 +61,7 @@ export class EditUserInfoComponent implements OnInit {
             const allUserImages = userImgs.uploadedImages;
             for( let im=0; im<allUserImages.length; im++) {
                 this.userImgs.push(allUserImages[im].imagePath);
+                this.imageIds.push(allUserImages[im]._id);
             }
         });
     }
@@ -65,15 +69,23 @@ export class EditUserInfoComponent implements OnInit {
     /*=======================
         Methods
     =========================*/
+    // Choose Profile Image
+    getImgPath( imgPath: string ) {
+        this.selectedImg  = imgPath;
+        return this.editUserForm.value.profileImage = imgPath;
+    }
+    getAvatarImg() {
+        this.selectedImg = '/images/avatar-profile.png';
+    }
+
     updateUserInfo() {
         const updatedInfo = this.editUserForm.value;
-        
         this.editUserService.updateUserInfo(updatedInfo)
         .subscribe( (result) => {
-            return this.userInformation = result.obj;
+            this.userInformation = result.obj;
         });
     }
-    
+
     // Modal Dialog
     open(content) {
         this.modalService.open(content, {size: 'lg'}).result.then((result) => {
@@ -82,5 +94,6 @@ export class EditUserInfoComponent implements OnInit {
             this.closeResult = `Dismissed`;
         });
     }
+
 
 }

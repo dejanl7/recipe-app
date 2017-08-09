@@ -1,6 +1,9 @@
 #edit-user-info-form {
     margin-bottom: 100px;
 }
+#profile-image-form {
+    display: none;
+}
 .user-info-title {
     margin-bottom: 20px;
 }
@@ -54,10 +57,11 @@ img {
     margin-right: .5%;
     padding: 10px;
 }
+.profile-image,
 .profile-img {
-    width: 100%;
-    max-height: 140px;
-    object-fit: contain;
+    width: 140px;
+    height: 140px;
+    object-fit: fill;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
     -ms-transition: background-color .2s;

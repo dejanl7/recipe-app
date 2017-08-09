@@ -105,7 +105,7 @@ router.post('/', function(req, res, next) {
 router.get('/:id', function(req, res, next){
     var decoded = jwt.decode(req.query.token);
     
-    User.findById(decoded.user._id)
+    User.findById(req.params.id)
     .select('uploadedImages')
     .populate({
         path: 'uploadedImages',
@@ -118,8 +118,14 @@ router.get('/:id', function(req, res, next){
                 error: err
             });
         }
+        if(result._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to get these images!',
+                error: err
+            })
+        }
         res.status(200).json({
-            message: 'Successful getting email...',
+            message: 'Successful getting image...',
             obj: result
         });
     })
@@ -139,6 +145,12 @@ router.delete('/delete/:id', function(req, res, next){
                 title: 'An error occured - removing image...',
                 error: err
             });
+        }
+        if(image.uploadedBy != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to delete this image!',
+                error: err
+            })
         }
         // Remove image  
         image.remove(function(err, result) {

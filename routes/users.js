@@ -232,6 +232,12 @@ router.get('/account/:id', function(req, res, next) {
                 error: err
             });
         }
+        if(result._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to get user information!',
+                error: err
+            })
+        }
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result
@@ -246,12 +252,18 @@ router.get('/account/:id', function(req, res, next) {
 router.patch('/account/:id', function(req, res, next){
     var decoded = jwt.decode(req.query.token);
 
-    User.findById(decoded.user._id, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occured during the update user...',
                 error: err
             });
+        }
+        if(user._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to delete this message!',
+                error: err
+            })
         }
         if(!user) {
             return res.status(500).json({
@@ -264,11 +276,12 @@ router.patch('/account/:id', function(req, res, next){
         // Sanitize records and save user info update
         sanitizedContent = sanitize(req.body);
         
-        user.firstName   = sanitizedContent.editFirstName || user.firstName;
-        user.lastName    = sanitizedContent.editLastName || user.lastName;
-        user.email       = sanitizedContent.editEmail || user.email;
-        user.address     = sanitizedContent.editAddress || user.address;
-        user.dateUpdated = Date.now();
+        user.profileImage = sanitizedContent.editProfileImage || user.profileImage;
+        user.firstName    = sanitizedContent.editFirstName || user.firstName;
+        user.lastName     = sanitizedContent.editLastName || user.lastName;
+        user.email        = sanitizedContent.editEmail || user.email;
+        user.address      = sanitizedContent.editAddress || user.profileImage;
+        user.dateUpdated  = Date.now();
        
 
         user.save(function(err, result){

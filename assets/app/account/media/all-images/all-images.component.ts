@@ -60,12 +60,14 @@ export class AllImagesComponent implements OnInit {
 
     // Delete Image
     deleteImage( selectedImageId: string, selctedImageName: string ){
-        this.imagesService.deleteImage(this.imgId, this.newImgName)
-        .subscribe( (deleteResult) => { 
-            return this.imagesService.getUserImages()
-            .subscribe( (userImgs) => {
-                this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+        if(confirm("Are you sure to delete?")) {
+            this.imagesService.deleteImage(this.imgId, this.newImgName)
+            .subscribe( (deleteResult) => { 
+                return this.imagesService.getUserImages()
+                .subscribe( (userImgs) => {
+                    this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+                });
             });
-        });
+        }
     }
 }

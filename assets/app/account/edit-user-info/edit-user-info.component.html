@@ -6,9 +6,23 @@
         <div class="form-group">
             <p><label>Profile Image</label></p>
             <div>
-                <img [src]="userInformation.profileImage != '' ? userInformation.profileImage : '/images/avatar-profile.png'" alt="Profile image">
+                <img [src]="userInformation.profileImage ? userInformation.profileImage : '/images/avatar-profile.png'" class="profile-image" *ngIf="!selectedImg; else selectedImgContent" onError="this.src='/images/avatar-profile.png'">
+                <ng-template #selectedImgContent>
+                    <img [src]="selectedImg" alt="Profile image" class="profile-image">
+                </ng-template>
                 <button class="btn btn-secondary edit-profile-image" type="button" (click)="open(content)">Choose</button>
             </div>
+        </div>
+        <div class="form-group" id="profile-image-form">
+            <label for="editFirstName">Image</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="editProfileImage" 
+                placeholder="Profile Image"
+                formControlName="editProfileImage"
+                [ngModel]="selectedImg ? selectedImg : ''"
+            >
         </div>
         <div class="form-group">
             <label for="editFirstName">First Name</label>
@@ -100,13 +114,16 @@
     </div>
     <div class="modal-body col-md-12">
         <div class="row">
-            <div class="profile-img-container" *ngFor="let img of userImgs">
-                <img [src]="img" alt="image" class="img-fluid profile-img" (click)="c('Cross click')">
+            <div class="profile-img-container" *ngFor="let img of userImgs; let i=index">
+                <img [src]="img" alt="image" class="img-fluid profile-img" (click)="getImgPath(img); c('Close click')">
+            </div>
+            <div class="profile-img-container">
+                 <img [src]="'/images/avatar-profile.png'" alt="image" class="img-fluid profile-img" (click)="getAvatarImg(); c('Close click')">
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <button class="btn btn-success save-profile-image" type="button" (click)="saveImage(); c('Close click')">Save</button> -->
+        <!--  <button class="btn btn-success save-profile-image" type="button" (click)="saveImage(); c('Close click')">Ok</button> -->
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
