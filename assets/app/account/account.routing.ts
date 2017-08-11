@@ -5,11 +5,14 @@ import { AccountComponent } from "./account.component";
 import { RecipesComponent } from './recipes/recipes.component';
 
 import { RouteLoggedInService } from "../route-protected-services/protected-loggedout-route.service";
+import { CanDeactivateGuard } from "../route-protected-services/can-deactivate-guard.service";
+import { EditUserInfoComponent } from "./edit-user-info/edit-user-info.component";
 
 
 const ACCOUNT_ROUTES: Routes = [
     { path: '', component: AccountComponent, canActivate: [RouteLoggedInService], children: [
-        { path: '', loadChildren: './edit-user-info/edituser.module#EditUserInfoModule' },
+        //{ path: '', loadChildren: './edit-user-info/edituser.module#EditUserInfoModule', canDeactivate: [CanDeactivateGuard] },
+        { path: '', component: EditUserInfoComponent, canDeactivate: [CanDeactivateGuard] },
         { path: 'media', loadChildren: './media/media.module#MediaModule' },
         { path: 'recipes', component: RecipesComponent },
         { path: 'comments', loadChildren: './comments/comments.module#CommentsModule' },

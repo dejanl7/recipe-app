@@ -14,6 +14,10 @@ import { AccountRouting } from "./account.routing";
 // Services
 import { ImagesService } from "../services/images.service";
 import { UserService } from "../services/user.service";
+import { CanDeactivateGuard } from "../route-protected-services/can-deactivate-guard.service";
+import { EditUserInfoComponent } from "./edit-user-info/edit-user-info.component";
+import { TimeAgoModule } from "../shared/timeago.module";
+import { PaginationModule } from "../shared/pagination.module";
 
 
 
@@ -21,17 +25,21 @@ import { UserService } from "../services/user.service";
   declarations: [
       AccountComponent,
       RecipesComponent,
+      EditUserInfoComponent
   ],
   imports: [
       CommonModule,
       HttpModule,
       FormsModule,
       ReactiveFormsModule,
-      AccountRouting
+      AccountRouting,
+      TimeAgoModule,
+      PaginationModule
   ],
   providers: [
       UserService,
-      ImagesService
+      ImagesService,
+      CanDeactivateGuard
   ]
 })
 

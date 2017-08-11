@@ -7,6 +7,8 @@ import { ImagesService } from "../../services/images.service";
 import { UserInfoModel } from "../../models/userInfo.model";
 import { ImageInterface } from "../../redux/interfaces";
 import { GET_PROFILE_IMAGE } from "../../redux/actions";
+import { CanComponentDeactivate } from "../../route-protected-services/can-deactivate-guard.service";
+import { Observable } from "rxjs/Observable";
 
 
 @Component({
@@ -16,16 +18,17 @@ import { GET_PROFILE_IMAGE } from "../../redux/actions";
 })
 
 
-export class EditUserInfoComponent implements OnInit {
+export class EditUserInfoComponent implements OnInit, CanComponentDeactivate {
     editUserForm: FormGroup;
     userInformation: UserInfoModel;
     allEmails: Array<string> = [];
     userImgs: Array<string> = [];
     imageIds: Array<string> = [];
     selectedImg: string;
+    allowedChangeRoute: boolean = true;
     closeResult: string;
     isUpdated: boolean = false;
-
+    profileImg: string;
 
     constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
 
@@ -42,6 +45,7 @@ export class EditUserInfoComponent implements OnInit {
         this.editUserService.getUserAccountInfo()
         .subscribe( (userInfo: UserInfoModel) => {
             this.userInformation = userInfo;
+            this.profileImg = userInfo.profileImage;
         
             this.editUserForm = new FormGroup({
                 'editProfileImage': new FormControl(userInfo.profileImage),
@@ -51,14 +55,22 @@ export class EditUserInfoComponent implements OnInit {
                 'editEmail': new FormControl(userInfo.email, [Validators.required, Validators.email]),
                 'editAddress': new FormControl(userInfo.address, Validators.pattern('^[a-zA-Z0-9_À-ž \' \/ \u0400-\u04ff.-]*$'))
             });
-
+            
+            // Watch E-mails changes and check matching
             this.editUserForm.get('editEmail').valueChanges
             .subscribe( (value) => {
                 if( this.allEmails.indexOf(value) !== -1 && this.userInformation.email !== value ) {
                     return this.editUserForm.controls.editEmail.setErrors({'ReservedEmail': true});
                 }
             });
+
+            // Check all form changes and ask confirm question
+            this.editUserForm.valueChanges
+            .subscribe( (values) => {
+                this.allowedChangeRoute = false;
+            });
         });
+
         
         this.imagesService.getUserImages()
         .subscribe( (userImgs) => {
@@ -98,6 +110,7 @@ export class EditUserInfoComponent implements OnInit {
             this.ngRedux.dispatch({ type: GET_PROFILE_IMAGE, profileImgPayload: result.obj.profileImage });
         });
         this.isUpdated = false;
+        this.allowedChangeRoute = true;
     }
 
     // Modal Dialog
@@ -107,6 +120,26 @@ export class EditUserInfoComponent implements OnInit {
         }, (reason) => {
             this.closeResult = `Dismissed`;
         });
+    }
+
+
+    // Protected from leaving unsaved data
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+        if ( this.allowedChangeRoute ) {
+            return true;
+        }
+        else if ( this.editUserForm.value.editProfileImage !== this.profileImg || 
+            this.editUserForm.value.editFirstName !== this.userInformation.firstName ||
+            this.editUserForm.value.editLastName !== this.userInformation.lastName ||
+            this.editUserForm.value.editEmail !== this.userInformation.email ||
+            this.editUserForm.value.editAddress !== this.userInformation.address
+        ) {
+            this.allowedChangeRoute = false;
+            return confirm('Do you want to discard the changes?');
+        }
+            else {
+                return true;
+            }
     }
 
 
