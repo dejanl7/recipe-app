@@ -97,3 +97,63 @@ img {
         margin-right: 5%;
     }
 }
+
+
+/*===========================
+    Key Frames
+=============================*/
+@-webkit-keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    17% {
+        opacity: 1;
+    }
+    84% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    17% {
+        opacity: 1;
+    }
+    84% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.updated {
+    opacity: 0;
+    position: fixed;
+    top: 14%; left: 0; right: 0;
+    justify-content: center;
+    margin-top: 40px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+.updated p {
+    top: -20px;
+}
+.updated span {
+    position: relative;
+    top: -5px;
+}
+.updated i {
+    margin-left: 15px;
+    font-size: 34px;
+}
+.updated.hide {
+    -webkit-animation: fadeInOut 5s;
+    animation: fadeInOut 5s;
+    opacity: 0;
+}

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
+import { NgRedux } from "ng2-redux";
 import { UserService } from "../../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../services/images.service";
 import { UserInfoModel } from "../../models/userInfo.model";
+import { ImageInterface } from "../../redux/interfaces";
+import { GET_PROFILE_IMAGE } from "../../redux/actions";
 
 
 @Component({
@@ -21,9 +24,10 @@ export class EditUserInfoComponent implements OnInit {
     imageIds: Array<string> = [];
     selectedImg: string;
     closeResult: string;
+    isUpdated: boolean = false;
 
 
-    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService ) { }
+    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
 
 
     ngOnInit() {
@@ -83,7 +87,10 @@ export class EditUserInfoComponent implements OnInit {
         this.editUserService.updateUserInfo(updatedInfo)
         .subscribe( (result) => {
             this.userInformation = result.obj;
+            this.isUpdated = true;
+            this.ngRedux.dispatch({ type: GET_PROFILE_IMAGE, profileImgPayload: result.obj.profileImage });
         });
+        this.isUpdated = false;
     }
 
     // Modal Dialog

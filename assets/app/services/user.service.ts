@@ -44,6 +44,21 @@ export class UserService {
         }
     }
 
+    // Get profile image
+    getProfileImageAndEmail() {
+        const token = '?token=' + this.userToken; 
+        if( this.userToken){
+            return this.http.get(this.accountUrlAddress + 'profile-image/' + this.userId + token)
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+        }
+    }
+
     // Get all emails (from users)
     getUserEmails() {
         return this.http.get(this.accountUrlAddress + 'emails')

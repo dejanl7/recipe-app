@@ -112,11 +112,16 @@ a:hover {
 	text-align: center;
 }
 .user-image {
-    width: 40px;
+    width: 60px;
 	margin: auto;
 	display: block;
 	position: relative;
 	top: -14px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
 }
 .logged-info span {
     color: #fff;

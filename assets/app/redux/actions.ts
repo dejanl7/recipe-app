@@ -1,2 +1,2 @@
-export const GET_IMAGES_INFO  = 'GET_IMAGES_INFO';
-export const GET_IMAGES_STATE = 'GET_IMAGES_STATE';
+export const GET_IMAGES_INFO   = 'GET_IMAGES_INFO';
+export const GET_PROFILE_IMAGE = 'GET_PROFILE_IMAGE';

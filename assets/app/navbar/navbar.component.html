@@ -2,10 +2,11 @@
 	<div class="left-bigger-menu">
         <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-right"></i></span>
         <div class="logged-info">
-            <a>
-                <img [src]="userLogo ? userLogo : '/images/user-avatar.png'" class="user-image">
-                <span class="user-logged-account">dejan.verifolio.com <i class="icon-arrow-right"></i></span>
-            </a>
+                <img [src]="profileImage | async" class="user-image" alt="Profile Image" *ngIf="profileImage | async; else profileImgWithoutRedux">
+                <ng-template #profileImgWithoutRedux>
+                    <img [src]="profileImg" class="user-image">
+                </ng-template>
+                <span class="user-logged-account">{{ userEmail }} <i class="icon-arrow-right"></i></span>
         </div>
 		<ul class="list-group navigation-group">
             <li class="navigation-elements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">

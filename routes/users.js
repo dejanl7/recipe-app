@@ -223,7 +223,7 @@ router.use('/account/', function(req, res, next) {
 router.get('/account/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     
-    User.findById(decoded.user._id)
+    User.findById(req.params.id)
     .select('firstName lastName username email profileImage address dateUpdated')
     .exec(function (err, result) {
         if (err) {
@@ -238,6 +238,36 @@ router.get('/account/:id', function(req, res, next) {
                 error: err
             })
         }
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: result
+        });
+    });
+});
+
+
+/*================================
+    Get Profile Image and email
+==================================*/
+router.get('/account/profile-image/:id', function(req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    
+    User.findById(req.params.id)
+    .select('profileImage email')
+    .exec(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - getting profile image problem...',
+                error: err
+            });
+        }
+        if(result._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to get user information!',
+                error: err
+            })
+        }
+        console.log(result);
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result

@@ -1,6 +1,5 @@
 import { tassign } from 'tassign'; 
-import { GET_IMAGES_INFO, GET_IMAGES_STATE } from './actions'; 
-import { ImagesModel } from "../account/models/images.model";
+import { GET_IMAGES_INFO, GET_PROFILE_IMAGE } from './actions';
 import { ImagesService } from '../services/images.service';
 import { ImageInterface } from "./interfaces";
 
@@ -19,11 +18,13 @@ export const USER_IMAGES_STATE: ImageInterface = {
 function getUserImages(state, action) {  
     return tassign(state, { imagesInfo: action.imgPayload, imagesInfoLength: action.imgPayload.length });
 }
+ 
 
-function deleteUserImage(state, action) {
-    return tassign(state, {
-        imagesInfo: state.im
-    });
+/*===========================
+    Get User Images
+=============================*/
+function getProfileImage(state, action) {
+    return tassign(state, { profileImage: action.profileImgPayload });
 }
 
 
@@ -31,7 +32,7 @@ function deleteUserImage(state, action) {
 export function messagingReducer(state: ImageInterface = USER_IMAGES_STATE, action): ImageInterface {
     switch (action.type) {
         case GET_IMAGES_INFO: return getUserImages(state, action);
-        case GET_IMAGES_STATE: return deleteUserImage(state, action);
+        case GET_PROFILE_IMAGE: return getProfileImage(state, action);
     }
   return state; 
 }
