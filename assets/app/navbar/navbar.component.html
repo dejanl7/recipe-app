@@ -2,9 +2,9 @@
 	<div class="left-bigger-menu">
         <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-right"></i></span>
         <div class="logged-info">
-                <img [src]="(profileImage | async) === '/images/avatar-profile.png' ? '/images/user-avatar.png' : (profileImage | async)" class="user-image" alt="Profile Image" *ngIf="profileImage | async; else profileImgWithoutRedux">
+                <img [src]="(profileImage | async) === '/images/avatar-profile.png' ? '/images/user-avatar.png' : (profileImage | async)" class="user-image" alt="Profile Image" *ngIf="profileImage | async; else profileImgWithoutRedux" onError="this.src='/images/user-avatar.png'">
                 <ng-template #profileImgWithoutRedux>
-                    <img [src]="profileImg === '/images/avatar-profile.png' || profileImg === '' ? '/images/user-avatar.png' : profileImg" class="user-image">
+                    <img [src]="profileImg === '/images/avatar-profile.png' || profileImg === '' ? '/images/user-avatar.png' : profileImg" class="user-image" onError="this.src='/images/user-avatar.png'">
                 </ng-template>
                 <span class="user-logged-account">{{ userEmail }} <i class="icon-arrow-right"></i></span>
         </div>
