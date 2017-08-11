@@ -2,11 +2,8 @@ import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 import { HomeComponent } from "./home/home.component";
-import { ShopComponent } from "./shop/shop.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
-import { AccountComponent } from "./account/account.component";
-import { NotFoundComponent } from "./not-found/not-found.component";
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 
 import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
@@ -17,12 +14,12 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
 const APP_ROUTES: Routes = [
     { path: '', component: HomeComponent },
     { path: 'profiles', loadChildren: './profiles/profiles.module#ProfilesModule' },
-    { path: 'shop', component: ShopComponent, canActivate: [RouteLoggedInService] },
+    { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent, canActivate: [RouteLoggedOutService] },
     { path: 'user-verification/:id', component: UserVerificationComponent },
     { path: 'account', loadChildren: './account/account.module#AccountModule' },
-    { path: 'not-found', component: NotFoundComponent },
+    { path: 'not-found', loadChildren: './notfound/notFound.module#NotFoundModule' },
     { path: '**', redirectTo: '/not-found' },
 ];
 

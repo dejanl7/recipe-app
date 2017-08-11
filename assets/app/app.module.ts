@@ -13,10 +13,8 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { ShopComponent } from './shop/shop.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorsComponent } from './errors/errors.component';
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -42,10 +40,8 @@ import { ImageInterface } from "./redux/interfaces";
         AppComponent, 
         HeaderComponent, 
         HomeComponent, 
-        ShopComponent, 
         LoginComponent, 
         SignupComponent, 
-        NotFoundComponent, 
         ErrorsComponent,
         UserVerificationComponent,
         NavbarComponent
