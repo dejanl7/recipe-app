@@ -10,10 +10,10 @@ import { NewImagesComponent } from "./new-images/new-images.component";
 
 // Routing and other
 import { MediaRouting } from "./media.routing"; // Routing
-import { UploadModule } from "../shared/upload.module";
 import { ImagesService } from "../../services/images.service";
 import { UserService } from "../../services/user.service";
-import { PaginationModule } from "../shared/pagination.module";
+import { UploadModule } from "../../shared/upload.module";
+import { PaginationModule } from "../../shared/pagination.module";
 
 
 

@@ -56,7 +56,5 @@ export class NewImagesComponent implements OnInit {
 
     fileOverBase(e:any) {
         this.hasBaseDropZoneOver = e;
-        console.log(e);
-        //this.renderer.setStyle(this.element.nativeElement , 'backgroundColor', '#ecf0f1')
     }
 }

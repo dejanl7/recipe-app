@@ -127,7 +127,7 @@
             <div class="profile-img-container">
                  <img [src]="'/images/avatar-profile.png'" alt="image" class="img-fluid profile-img" (click)="getAvatarImg(); c('Close click')">
             </div>
-            <div class="pagination-me" *ngIf="userImgs.length > 0">
+            <div class="pagination-me" *ngIf="userImgs.length > 7">
                 <pagination-controls
                     (pageChange)="p = $event"
                     previousLabel= ""
@@ -137,7 +137,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <!--  <button class="btn btn-success save-profile-image" type="button" (click)="saveImage(); c('Close click')">Ok</button> -->
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
