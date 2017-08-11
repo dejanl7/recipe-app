@@ -26,7 +26,7 @@ export class NewImagesComponent implements OnInit {
 
     ngOnInit() {
         this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-            return this.imagesService.getUserImages()
+            this.imagesService.getUserImages()
             .subscribe((imagesFromService) => {
                 for( let i=0; i<imagesFromService.uploadedImages.length; i++ ){
                   this.imagesFromUser.push(imagesFromService.uploadedImages[i].imagePath);

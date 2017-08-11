@@ -33,7 +33,6 @@ import { ImagesService } from "./services/images.service";
 // Import REDUX
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
 import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
-import { ImagesModel } from "./account/models/images.model";
 import { ImageInterface } from "./redux/interfaces";
 
 

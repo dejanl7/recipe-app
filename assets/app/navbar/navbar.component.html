@@ -2,9 +2,9 @@
 	<div class="left-bigger-menu">
         <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-right"></i></span>
         <div class="logged-info">
-                <img [src]="profileImage | async" class="user-image" alt="Profile Image" *ngIf="profileImage | async; else profileImgWithoutRedux">
+                <img [src]="(profileImage | async) === '/images/avatar-profile.png' ? '/images/user-avatar.png' : (profileImage | async)" class="user-image" alt="Profile Image" *ngIf="profileImage | async; else profileImgWithoutRedux">
                 <ng-template #profileImgWithoutRedux>
-                    <img [src]="profileImg" class="user-image">
+                    <img [src]="profileImg === '/images/avatar-profile.png' ? '/images/user-avatar.png' : profileImg" class="user-image">
                 </ng-template>
                 <span class="user-logged-account">{{ userEmail }} <i class="icon-arrow-right"></i></span>
         </div>
@@ -16,7 +16,7 @@
                 <a [routerLink]="['/account/media']"><i class="fa fa-picture-o"></i> <span class="list-name">Media</span> 
                     <span class="badge badge-default badge-pill" *ngIf="(imagesInfoLength | async) > 0; else withoutRedux">{{ imagesInfoLength | async }}</span>
                     <ng-template #withoutRedux>
-                        <span class="badge badge-default badge-pill">{{ imgInfoLength }}</span>
+                        <span class="badge badge-default badge-pill" *ngIf="imgInfoLength > 0">{{ imgInfoLength }}</span>
                     </ng-template>
                 </a> 
             </li>

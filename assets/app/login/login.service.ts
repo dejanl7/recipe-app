@@ -32,10 +32,13 @@ export class LoginService {
     // Logout
     logout() {
           if( localStorage.getItem('token') !== null ){
-              localStorage.clear();
+            localStorage.clear();     
+            location.reload();
           }
           else {
-              sessionStorage.clear();
+            sessionStorage.clear();
+            window.location.reload();   
+            location.reload();
           }
     }
     

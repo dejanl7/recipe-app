@@ -75,11 +75,19 @@ export class EditUserInfoComponent implements OnInit {
     =========================*/
     // Choose Profile Image
     getImgPath( imgPath: string ) {
-        this.selectedImg  = imgPath;
-        return this.editUserForm.value.profileImage = imgPath;
+        console.log(imgPath);
+        if(imgPath == '') {
+            this.selectedImg  = '/images/user-avatar.png';
+            return this.editUserForm.value.profileImage = '/images/user-avatar.png';
+        }
+        else {
+            this.selectedImg  = imgPath;
+            return this.editUserForm.value.profileImage = imgPath;
+        }
     }
     getAvatarImg() {
         this.selectedImg = '/images/avatar-profile.png';
+        return this.editUserForm.value.profileImage = '/images/user-avatar.png';
     }
 
     updateUserInfo() {
