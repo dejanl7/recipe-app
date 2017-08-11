@@ -4,7 +4,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components and modules
-import { FileUploadModule } from "ng2-file-upload";
 import { MediaComponent } from "./media.component";
 import { AllImagesComponent } from "./all-images/all-images.component";
 import { NewImagesComponent } from "./new-images/new-images.component";
@@ -12,7 +11,7 @@ import { NewImagesComponent } from "./new-images/new-images.component";
 // Routing and other
 import { MediaRouting } from "./media.routing"; // Routing
 import { NgxPaginationModule } from "ngx-pagination/dist/ngx-pagination";
-import { SharedModule } from "../shared/shared.module";
+import { UploadModule } from "../shared/upload.module";
 import { ImagesService } from "../../services/images.service";
 import { UserService } from "../../services/user.service";
 
@@ -29,8 +28,7 @@ import { UserService } from "../../services/user.service";
       ReactiveFormsModule,
       MediaRouting,
       NgxPaginationModule,
-      FileUploadModule, 
-      SharedModule
+      UploadModule
   ],
   providers: [
       ImagesService,

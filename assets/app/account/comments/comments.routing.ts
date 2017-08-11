@@ -5,11 +5,11 @@ import { CommentsComponent } from "./comments.component";
 
 
 
-const PROFILES_ROUTES: Routes = [
+const COMMENT_ROUTES: Routes = [
     { path: '', component: CommentsComponent },
 ];
 
 
 
 
-export const CommentsRouting = RouterModule.forChild(PROFILES_ROUTES);
+export const CommentsRouting = RouterModule.forChild(COMMENT_ROUTES);

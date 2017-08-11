@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 
+
+
 @NgModule({
     imports: [
-         FileUploadModule
+        FileUploadModule,
     ],  
     exports: [ 
         FileSelectDirective, 
@@ -15,4 +17,4 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
         FileUploadModule
     ]
 })
-export class SharedModule { }
+export class UploadModule { }

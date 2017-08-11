@@ -1,9 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../../services/images.service";
-import { ImagesModel } from "../../models/images.model";
 import { select, NgRedux } from "ng2-redux";
-import { GET_IMAGES_INFO, GET_IMAGES_STATE } from "../../../redux/actions";
+import { GET_IMAGES_INFO } from "../../../redux/actions";
 import { ImageInterface } from "../../../redux/interfaces";
 import { UserService } from "../../../services/user.service";
 import { Router } from "@angular/router";

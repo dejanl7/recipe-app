@@ -5,11 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.css']
 })
+
+
 export class RatingsComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {}
 
 }
