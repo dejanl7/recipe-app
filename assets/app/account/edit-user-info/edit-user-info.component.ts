@@ -75,7 +75,6 @@ export class EditUserInfoComponent implements OnInit {
     =========================*/
     // Choose Profile Image
     getImgPath( imgPath: string ) {
-        console.log(imgPath);
         if(imgPath == '') {
             this.selectedImg  = '/images/user-avatar.png';
             return this.editUserForm.value.profileImage = '/images/user-avatar.png';

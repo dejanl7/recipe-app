@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../login/login.service";
 import { Router } from "@angular/router";
 import { select } from "ng2-redux";
+import { LoginService } from "../services/login.service";
 
 @Component({
   selector: 'app-header',

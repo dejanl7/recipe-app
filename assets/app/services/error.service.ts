@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { ErrorModel } from "./errors.model";
+import { ErrorModel } from "../models/errors.model";
 
 @Injectable()
 

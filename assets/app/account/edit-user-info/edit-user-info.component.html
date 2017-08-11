@@ -121,11 +121,18 @@
     </div>
     <div class="modal-body col-md-12">
         <div class="row">
-            <div class="profile-img-container" *ngFor="let img of userImgs; let i=index">
+            <div class="profile-img-container" *ngFor="let img of userImgs | paginate: { itemsPerPage: 7, currentPage: p }; let i=index">
                 <img [src]="img" alt="image" class="img-fluid profile-img" (click)="getImgPath(img); c('Close click')">
             </div>
             <div class="profile-img-container">
                  <img [src]="'/images/avatar-profile.png'" alt="image" class="img-fluid profile-img" (click)="getAvatarImg(); c('Close click')">
+            </div>
+            <div class="pagination-me" *ngIf="userImgs.length > 0">
+                <pagination-controls
+                    (pageChange)="p = $event"
+                    previousLabel= ""
+                    nextLabel=""
+                ></pagination-controls>
             </div>
         </div>
     </div>

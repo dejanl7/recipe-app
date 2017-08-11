@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms/src/forms";
 import { Router } from "@angular/router";
-
-import { SignUpModel } from "../signup/signup.model";
-import { LoginService } from "./login.service";
+import { LoginService } from "../services/login.service";
+import { SignUpModel } from "../models/signup.model";
 
 
 @Component({
@@ -27,12 +26,12 @@ export class LoginComponent {
                     if(user.remember){
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('userId', data.userId);
-                        this.router.navigateByUrl('/account');
+                        this.router.navigateByUrl('/');
                     }
                     else {
                         sessionStorage.setItem('token', data.token);
                         sessionStorage.setItem('userId', data.userId);
-                        this.router.navigateByUrl('/account');
+                        this.router.navigateByUrl('/');
                     }
                 },  
                 error => console.error(error)

@@ -21,10 +21,10 @@ import { ErrorsComponent } from './errors/errors.component';
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 
-import { SignUpService } from "./signup/signup.service";
-import { LoginService } from "./login/login.service";
-import { ErrorService } from "./errors/error.service";
-import { UserVerificationService } from "./user-verification/user-verification.service";
+import { SignUpService } from "./services/signup.service";
+import { LoginService } from "./services/login.service";
+import { ErrorService } from "./services/error.service";
+import { UserVerificationService } from "./services/user-verification.service";
 import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 import { UserService } from "./services/user.service";
@@ -34,6 +34,7 @@ import { ImagesService } from "./services/images.service";
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
 import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
 import { ImageInterface } from "./redux/interfaces";
+
 
 
 @NgModule({

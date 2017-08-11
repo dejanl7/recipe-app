@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { UserVerificationService } from "./user-verification.service";
+import { UserVerificationService } from "../services/user-verification.service";
 
 
 @Component({

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbActiveModal, NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { ErrorService } from "./error.service";
-import { ErrorModel } from "./errors.model";
+import { ErrorService } from "../services/error.service";
+import { ErrorModel } from "../models/errors.model";
+
 
 
 @Component({

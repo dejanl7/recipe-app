@@ -2,8 +2,8 @@ import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
-import { ErrorService } from "../errors/error.service";
 import { UserInfoModel } from "../models/userInfo.model";
+import { ErrorService } from "./error.service";
 
 @Injectable()
 

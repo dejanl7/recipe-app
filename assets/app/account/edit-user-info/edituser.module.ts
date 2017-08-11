@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditUserInfoComponent } from "./edit-user-info.component";
 import { EditUserInfoRouting } from "./edituser.routing";
 import { TimeAgoModule } from "../shared/timeago.module";
+import { PaginationModule } from "../shared/pagination.module";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TimeAgoModule } from "../shared/timeago.module";
         FormsModule,
         ReactiveFormsModule,
         EditUserInfoRouting,
-        TimeAgoModule
+        TimeAgoModule,
+        PaginationModule
     ]
 })
 

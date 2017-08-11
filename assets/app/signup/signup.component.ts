@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
-import { SignUpService } from "./signup.service";
-import { SignUpModel } from "./signup.model";
+import { SignUpModel } from "../models/signup.model";
+import { SignUpService } from "../services/signup.service";
+
 
 
 @Component({
