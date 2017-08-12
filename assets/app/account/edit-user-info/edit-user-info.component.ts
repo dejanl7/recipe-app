@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
-import { NgRedux } from "ng2-redux";
+import { NgRedux, select } from "ng2-redux";
 import { UserService } from "../../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../services/images.service";
@@ -29,6 +29,7 @@ export class EditUserInfoComponent implements OnInit, CanComponentDeactivate {
     closeResult: string;
     isUpdated: boolean = false;
     profileImg: string;
+    @select() profileImage;
 
     constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
 

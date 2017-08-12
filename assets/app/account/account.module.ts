@@ -14,8 +14,6 @@ import { AccountRouting } from "./account.routing";
 // Services
 import { ImagesService } from "../services/images.service";
 import { UserService } from "../services/user.service";
-import { CanDeactivateGuard } from "../route-protected-services/can-deactivate-guard.service";
-import { EditUserInfoComponent } from "./edit-user-info/edit-user-info.component";
 import { TimeAgoModule } from "../shared/timeago.module";
 import { PaginationModule } from "../shared/pagination.module";
 
@@ -24,8 +22,8 @@ import { PaginationModule } from "../shared/pagination.module";
 @NgModule({
   declarations: [
       AccountComponent,
-      RecipesComponent,
-      EditUserInfoComponent
+      RecipesComponent
+      
   ],
   imports: [
       CommonModule,
@@ -38,8 +36,7 @@ import { PaginationModule } from "../shared/pagination.module";
   ],
   providers: [
       UserService,
-      ImagesService,
-      CanDeactivateGuard
+      ImagesService
   ]
 })
 

@@ -152,6 +152,8 @@ router.delete('/delete/:id', function(req, res, next){
                 error: err
             })
         }
+        
+
         // Remove image  
         image.remove(function(err, result) {
             if (err) {

@@ -27,6 +27,7 @@ import { RouteLoggedInService } from "./route-protected-services/protected-logge
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 import { UserService } from "./services/user.service";
 import { ImagesService } from "./services/images.service";
+import { CanDeactivateGuard } from "./route-protected-services/can-deactivate-guard.service";
 
 // Import REDUX
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
@@ -64,7 +65,8 @@ import { ImageInterface } from "./redux/interfaces";
         RouteLoggedOutService,
         UserVerificationService,
         UserService, 
-        ImagesService
+        ImagesService,
+        CanDeactivateGuard
     ],
     bootstrap: [AppComponent],
 })

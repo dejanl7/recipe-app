@@ -6,10 +6,10 @@
         <div class="form-group">
             <p><label>Profile Image</label></p>
             <div>
-                <img [src]="userInformation.profileImage ? userInformation.profileImage : '/images/avatar-profile.png'" class="profile-image" *ngIf="!selectedImg; else selectedImgContent" onError="this.src='/images/avatar-profile.png'">
-                <ng-template #selectedImgContent>
-                    <img [src]="selectedImg" alt="Profile image" class="profile-image">
-                </ng-template>
+                <img [src]="(profileImage | async) ? (profileImage | async) : userInformation.profileImage" class="profile-image" onError="this.src='/images/avatar-profile.png'" [hidden]="selectedImg">
+                
+                <img [src]="selectedImg" alt="Profile image" class="profile-image" *ngIf="selectedImg">
+                
                 <button class="btn btn-secondary edit-profile-image" type="button" (click)="open(content)">Choose</button>
             </div>
         </div>

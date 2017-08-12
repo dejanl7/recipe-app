@@ -2,7 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../../services/images.service";
 import { select, NgRedux } from "ng2-redux";
-import { GET_IMAGES_INFO } from "../../../redux/actions";
+import { GET_IMAGES_INFO, DELETE_PROFILE_IMAGE } from "../../../redux/actions";
 import { ImageInterface } from "../../../redux/interfaces";
 import { UserService } from "../../../services/user.service";
 import { Router } from "@angular/router";
@@ -27,6 +27,7 @@ export class AllImagesComponent implements OnInit {
 
     constructor (
         private imagesService: ImagesService, 
+        private userService: UserService,
         private modalService: NgbModal, 
         private modalActive: NgbActiveModal,
         private renderer: Renderer2, 
@@ -63,8 +64,9 @@ export class AllImagesComponent implements OnInit {
             this.imagesService.deleteImage(this.imgId, this.newImgName)
             .subscribe( (deleteResult) => { 
                 return this.imagesService.getUserImages()
-                .subscribe( (userImgs) => {
-                    this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+                .subscribe( (userImg) => {
+                    this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImg.uploadedImages });
+                    this.ngRedux.dispatch({ type: DELETE_PROFILE_IMAGE, profileImgPayload: 'none' });
                 });
             });
         }
