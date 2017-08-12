@@ -21,6 +21,7 @@ export class AllImagesComponent implements OnInit {
     newImgName: string;
     img: string;
     imgId: string;
+    userImg: string;
     @select() imagesInfo;
     @select() imagesInfoLength;
 
@@ -38,6 +39,12 @@ export class AllImagesComponent implements OnInit {
 
 
     ngOnInit() {
+        this.userService.getProfileImageAndEmail()
+        .subscribe( (userProfile) => {
+            this.userImg = userProfile.profileImage;
+            console.log(this.userImg);
+        });
+
         this.imagesService.getUserImages()
         .subscribe( (userImgs) => {
             this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
@@ -51,6 +58,7 @@ export class AllImagesComponent implements OnInit {
         this.imgName    = imgName;
         this.newImgName = newImgName;
         this.imgId      = imgId;
+ 
         this.modalService.open(content).result.then((result) => {
             //console.log(result);
         }, (reason) => {
@@ -66,7 +74,9 @@ export class AllImagesComponent implements OnInit {
                 return this.imagesService.getUserImages()
                 .subscribe( (userImg) => {
                     this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImg.uploadedImages });
-                    this.ngRedux.dispatch({ type: DELETE_PROFILE_IMAGE, profileImgPayload: 'none' });
+                    if ( this.img == this.userImg ){
+                        this.ngRedux.dispatch({ type: DELETE_PROFILE_IMAGE, profileImgPayload: 'none' });
+                    }
                 });
             });
         }
