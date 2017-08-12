@@ -12,6 +12,10 @@
     justify-content: center;
     margin-bottom: 40px;
 }
+.media-images label {
+    position: relative;
+    top: 5px; left: 10px;
+}
 .media-images img {
     width: 100%;
     height: 140px;
@@ -43,7 +47,13 @@
 .pagination-next a:not(span){
     display: none;
 }
-
+.select-form {
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+.delete-images {
+    margin-top: 20px;
+}
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
     .media-images {

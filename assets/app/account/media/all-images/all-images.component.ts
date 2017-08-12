@@ -17,6 +17,7 @@ import { Router } from "@angular/router";
 
 export class AllImagesComponent implements OnInit {
     closeResult: string;
+    numberOfItemsPerPage: number = 8;
     imgName: string;
     newImgName: string;
     img: string;
@@ -24,6 +25,12 @@ export class AllImagesComponent implements OnInit {
     userImg: string;
     @select() imagesInfo;
     @select() imagesInfoLength;
+    images = [];
+    currentPage: number = 1;
+    isCheckedAll:boolean = false;
+    defaultOption = '';
+    checkedArray: Array<string> = [];
+    checkedNameArray: Array<string> = [];
 
 
     constructor (
@@ -37,19 +44,25 @@ export class AllImagesComponent implements OnInit {
         private router: Router
     ){}
 
+    // Subscribe to images function
+    getCurrentImages() {
+        this.imagesService.getUserImages()
+        .subscribe( (userImgs) => {
+            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+            this.images = userImgs.uploadedImages;
+        });
+    }
 
     ngOnInit() {
         this.userService.getProfileImageAndEmail()
         .subscribe( (userProfile) => {
             this.userImg = userProfile.profileImage;
-            console.log(this.userImg);
         });
 
-        this.imagesService.getUserImages()
-        .subscribe( (userImgs) => {
-            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
-        });
+        this.getCurrentImages();        
     } 
+
+
 
 
     // Modal Dialog
@@ -77,6 +90,82 @@ export class AllImagesComponent implements OnInit {
                     if ( this.img == this.userImg ){
                         this.ngRedux.dispatch({ type: DELETE_PROFILE_IMAGE, profileImgPayload: 'none' });
                     }
+                    this.checkedArray = [];
+                    this.checkedNameArray = [];
+                });
+            });
+        }
+    }
+
+    // Checked box
+    onChange(imgId: string, imgName: string,  isChecked: boolean) {
+        //this.getCurrentImages();
+
+        if( isChecked === true && this.checkedArray.indexOf(imgId) === -1 ){
+            this.checkedArray.push(imgId);
+            this.checkedNameArray.push(imgName);
+        }
+            else {
+                var index = this.checkedArray.indexOf(imgId);
+                this.checkedArray.splice(index, 1);
+                this.checkedNameArray.splice(index, 1);
+            }
+            console.log(this.checkedArray);
+            console.log(this.checkedNameArray);
+    }
+    
+    // Get Current Page
+    getCurrentPage(curPage: number) {
+        this.isCheckedAll = false;
+        this.checkedArray = [];
+        this.checkedNameArray = [];
+        return this.currentPage = curPage;
+    }
+
+    // Checked all boxes
+    checkedAll() {
+        // Get images state
+        //this.getCurrentImages();
+
+        this.isCheckedAll = !this.isCheckedAll;
+        this.checkedArray = [];
+        this.checkedNameArray = [];
+
+        if( this.isCheckedAll ){
+            var startCounting = this.currentPage * this.numberOfItemsPerPage - this.numberOfItemsPerPage;
+
+            for( let x = startCounting; x < this.currentPage * this.numberOfItemsPerPage; x++ ) {
+                if ( this.images[x] ) {
+                    this.checkedArray.push(this.images[x]._id);
+                    this.checkedNameArray.push(this.images[x].newImageName);
+                }
+            }
+        }
+            else {
+                this.checkedArray = [];
+                this.checkedNameArray = [];
+            }
+
+            console.log(this.checkedArray);
+            console.log(this.checkedNameArray);
+            console.log('Images: ');
+            console.log(this.images);
+
+    }
+
+    // Delete Multiple
+    deleteMultiple(){
+        if(confirm("Are you sure to delete selected images?")) {
+            this.imagesService.deleteMore(this.checkedArray, this.checkedNameArray)
+            .subscribe( (result) => { 
+                return this.imagesService.getUserImages()
+                .subscribe( (userImgs) => {
+                    this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+                    console.log(this.userImg);
+                    console.log(userImgs);
+                    this.checkedArray = [];
+                    this.checkedNameArray = [];
+                    this.isCheckedAll = false;
                 });
             });
         }

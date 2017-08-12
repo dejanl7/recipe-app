@@ -174,6 +174,37 @@ router.delete('/delete/:id', function(req, res, next){
 });
 
 
+/*=============================
+    Delete multiple images
+===============================*/
+router.delete('/delete', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+    
+    Images.remove({_id: {$in: req.body.content}}, function(err, result){
+        if( err ){
+            return result.status(500).json({
+                title: 'Error during the multiple files (images) removing...',
+                error: err
+            });
+        }
+        
+        User.findById(decoded.user._id, function(userError, userProfileImg) {
+            console.log(userProfileImg);
+            for( var x = 0; x < req.body.content.length; x++ ) {
+                fs.unlink(path.join(__dirname, '../public/images/uploaded/' + req.body.imageNames[x]));
+                userProfileImg.uploadedImages.pull(req.body.content[x]);
+            }
+            userProfileImg.save();
+        });        
+
+        res.status(200).json({
+            image: 'Deleted images!',
+            obj: result
+        });
+    });
+    
+});
+
 
 
 module.exports = router;

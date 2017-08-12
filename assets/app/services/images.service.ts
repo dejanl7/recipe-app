@@ -61,4 +61,22 @@ export class ImagesService {
             });
     }
 
+    // Delete Multiple Images
+    deleteMore(imageIds: Array<string>, imageNames: Array<string>){
+        const token = '?token=' + this.userToken;
+        let body    = JSON.stringify({ "content": imageIds, "imageNames": imageNames });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        
+        return this.http.delete(this.imagesUrlAddress + '/delete' + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
 }

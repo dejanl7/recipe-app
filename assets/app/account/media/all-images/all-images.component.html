@@ -1,9 +1,36 @@
 <div class="container">
   <div class="row images-container">
         <h4>All Images</h4>
+        <div class="col-md-12 select-form" *ngIf="(imagesInfoLength | async) > 1">
+            <div class="col-md-4 col-md-push-4 checkbox" [style.display]="defaultOption === 'delete' ? 'block' : 'none'">
+                <input 
+                    type="checkbox" 
+                    (change)="checkedAll()"
+                    [checked]="isCheckedAll"
+                > Select All
+            </div>
+            <form #deletingForm="ngForm" (ngSubmit)="deleteMultiple()">
+                <div class="col-md-4 col-md-offset-4">
+                    <select 
+                        class="form-control"
+                        id="secret" 
+                        class="form-control"
+                        [(ngModel)]="defaultOption"
+                        name="secret"
+                    >
+                        <option value="">-Choose-</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    <button class="btn btn-danger delete-images" [disabled]="defaultOption != 'delete'" type="submit">Delete</button>
+                </div>
+            </form>            
+        </div>
         <div class="col-md-12">
             <div class="row">
-                <div class="card media-images" *ngFor="let img of imagesInfo | async | paginate: { itemsPerPage: 8, currentPage: p }; let i = index">
+                <div class="card media-images" *ngFor="let img of imagesInfo | async | paginate: { itemsPerPage: numberOfItemsPerPage, currentPage: p }; let i = index">
+                    <label [style.display]="defaultOption === 'delete' ? 'block' : 'none'">
+                        <input type="checkbox" [checked]="isCheckedAll" (change)="onChange(img._id, img.newImageName, $event.target.checked)">
+                    </label>
                     <img class="card-img-top" [src]="img.imagePath" alt="uploaded-image">
                     <div class="card-block">
                         <h4 class="card-title text-left">{{ img.imageName }}</h4>
@@ -14,7 +41,7 @@
 
             <div class="pagination-me" *ngIf="(imagesInfoLength | async) > 0">
                 <pagination-controls
-                    (pageChange)="p = $event"
+                    (pageChange)="p = $event; getCurrentPage(p)"
                     previousLabel= ""
                     nextLabel=""
                 ></pagination-controls>
