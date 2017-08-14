@@ -59,8 +59,6 @@ export class AllImagesComponent implements OnInit {
     } 
 
 
-
-    
     // Modal Dialog
     open(content, imgId:string, img: string, imgName: string, newImgName: string) {
         this.img        = img;
@@ -159,10 +157,19 @@ export class AllImagesComponent implements OnInit {
                 return this.imagesService.getUserImages()
                 .subscribe( (userImgs) => {
                     this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+                    let imagePaths = [];
+
+                    for(let i=0; i<userImgs.uploadedImages.length; i++) {
+                        imagePaths.push(userImgs.uploadedImages[i].imagePath);
+                    }
+                    
+                    if( imagePaths.indexOf(this.userImg) === -1 ) {
+                         this.ngRedux.dispatch({ type: DELETE_PROFILE_IMAGE, profileImgPayload: 'none' });
+                    }
+                                       
                     this.checkedArray = [];
                     this.checkedNameArray = [];
                     this.isCheckedAll = false;
-                    console.log(userImgs.uploadedImages);
                 });
             });
         }
