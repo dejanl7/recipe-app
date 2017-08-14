@@ -24,10 +24,16 @@ export class NavbarComponent implements OnInit {
     constructor( private imagesService: ImagesService, private userService: UserService ) { }
 
     ngOnInit() {
-        // All user images - count length
+        // All user images - count length from async redux
         this.imagesService.getUserImages()
         .subscribe( (userImages) => {
             this.imgInfoLength = userImages.uploadedImages.length;
+        });
+
+        // Count length of all user images (without redux)
+        this.imagesInfoLength
+        .subscribe( (userImagesLength) => {
+            this.imgInfoLength = userImagesLength;
         });
 
         // Profile image

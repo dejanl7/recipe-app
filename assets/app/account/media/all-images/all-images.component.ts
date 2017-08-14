@@ -44,14 +44,6 @@ export class AllImagesComponent implements OnInit {
         private router: Router
     ){}
 
-    // Subscribe to images function
-    getCurrentImages() {
-        this.imagesService.getUserImages()
-        .subscribe( (userImgs) => {
-            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
-            this.images = userImgs.uploadedImages;
-        });
-    }
 
     ngOnInit() {
         this.userService.getProfileImageAndEmail()
@@ -59,12 +51,16 @@ export class AllImagesComponent implements OnInit {
             this.userImg = userProfile.profileImage;
         });
 
-        this.getCurrentImages();        
+        this.imagesService.getUserImages()
+        .subscribe( (userImgs) => {
+            this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
+            this.images = userImgs.uploadedImages;
+        });    
     } 
 
 
 
-
+    
     // Modal Dialog
     open(content, imgId:string, img: string, imgName: string, newImgName: string) {
         this.img        = img;
@@ -79,7 +75,9 @@ export class AllImagesComponent implements OnInit {
         });
     }
 
-    // Delete Image
+    /*=============================
+        Delete image
+    ===============================*/
     deleteImage( selectedImageId: string, selctedImageName: string ){
         if(confirm("Are you sure to delete?")) {
             this.imagesService.deleteImage(this.imgId, this.newImgName)
@@ -97,10 +95,10 @@ export class AllImagesComponent implements OnInit {
         }
     }
 
-    // Checked box
+    /*=============================
+        Check/uncheck box
+    ===============================*/
     onChange(imgId: string, imgName: string,  isChecked: boolean) {
-        //this.getCurrentImages();
-
         if( isChecked === true && this.checkedArray.indexOf(imgId) === -1 ){
             this.checkedArray.push(imgId);
             this.checkedNameArray.push(imgName);
@@ -110,11 +108,11 @@ export class AllImagesComponent implements OnInit {
                 this.checkedArray.splice(index, 1);
                 this.checkedNameArray.splice(index, 1);
             }
-            console.log(this.checkedArray);
-            console.log(this.checkedNameArray);
     }
     
-    // Get Current Page
+    /*=============================
+       Get current page
+    ===============================*/
     getCurrentPage(curPage: number) {
         this.isCheckedAll = false;
         this.checkedArray = [];
@@ -122,18 +120,22 @@ export class AllImagesComponent implements OnInit {
         return this.currentPage = curPage;
     }
 
-    // Checked all boxes
+    /*=============================
+        Check all boxes
+    ===============================*/
     checkedAll() {
-        // Get images state
-        //this.getCurrentImages();
-
         this.isCheckedAll = !this.isCheckedAll;
         this.checkedArray = [];
         this.checkedNameArray = [];
 
+        // Subscribe to attach uploaded images to "images" variable
+        this.imagesInfo
+        .subscribe( (result) => {
+            this.images = result;
+        });
+        
         if( this.isCheckedAll ){
             var startCounting = this.currentPage * this.numberOfItemsPerPage - this.numberOfItemsPerPage;
-
             for( let x = startCounting; x < this.currentPage * this.numberOfItemsPerPage; x++ ) {
                 if ( this.images[x] ) {
                     this.checkedArray.push(this.images[x]._id);
@@ -145,15 +147,11 @@ export class AllImagesComponent implements OnInit {
                 this.checkedArray = [];
                 this.checkedNameArray = [];
             }
-
-            console.log(this.checkedArray);
-            console.log(this.checkedNameArray);
-            console.log('Images: ');
-            console.log(this.images);
-
     }
 
-    // Delete Multiple
+    /*=============================
+        Delete multiple
+    ===============================*/
     deleteMultiple(){
         if(confirm("Are you sure to delete selected images?")) {
             this.imagesService.deleteMore(this.checkedArray, this.checkedNameArray)
@@ -161,11 +159,10 @@ export class AllImagesComponent implements OnInit {
                 return this.imagesService.getUserImages()
                 .subscribe( (userImgs) => {
                     this.ngRedux.dispatch({ type: GET_IMAGES_INFO, imgPayload: userImgs.uploadedImages });
-                    console.log(this.userImg);
-                    console.log(userImgs);
                     this.checkedArray = [];
                     this.checkedNameArray = [];
                     this.isCheckedAll = false;
+                    console.log(userImgs.uploadedImages);
                 });
             });
         }
