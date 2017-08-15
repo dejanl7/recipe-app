@@ -1,6 +1,9 @@
 body {
     overflow-y: scroll;
 }
+p {
+    font-size: 14px;
+}
 .btn:hover {
     cursor: pointer;
 }

@@ -64,6 +64,7 @@
     <div class="modal-body">
         <img [src]="img" alt="image" class="img-fluid">
         <p>Image Name: <span><strong>{{ imgName }}</strong></span></p>
+        <p>Image URL: <span class="image-url">{{ img }}</span></p>
     </div>
     <div class="modal-footer">
         <button class="btn btn-danger" type="button" (click)="deleteImage(imgId, newImgName); c('Close click')" data-dismiss="imageContent">Delete</button>

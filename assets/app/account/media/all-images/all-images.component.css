@@ -54,6 +54,10 @@
 .delete-images {
     margin-top: 20px;
 }
+.image-url {
+    color: #c0392b;
+    font-size: 14px;
+}
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
     .media-images {
