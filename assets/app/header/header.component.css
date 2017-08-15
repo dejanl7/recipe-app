@@ -2,8 +2,10 @@ nav {
     height: 80px;
     margin-bottom: 70px;
     z-index: 100;
-    max-width: 1180px;
     margin: auto;
+}
+.header-navigation {
+    width: calc(90% - 350px);
 }
 .navbar-header {
     height: 78px;
@@ -40,7 +42,7 @@ img {
 .navbar-toggler {
     position: absolute;
     right: 10px;
-    top: 20px;
+    top: 11px;
 }
 .navbar-collapse {
     background-color: #bdc3c7;
@@ -64,9 +66,19 @@ img {
         margin-left: -16px;
         width: calc(100% + 32px);
     }
+    .bg-faded { 
+        z-index: 102;
+    }
+    .header-navigation {
+        width: 100%;
+    }
+    .navbar-nav li a {
+        font-size: 17px;
+        text-indent: 20px;
+    }
 }
 @media screen and (min-width: 768px) {
     .navbar-nav {
-        margin-top: 12px;
+        margin-top: 14px;
     }
 }

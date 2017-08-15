@@ -1,4 +1,4 @@
-<nav class="vertical-nav-left clearfix3" *ngIf="showVerticalNavbar; else hideNavbar">    
+<nav class="vertical-nav-left clearfix" *ngIf="showVerticalNavbar; else hideNavbar">    
 	<div class="left-bigger-menu">
         <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-right"></i></span>
         <div class="logged-info">
@@ -51,7 +51,7 @@
 <ng-template #hideNavbar>
     <nav class="vertical-nav-left clearfix"> 
         <div class="left-bigger-menu hideMenu">
-            <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar"><i class="fa fa-chevron-left"></i></span>
+            <span class="show-hide-navbar" (click)="showVerticalNavbar = !showVerticalNavbar" [class.hideNavbar]="!showVerticalNavbar"><i class="fa fa-chevron-left"></i></span>
         </div>
     </nav>
 </ng-template>

@@ -59,11 +59,10 @@ a:hover {
 	position: fixed;
 	max-width: 305px;
 	height: 100% !important;
-    z-index: 100;
+    z-index: 101;
     left: 0; top: 0;
 }
 .left-bigger-menu {
-	z-index: -1;
 	width: 201px;
 	background-color: #34495e;
 	position: relative;
@@ -91,6 +90,7 @@ a:hover {
 ========================================*/
 .left-bigger-menu {
 	padding-top: 55px;
+	z-index: 102;
 }
 .show-hide-navbar {
     top: 18px;
@@ -103,6 +103,11 @@ a:hover {
 }
 .show-hide-navbar:hover {
     cursor: pointer;
+}
+.hideNavbar {
+	border: 2px solid #ecf0f1;
+	background-color: #34495e;
+	color: #fff;
 }
 .logged-info {
 	margin-top: 20px;
@@ -193,21 +198,39 @@ a:hover {
 	}
 	/* Bigger left menu */
 	.left-bigger-menu {
-		width: 200px;
+		width: 165px;
+		margin-top: 80px;
+	}
+	.navigation-elements {
+		font-size: 12px;
 	}
 }
-
-@media screen and (min-width: 321px) and (max-width: 500px){
+@media screen and (min-width: 321px) and (max-width: 767px){
 	/* Bigger left menu */
 	.left-bigger-menu {
-		width: 220px;
+		width: 165px;
+		margin-top: 80px;
+		z-index: 102;
+	}
+	.navigation-elements {
+		font-size: 13px;
+	}
+	.logged-info span,
+	.navigation-subelements {
+		font-size: 11px;
 	}
 }
-@media screen and (max-width: 1580px){ 
-	.vertical-nav-left {
-		top: 80px;
+@media screen and (min-width: 768px) and (max-width: 990px){
+	/* Bigger left menu */
+	.left-bigger-menu {
+		width: 180px;
+		margin-top: 80px;
 	}
-}
-@media screen and (min-width: 1581px) {
-
+	.navigation-elements {
+		font-size: 13.5px;
+	}
+	.logged-info span,
+	.navigation-subelements {
+		font-size: 12.5px;
+	}
 }
