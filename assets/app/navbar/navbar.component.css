@@ -112,7 +112,8 @@ a:hover {
 	text-align: center;
 }
 .user-image {
-    width: 60px;
+	width: 60px;
+	height: 60px;
 	margin: auto;
 	display: block;
 	position: relative;

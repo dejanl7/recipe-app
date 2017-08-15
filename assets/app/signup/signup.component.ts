@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { SignUpModel } from "../models/signup.model";
 import { SignUpService } from "../services/signup.service";
+import { Subscription } from "rxjs/Subscription";
 
 
 
@@ -18,8 +19,14 @@ export class SignupComponent implements OnInit {
     repeatPassValue: string;
     forbiddenEmails = [];
     forbiddenUsernames = [];
+    signupGetUserData: Subscription;
+    singupFormValueChange: Subscription;
+    signupServiceApproach: Subscription;
+
+    constructor( private signupService: SignUpService) { }
+
     getUsersData = function() {
-        this.signupService.getUserInfo()
+        this.signupGetUserData = this.signupService.getUserInfo()
           .subscribe((userInfo: SignUpModel[]) => {
               for( let i=0; i<userInfo.length; i++) {
                   this.forbiddenEmails.push(userInfo[i].email);
@@ -27,9 +34,6 @@ export class SignupComponent implements OnInit {
               }
           });
     };
-
-
-    constructor( private signupService: SignUpService) { }
 
     ngOnInit() {
         this.signinForm = new FormGroup({
@@ -45,7 +49,7 @@ export class SignupComponent implements OnInit {
         this.getUsersData();
 
         // Track form value changes
-        this.signinForm.valueChanges.subscribe(
+        this.singupFormValueChange = this.signinForm.valueChanges.subscribe(
           data => {
               this.passwordValue = data.pwd;
               this.repeatPassValue = data.repeatpwd;
@@ -57,7 +61,15 @@ export class SignupComponent implements OnInit {
 
     }
 
-    // Sumbit Form
+    // On Destroy
+    ngOnDestroy() {
+        this.signupGetUserData.unsubscribe();
+        this.singupFormValueChange.unsubscribe();
+    }
+
+    /*========================
+        Sumbit Form
+    ==========================*/    
     onSubmit() {
         this.signupService.signup(this.signinForm.value)
         .subscribe(
@@ -69,13 +81,19 @@ export class SignupComponent implements OnInit {
         return this.getUsersData();
     }  
 
-    // Custom Validator
+    /*========================
+       Custom Validator
+    ==========================*/  
     forbiddenUNames(control: FormControl): {[s: string]: boolean} {
         if( this.forbiddenUsernames.indexOf(control.value) !== -1 ) {
             return { 'usernameIsForbidden': true };
         }
           return null;
     }
+
+    /*========================
+        Forbidden Emails
+    ==========================*/  
     forbiddenMails(control: FormControl): {[s: string]: boolean} {
         if( this.forbiddenEmails.indexOf(control.value) !== -1 ) {
             return { 'emailIsForbidden': true };
