@@ -72,6 +72,7 @@ img {
     background-color: #95A5A6;
     z-index: 101;
 }
+
 @media screen and (max-width: 1580px) {
 	nav[_ngcontent-c1] {
 		width: 100%;
@@ -92,13 +93,23 @@ img {
     .header-navigation {
         width: 100%;
     }
+    .navbar-nav li {
+        height: 60px;
+    }
     .navbar-nav li a {
         font-size: 17px;
-        text-indent: 20px;
+        text-indent: 0;
     }
 }
 @media screen and (min-width: 768px) {
     .navbar-nav {
         margin-top: 14px;
+    }
+}
+@media screen and (max-width: 767px) {
+    img {
+        width: 80px;
+        height: 50px;
+        object-fit: contain;
     }
 }
