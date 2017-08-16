@@ -6,7 +6,6 @@ import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 
-import { RouteLoggedInService } from "./route-protected-services/protected-loggedout-route.service";
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 
 
