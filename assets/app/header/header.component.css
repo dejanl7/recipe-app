@@ -26,30 +26,50 @@ img {
     position: relative;
     z-index: 1;
 }
-.navbar-nav li.active a {
-    background-color: transparent;
-    font-weight: 600;
+.navbar-nav {
+    position: relative;
+}
+.navbar-nav li {
+    margin-left: 20px;
+    position: relative;
+    height: 80px;
+    display: flex;
+    align-items: center;  
 }
 .navbar-nav li a {
-    color: #34495e;
+    height: 29px;
+    color: #fff;
     font-weight: 400;
+    padding: 0;
     -webkit-transition: all .2s;
     transition: all .2s;
     -moz-transition: all .2s;
     -ms-transition: all .2s;
     -o-transition: all .2s;
+    position: relative;
+}
+.navbar-nav li.active a {
+    background-color: transparent;
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #f1c40f;  
+}
+.navbar-nav li a:hover {
+    border-bottom: 2px solid #f1c40f;  
 }
 .navbar-toggler {
     position: absolute;
     right: 10px;
     top: 11px;
+    background-color: #ccc;
 }
 .navbar-collapse {
-    background-color: #bdc3c7;
+    background-color: #95A5A6;
     z-index: 100;
+    position: relative;
 }
 .bg-faded {
-    background-color: #bdc3c7;
+    background-color: #95A5A6;
     z-index: 101;
 }
 @media screen and (max-width: 1580px) {

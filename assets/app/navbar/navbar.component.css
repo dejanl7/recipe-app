@@ -99,14 +99,15 @@ a:hover {
     padding: 6px 11px 6px 12px;
     font-size: 15px;
     color: #000;
-    background-color: #bdc3c7;
+    background-color: #95A5A6;
 }
 .show-hide-navbar:hover {
     cursor: pointer;
 }
 .hideNavbar {
-	border: 2px solid #ecf0f1;
+	border: 2px solid #34495e;
 	background-color: #34495e;
+	left: 2px;
 	color: #fff;
 }
 .logged-info {

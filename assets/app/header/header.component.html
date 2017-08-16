@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse show" id="recipeNavbarToggle" [class.show]="responsiveMenu" (click)="responsiveMenu = !responsiveMenu">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
-                    <a [routerLink]="['/']" class="nav-link">Home</a>
+                    <a [routerLink]="['/']" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                 </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item">
                     <a [routerLink]="['/profiles']" class="nav-link">Profiles</a>
@@ -20,13 +20,13 @@
             </ul>
             <ul class="navbar-nav mt-2 mt-lg-0">
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item" *ngIf="!isLogged()">
-                    <a [routerLink]="['/signup']" class="nav-link">Sign Up</a>
+                    <a [routerLink]="['/signup']" class="nav-link"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a>
                 </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="nav-item" *ngIf="!isLogged()">
                     <a [routerLink]="['/login']" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item" *ngIf="isLogged()">
-                    <a [routerLink]="['/login']" class="nav-link" (click)="onLogout()">Logout</a>
+                    <a [routerLink]="['/login']" class="nav-link" (click)="onLogout()"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
