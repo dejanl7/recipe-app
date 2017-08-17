@@ -1,0 +1,23 @@
+.r-c-content {
+    background-color: #ecf0f1;
+    padding: 15px;
+}
+.suggested-categories form {
+    margin-bottom: -30px;
+}
+.suggested-categories i.fa-plus {
+    position: relative;
+    top: -30px; left: 90%;
+    color: #34495e;
+    font-size: 14px;
+}
+.suggested-categories i:hover {
+    cursor: pointer;
+}
+.recipe-categories-item {
+    font-size: 14px;
+    margin-right: 10px;
+}
+.recipe-categories i {
+    color: #7f8c8d;
+}

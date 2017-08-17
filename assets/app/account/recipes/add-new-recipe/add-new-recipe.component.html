@@ -1,5 +1,36 @@
-<p>
-  add-new-recipe works!
-</p>
-<textarea rows="10"></textarea>
-<p>{{ content }}</p>
+<div class="row">    
+    <div class="col-md-9 col-sm-12">
+        <div class="form-group">
+            <label for="recipe-name">Name:</label>
+            <input type="text" id="recipe-name" class="form-control" placeholder="Recipe Name">
+        </div>
+        <div class="form-group content">
+            <label for="recipe-content">Content:</label>
+            <textarea rows="15" class="add-new-recipe"></textarea>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+        <div class="publish-recipe clearfix"> 
+            <div class="p-r-content">
+              <p>You can publish new recipe or cancel procedure.</p>
+              <div class="button-groups">
+                  <button class="btn btn-success">Publish</button>
+                  <button class="btn btn-danger">Cancel</button>
+              </div>
+            </div>
+        </div><!-- .publish-recipe -->
+
+        <div class="recipe-category">
+            <app-categories></app-categories>
+        </div><!-- .recipe-category -->
+
+        <div class="recipe-attachment">
+            <app-attached-image></app-attached-image>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="recipe-gallery">
+            
+        </div>
+    </div>
+</div>

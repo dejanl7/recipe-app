@@ -1,0 +1,21 @@
+<div class="recipe-categories clearfix"> 
+    <div class="r-c-content">
+      <p>Choose recipe category</p>
+      <div class="suggested-categories">
+            <form (ngSubmit)="onAddCategory(newCategoryForm)" #newCategoryForm="ngForm">
+                <div class="form-group">
+                    <ng2-completer 
+                        [datasource]="captains" 
+                        [minSearchLength]="0" 
+                        ngModel
+                        name="category"
+                    ></ng2-completer>
+                    <i class="fa fa-plus" aria-hidden="true" (click)="onAddCategory(newCategoryForm)"></i>
+                </div>
+            </form>
+            <div class="added-categories">
+                <span *ngFor="let category of selectedCategories; let i=index" class="recipe-categories-item"><i class="fa fa-times" aria-hidden="true" (click)="removeCategory(i)"></i> {{ category }}</span>
+            </div>
+      </div>
+    </div>
+</div><!--.publish-recipe -->

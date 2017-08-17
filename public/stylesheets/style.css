@@ -39,3 +39,15 @@ button:disabled,
     background-color: transparent !important;
     color: #000 !important;
 }
+/* TinyMCE */
+.mce-panel {
+    padding-right: 1px !important;
+}
+/* Auto Complete */
+input.completer-input {
+    width: 100%;
+    height: 35px !important;
+    border: 1px solid rgba(189, 195, 199, 0.60);
+    border-radius: 4px;
+    padding-left: 7px;
+}
