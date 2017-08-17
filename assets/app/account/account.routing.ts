@@ -12,7 +12,7 @@ const ACCOUNT_ROUTES: Routes = [
     { path: '', component: AccountComponent, canActivate: [RouteLoggedInService], children: [
         { path: '', loadChildren: './edit-user-info/edituser.module#EditUserInfoModule' },
         { path: 'media', loadChildren: './media/media.module#MediaModule' },
-        { path: 'recipes', component: RecipesComponent },
+        { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule' },
         { path: 'comments', loadChildren: './comments/comments.module#CommentsModule' },
         { path: 'ratings', loadChildren: './ratings/ratings.module#RatingsModule' },
         { path: 'orders', loadChildren: './orders/orders.module#OrdersModule'},

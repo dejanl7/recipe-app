@@ -24,13 +24,13 @@
                 <a><i class="fa fa-book"></i> <span class="list-name" (click)="showSubmenu = !showSubmenu">Recipes <i class="fa" [class.fa-chevron-down]="showSubmenu" [class.fa-chevron-up]="!showSubmenu"></i></span></a>
                 <ul class="navigation-group" *ngIf="showSubmenu">
                     <li class="navigation-subelements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                        <a [routerLink]="['/account/recipes']"><i class="fa fa-plus-square-o"></i> <span class="list-name">Add New</span></a>
+                        <a [routerLink]="['/account/recipes/new']"><i class="fa fa-plus-square-o"></i> <span class="list-name">Add New</span></a>
                     </li>
                     <li class="navigation-subelements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                        <a [routerLink]="['/account/recipes']"><i class="fa fa-pencil-square-o"></i> <span class="list-name">Edit</span></a>
+                        <a [routerLink]="['/account/recipes/edit']"><i class="fa fa-pencil-square-o"></i> <span class="list-name">Edit</span></a>
                     </li>
                     <li class="navigation-subelements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                        <a [routerLink]="['/account/recipes']"><i class="fa fa-link"></i> <span class="list-name">Category</span></a>
+                        <a [routerLink]="['/account/recipes/category']"><i class="fa fa-link"></i> <span class="list-name">Category</span></a>
                     </li>
                 </ul>
             </li>

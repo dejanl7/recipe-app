@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 declare var tinymce: any;
 
 
@@ -9,8 +9,7 @@ declare var tinymce: any;
 })
 
 
-export class RecipesComponent implements OnInit, AfterViewInit, OnDestroy  {
-    editor: any;
+export class RecipesComponent implements OnInit {
 
     constructor() { }
 
@@ -18,23 +17,7 @@ export class RecipesComponent implements OnInit, AfterViewInit, OnDestroy  {
 
  
 
-    ngAfterViewInit() {
-      tinymce.init({
-          selector:'textarea',
-          plugins : 'advlist autolink link image lists charmap print preview',
-          setup: editor => {
-            this.editor = editor;
-            editor.on('keyup', () => {
-              const content = editor.getContent();
-              console.log(content)
-            })
-          }
-      });
-    }
-
-    ngOnDestroy() {
-      tinymce.remove(this.editor);
-    }
+   
 
 }
 

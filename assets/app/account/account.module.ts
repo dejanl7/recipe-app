@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components and modules
 import { AccountComponent } from "./account.component";
-import { RecipesComponent } from './recipes/recipes.component';
-import { FileUploadModule } from 'ng2-file-upload';
 
 // Import routing module for account application part
 import { AccountRouting } from "./account.routing";
@@ -23,9 +21,7 @@ import { TestComponent } from './test/test.component';
 @NgModule({
   declarations: [
       AccountComponent,
-      RecipesComponent,
-      TestComponent
-      
+      TestComponent 
   ],
   imports: [
       CommonModule,
