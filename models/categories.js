@@ -14,6 +14,10 @@ var schema  = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Recipes'
     }],
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    },
     dateCreated: {
         type: Date,
         default: Date.now()

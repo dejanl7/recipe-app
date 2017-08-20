@@ -1,15 +1,40 @@
-var express = require('express');
-var router  = express.Router();
+var express  = require('express');
+var router   = express.Router();
+var jwt      = require('jsonwebtoken');
 
 var Recipes  = require('../models/recipes');
 var Category = require('../models/categories');
+
+
+
+/*==============================
+    Get categories (by user)
+================================*/
+router.get('/', function (req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    
+    Category.find({ 'createdBy' : decoded.user._id})
+    .exec(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - getting categories info problem...',
+                error: err
+            });
+        }
+        res.status(200).json({
+            title: 'Successfull getting categiries.',
+            obj: result
+        });
+    });
+});
+
 
 
 /*==============================
     Add New Category
 ================================*/
 router.post('/', function (req, res, next) {
-    Recipes.findById('596fb03119f5e7053848a89f', function(err, recipe){
+    Recipes.findById('5998b9b79f08a42aecfc3d96', function(err, recipe){
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated!',
@@ -18,7 +43,7 @@ router.post('/', function (req, res, next) {
         }
         var category = new Category({
             categoryName: 'lunch',
-            categoryRecipe: '596fb03119f5e7053848a89f'
+            categoryRecipe: '5998b9b79f08a42aecfc3d96'
         });
 
         // Save

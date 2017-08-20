@@ -5,7 +5,7 @@
             <form (ngSubmit)="onAddCategory(newCategoryForm)" #newCategoryForm="ngForm">
                 <div class="form-group">
                     <ng2-completer 
-                        [datasource]="captains" 
+                        [datasource]="categoriesAutoSuggest" 
                         [minSearchLength]="0" 
                         ngModel
                         name="category"

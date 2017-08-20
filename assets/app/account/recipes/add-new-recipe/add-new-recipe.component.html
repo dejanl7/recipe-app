@@ -1,8 +1,8 @@
 <div class="row">    
     <div class="col-md-9 col-sm-12">
         <div class="form-group">
-            <label for="recipe-name">Name:</label>
-            <input type="text" id="recipe-name" class="form-control" placeholder="Recipe Name">
+            <label for="recipe-name">Title:</label>
+            <input type="text" id="recipe-name" class="form-control" placeholder="Recipe Name" #recipeTitle>
         </div>
         <div class="form-group content">
             <label for="recipe-content">Content:</label>
@@ -14,7 +14,7 @@
             <div class="p-r-content">
               <p>You can publish new recipe or cancel procedure.</p>
               <div class="button-groups">
-                  <button class="btn btn-success">Publish</button>
+                  <button class="btn btn-success" (click)="publishRecipe()">Publish</button>
                   <button class="btn btn-danger">Cancel</button>
               </div>
             </div>
@@ -28,9 +28,9 @@
             <app-attached-image></app-attached-image>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-9 col-sm-12">
         <div class="recipe-gallery">
-            
+            <app-recipe-gallery></app-recipe-gallery>
         </div>
     </div>
 </div>

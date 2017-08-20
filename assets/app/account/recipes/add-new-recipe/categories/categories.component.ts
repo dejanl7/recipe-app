@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { NgForm } from "@angular/forms";
 import { RecipesService } from "../../../../services/recipes.service";
+import { Subscription } from "rxjs/Subscription";
 
 
 @Component({
@@ -16,13 +17,27 @@ export class CategoriesComponent implements OnInit {
     protected searchStr: string;
     protected captain: string;
     protected dataService: CompleterData;
-    protected captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
+    getCategoriesAutoSuggest: Subscription;
     selectedCategories: Array<string> = [];
+    protected categoriesAutoSuggest: Array<string> = [];
+    
     
     constructor( private completerService: CompleterService, private recipeService: RecipesService ) {}
 
+
+    // On init
     ngOnInit() {
+        this.getCategoriesAutoSuggest = this.recipeService.getRecipeCategories()
+        .subscribe((r) => {
+            this.categoriesAutoSuggest.push(r.categoryName);
+            console.log(this.categoriesAutoSuggest);
+        });
         
+    }
+
+    // On destroy
+    ngOnDestroy() {
+        this.getCategoriesAutoSuggest.unsubscribe();
     }
 
 

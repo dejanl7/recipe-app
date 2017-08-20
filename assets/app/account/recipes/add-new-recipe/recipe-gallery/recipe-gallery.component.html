@@ -1,3 +1,40 @@
-<p>
-  recipe-gallery works!
-</p>
+<div class="recipe-galleries clearfix"> 
+  <div class="r-c-content">
+    <p>Choose Gallery Images</p>
+    <div class="recipe-gallery-choose" *ngIf="displayGalleryImgsBox">
+        <img [src]="galleryImg" alt="recipe" class="displayed-gallery-imgs" *ngFor="let galleryImg of checkedImgPathArray">
+    </div>
+        <button class="btn btn-secondary recipe-gallery-choose" type="button" (click)="open(imgcontent)">Choose</button>
+    </div>
+</div><!--.publish-recipe -->
+
+
+<!-- ==========================================
+    Modal Dialog - choose recipe image 
+=============================================== -->
+<ng-template #imgcontent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Choose Images</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body col-md-12">
+        <div class="row">
+            <div class="recipe-gallery" *ngFor="let img of userImgs | paginate: { itemsPerPage: 8, currentPage: p }; let i=index" [ngStyle]="{'background-image': 'url(' + img + ')'}" (click)="imgsChecked[startIndexFrom + i] = !imgsChecked[startIndexFrom + i]; onChecked(imageIds[startIndexFrom + i], img)">
+                <i class="fa fa-check checked-img" aria-hidden="true" *ngIf="imgsChecked[startIndexFrom + i]"></i>
+            </div>
+            <div class="pagination-me" *ngIf="userImgs.length > 7">
+                <pagination-controls
+                    (pageChange)="p = $event; onChangePage(p)"
+                    previousLabel= ""
+                    nextLabel=""
+                ></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="getGalleryImgPaths(); d('Close click')">Insert</button>
+        <button type="button" class="btn btn-danger" (click)="removeSelectedImgs(); c('Close click')">Remove</button>
+    </div>
+</ng-template>
