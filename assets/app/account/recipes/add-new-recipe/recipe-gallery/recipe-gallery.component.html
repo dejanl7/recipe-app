@@ -24,7 +24,7 @@
             <div class="recipe-gallery" *ngFor="let img of userImgs | paginate: { itemsPerPage: 8, currentPage: p }; let i=index" [ngStyle]="{'background-image': 'url(' + img + ')'}" (click)="imgsChecked[startIndexFrom + i] = !imgsChecked[startIndexFrom + i]; onChecked(imageIds[startIndexFrom + i], img)">
                 <i class="fa fa-check checked-img" aria-hidden="true" *ngIf="imgsChecked[startIndexFrom + i]"></i>
             </div>
-            <div class="pagination-me" *ngIf="userImgs.length > 7">
+            <div class="pagination-me" *ngIf="userImgs.length > 8">
                 <pagination-controls
                     (pageChange)="p = $event; onChangePage(p)"
                     previousLabel= ""

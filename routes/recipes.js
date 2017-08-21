@@ -34,7 +34,10 @@ router.get('/:id', function(req, res, next) {
     .select('userRecipes')
     .populate({
         path: 'userRecipes',
-        select: 'recipeCategories'
+        select: 'recipeName recipeCategories recipeComments recipeRating recipePublish',
+        populate: {
+            path: 'recipeCategories',
+        }
     })
     .exec(function (err, result) {
         if (err) {

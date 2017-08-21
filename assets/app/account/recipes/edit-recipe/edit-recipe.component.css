@@ -1,0 +1,77 @@
+.recipes-table-container {
+    max-width: 1200px;
+}
+.recipes-table {
+    margin-bottom: 140px;
+}
+h4 {
+    margin-bottom: 40px;
+}
+.no-recipes {
+    padding: 20px;
+    margin: 0 auto;
+}
+th {
+    vertical-align: middle;
+}
+td {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+    vertical-align: middle;
+    min-width: 140px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+td:nth-of-type(4) {
+    min-width: 170px;
+}
+span {
+    position: relative;
+    top: 10px;
+    font-size: 13px;
+    margin-top: 15px;
+}
+.trash {
+    color: #c0392b;
+}
+.edit {
+    color: #34495e;   
+}
+.separator {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.custom-checkbox span {
+    margin-left: 5px;
+}
+.custom-control {
+    top: -10px;
+}
+
+
+@media screen and (max-width: 320px) {
+    .recipes-table-container {
+        max-width: 240px;
+        overflow-x: scroll;
+    }
+}
+@media screen and (min-width: 321px) and (max-width: 520px) {
+    .recipes-table-container {
+        max-width: 340px;
+        overflow-x: scroll;
+    }
+}
+@media screen and (min-width: 521px) and (max-width: 767px) {
+    .recipes-table-container {
+        max-width: 600px;
+        overflow-x: scroll;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .recipes-table-container {        
+        position: relative;
+        left: -50px;
+        overflow-x: scroll;
+    }
+}

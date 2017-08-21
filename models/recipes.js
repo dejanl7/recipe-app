@@ -45,7 +45,15 @@ var schema  = new Schema({
     recipeComments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comments'
-    }]
+    }],
+    recipePublish: {
+        type: Boolean,
+        default: true
+    },
+    recipeDeleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 

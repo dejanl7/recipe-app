@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } fr
 import { RecipesService } from "../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
 import { RecipeModel } from "../../../models/recipe.model";
+import { Router, ActivatedRoute } from "@angular/router";
 declare var tinymce: any;
 
 
@@ -23,7 +24,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
     recipeAttachment: string;
     recipeGalleryImages: Array<string>;
     
-    constructor( private recipeService: RecipesService ) { }
+    constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router ) { }
 
 
     // On Init
@@ -80,8 +81,8 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.recipeGalleryImages ? this.recipeGalleryImages : null
         );
         this.recipeService.addNewRecipe(saveRecipe)
-        .subscribe( (r) => {
-            console.log(r);
-        });
+        .subscribe( (resut) => {
+            this.router.navigate(['../account/recipes/edit']);
+        });        
     }
 }

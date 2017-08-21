@@ -1,0 +1,66 @@
+<div class="row">    
+    <div class="col-sm-12">
+        <h4 class="text-center">Recipes</h4>
+        <div class="recipes-table-container">
+            <table class="table table-bordered recipes-table" *ngIf="recipesInfo">
+              <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Recipe Title</th>
+                    <th>Category</th>
+                    <th>Comments</th>
+                    <th>Avg. Rarting</th>
+                    <th>Publish</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="recipesInfo.length > 0; else noRecipes">
+                <tr *ngFor="let recipeInfo of recipesInfo; let i = index">
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>
+                        {{ recipeInfo.recipeName }}
+                        <p>
+                            <span class="trash">Delete</span>
+                            <span class="separator">|</span>
+                            <span class="edit">Edit</span>
+                        </p>
+                    </td>
+                    <td [class.text-center]="recipeInfo.recipeCategories.length == 0">
+                        <p *ngIf="recipeInfo.recipeCategories.length > 0">
+                            <span *ngFor="let category of recipeInfo.recipeCategories">{{ category.categoryName }}, </span>
+                        </p>   
+                        <p class="text-center"  *ngIf="recipeInfo.recipeCategories.length === 0">
+                            <span>/</span>
+                        </p>          
+                    </td>
+                    <td [class.text-center]="recipeInfo.recipeComments.length == 0">
+                        <p><span>{{ recipeInfo.recipeComments.length > 0 ? recipeInfo.recipeComments.length : '/' }}</span></p>
+                    </td>
+                    <td>
+                        <rating 
+                            [(ngModel)]="starsCount"
+                            [float]="true"
+                            [readonly]="true"
+                          >
+                        </rating>
+                        <p>{{ recipeInfo.recipeRating.length > 0 ? starsCount/recipeInfo.recipeRating.length : 'No voters' }}</p>
+                    </td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" [checked]="recipeInfo.recipePublish" (change)="recipeInfo.recipePublish = !recipeInfo.recipePublish">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">{{ recipeInfo.recipePublish ? 'Published' : 'Unpublished'}}</span>
+                        </label>
+                    </td>
+                  </tr>
+              </tbody>
+              <ng-template #noRecipes>
+                  <tbody>
+                      <tr>
+                          <td colspan="6"><h4 class="text-center no-recipes">No Recipes</h4></td>
+                      </tr>
+                  <tbody>
+              </ng-template>
+            </table>
+        </div>
+    </div>
+</div>
