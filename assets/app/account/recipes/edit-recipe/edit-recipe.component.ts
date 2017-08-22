@@ -15,16 +15,22 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     recipesSubscr: Subscription;
     recipesInfo: Array<any> = [];
     starsCount: number = 0;
+    recipesPerPage: number = 5;
+    currentRecipePage: number = 1;
+    userRecipeCategories: Array<string> = [];
+
+    userFilter: any = { recipeName: '' };
+    categoryFilter: any = { categoryName: '' };
 
     constructor( private recipeService: RecipesService ) { }
 
     // On Init
     ngOnInit() {
         this.recipesSubscr = this.recipeService.getRecipeInfo()
-        .flatMap( result => result.userRecipes)
+        .flatMap( result => result.userRecipes )
         .subscribe( (result) => {
-            this.recipesInfo.push(result);
-            console.log(this.recipesInfo);
+            this.recipesInfo.push(result); 
+            console.log(this.recipesInfo);      
         });
     }
 
@@ -32,5 +38,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.recipesSubscr.unsubscribe();
     }
+
+
+    /*======================
+        Current Page
+    ========================*/
+    recipePageChange(page: number) {
+        this.currentRecipePage = page;
+    }
+
 
 }

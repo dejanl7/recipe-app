@@ -12,7 +12,7 @@ import { PaginationModule } from "../../shared/pagination.module";
 
 @NgModule({
     declarations: [
-        EditUserInfoComponent,
+        EditUserInfoComponent
     ],
     imports: [
         CommonModule,

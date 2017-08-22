@@ -1,3 +1,16 @@
-<p>
-  test works!
-</p>
+<input type="text" [(ngModel)]="filteredRecipes">
+        <hr>
+<table class="table table-striped">
+    <thead class="thead-default">
+        <tr>
+            <th>#</th>
+            <th>Recipe Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let recipe of recipesInfo | recipeFilter: filteredRecipes; let i = index">
+            <th scope="row">{{ i+1 }}</th>
+            <td>{{ recipe.recipeName }}</td>
+        </tr>
+    </tbody>
+</table>

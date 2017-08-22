@@ -1,7 +1,11 @@
 <div class="row">    
     <div class="col-sm-12">
-        <h4 class="text-center">Recipes</h4>
+        <h4 class="text-left">Recipes</h4>
         <div class="recipes-table-container">
+            <div class="search col-md-4 col-sm-6 col-xs-12">
+                <input [(ngModel)]="filteredRecipes" class="form-control" placeholder="Search...">
+            </div>
+
             <table class="table table-bordered recipes-table" *ngIf="recipesInfo">
               <thead>
                 <tr>
@@ -14,8 +18,8 @@
                 </tr>
               </thead>
               <tbody *ngIf="recipesInfo.length > 0; else noRecipes">
-                <tr *ngFor="let recipeInfo of recipesInfo; let i = index">
-                    <th scope="row">{{ i+1 }}</th>
+                <tr *ngFor="let recipeInfo of recipesInfo | recipeFilter: filteredRecipes | paginate: { itemsPerPage: recipesPerPage, currentPage: currentRecipePage }; let i = index">
+                    <th scope="row">{{  (currentRecipePage - 1) * recipesPerPage + i + 1 }}</th>
                     <td>
                         {{ recipeInfo.recipeName }}
                         <p>
@@ -24,16 +28,18 @@
                             <span class="edit">Edit</span>
                         </p>
                     </td>
-                    <td [class.text-center]="recipeInfo.recipeCategories.length == 0">
+                    <td>
                         <p *ngIf="recipeInfo.recipeCategories.length > 0">
                             <span *ngFor="let category of recipeInfo.recipeCategories">{{ category.categoryName }}, </span>
                         </p>   
-                        <p class="text-center"  *ngIf="recipeInfo.recipeCategories.length === 0">
-                            <span>/</span>
+                        <p class="text-center" *ngIf="recipeInfo.recipeCategories.length === 0">
+                            <span>No categories</span>
                         </p>          
                     </td>
-                    <td [class.text-center]="recipeInfo.recipeComments.length == 0">
-                        <p><span>{{ recipeInfo.recipeComments.length > 0 ? recipeInfo.recipeComments.length : '/' }}</span></p>
+                    <td>
+                        <p>
+                          <span>{{ recipeInfo.recipeComments.length > 0 ? recipeInfo.recipeComments.length : 'No ' }} comments</span>
+                        </p>
                     </td>
                     <td>
                         <rating 
@@ -61,6 +67,13 @@
                   <tbody>
               </ng-template>
             </table>
+            <div class="pagination-me" *ngIf="recipesInfo.length > 5">
+                <pagination-controls
+                    (pageChange)="p = $event; recipePageChange(p)"
+                    previousLabel= ""
+                    nextLabel=""
+                ></pagination-controls>
+            </div>
         </div>
     </div>
 </div>

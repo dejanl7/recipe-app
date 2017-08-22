@@ -2,7 +2,14 @@
     max-width: 1200px;
 }
 .recipes-table {
-    margin-bottom: 140px;
+    margin-bottom: 40px;
+}
+.search {
+    margin-bottom: 20px;
+    margin-left: -15px;
+}
+.search input {
+    font-size: 14px;
 }
 h4 {
     margin-bottom: 40px;
@@ -11,8 +18,12 @@ h4 {
     padding: 20px;
     margin: 0 auto;
 }
-th {
+th{
     vertical-align: middle;
+}
+th[scope="row"],
+thead th:first-of-type  {
+    text-align: center;
 }
 td {
     font-size: 15px;
@@ -20,11 +31,15 @@ td {
     font-weight: 600;
     vertical-align: middle;
     min-width: 140px;
+    max-width: 200px;
     padding-top: 0;
     padding-bottom: 0;
 }
 td:nth-of-type(4) {
-    min-width: 170px;
+    width: 170px;
+}
+td:last-of-type {
+    width: 100px;
 }
 span {
     position: relative;
@@ -38,9 +53,16 @@ span {
 .edit {
     color: #34495e;   
 }
+.trash:hover,
+.edit:hover {
+    cursor: pointer;
+}
 .separator {
     margin-left: 3px;
     margin-right: 3px;
+}
+.custom-checkbox {
+    width: 140px;
 }
 .custom-checkbox span {
     margin-left: 5px;

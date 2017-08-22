@@ -14,14 +14,12 @@ import { ImagesService } from "../services/images.service";
 import { UserService } from "../services/user.service";
 import { TimeAgoModule } from "../shared/timeago.module";
 import { PaginationModule } from "../shared/pagination.module";
-import { TestComponent } from './test/test.component';
 
 
 
 @NgModule({
   declarations: [
-      AccountComponent,
-      TestComponent 
+      AccountComponent
   ],
   imports: [
       CommonModule,

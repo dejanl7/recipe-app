@@ -13,10 +13,14 @@ import { RatingModule } from "ngx-rating";
 // Services
 import { RecipesService } from "../../../services/recipes.service";
 
+// Custom Filter Pipe - for recipe table
+import { FilterRecipeArrayPipe } from "../../../filter-array.pipe";
+
 
 @NgModule({
     declarations: [
         EditRecipeComponent,
+        FilterRecipeArrayPipe
     ],
     imports: [
         CommonModule,
@@ -26,7 +30,7 @@ import { RecipesService } from "../../../services/recipes.service";
         EditRecipesRouter,
         Ng2CompleterModule,
         PaginationModule,
-        RatingModule
+        RatingModule,
     ],
     providers: [
         RecipesService
