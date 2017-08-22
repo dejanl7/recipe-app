@@ -13,7 +13,6 @@ export class FilterRecipeArrayPipe {
         const resultArray = [];
         
         for ( const item of value ) {
-
             if( item['recipeCategories'] ) {
                 for ( var i=0; i<item['recipeCategories'].length ; i++ ) {
                     if( item['recipeCategories'][i].categoryName.indexOf(filterString) > -1 ) {
@@ -22,7 +21,7 @@ export class FilterRecipeArrayPipe {
                 }
             }
             if( item['recipeName'] ) {
-                if( item['recipeName'].toLowerCase().match('^.*' + filterString + '.*$') || item['recipeName'].match('^.*' + filterString + '.*$') ) {
+                if ( item['recipeName'].toLowerCase().match('^.*' + filterString + '.*$') || item['recipeName'].match('^.*' + filterString + '.*$') ) {
                     resultArray.push(item);
                 }
             }

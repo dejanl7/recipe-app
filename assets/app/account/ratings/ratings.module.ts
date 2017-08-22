@@ -12,7 +12,6 @@ import { TestComponent } from "../test/test.component";
 // Pipes
 import { AppModule as FilterModule } from 'ng-filter'; // Filter Module
 import { CutstringPipe } from "../../cutstring.pipe";
-import { FilterRecipeArrayPipe } from "../../filter-array.pipe";
 
 
 
@@ -21,7 +20,6 @@ import { FilterRecipeArrayPipe } from "../../filter-array.pipe";
       RatingsComponent,
       TestComponent,
       CutstringPipe,
-     // FilterRecipeArrayPipe
   ],
   imports: [
       CommonModule,
