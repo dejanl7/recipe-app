@@ -22,10 +22,7 @@ export class FilterRecipeArrayPipe {
                 }
             }
             if( item['recipeName'] ) {
-                if( item['recipeName'].toLowerCase().match('^.*' + filterString + '.*$') ) {
-                    resultArray.push(item);
-                }
-                if( item['recipeName'].match('^.*' + filterString + '.*$') ) {
+                if( item['recipeName'].toLowerCase().match('^.*' + filterString + '.*$') || item['recipeName'].match('^.*' + filterString + '.*$') ) {
                     resultArray.push(item);
                 }
             }
