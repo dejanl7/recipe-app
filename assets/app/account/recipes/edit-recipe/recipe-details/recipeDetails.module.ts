@@ -14,7 +14,7 @@ import { RecipesService } from "../../../../services/recipes.service";
 
 @NgModule({
     declarations: [
-        RecipeDetailsComponent,
+        RecipeDetailsComponent
     ],
     imports: [
         CommonModule,
