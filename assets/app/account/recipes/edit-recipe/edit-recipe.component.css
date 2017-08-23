@@ -11,6 +11,33 @@
 .search input {
     font-size: 14px;
 }
+.recipe-types {
+    list-style: none;  
+    padding: 0;
+    margin: 20px 0 10px 0;
+}
+.nav-link {
+    width: 120px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.nav-link:hover {
+    cursor: pointer;
+}
+.nav-link.active:first-child {
+    color: #fff;
+    font-weight: 600;
+}
+.nav-link.active:hover {
+    color: #fff;
+}
+.active-recipes.active {
+    background-color: #34495e;
+}
+.trash-recipes.active {
+    background-color: #c0392b;   
+}
 h4 {
     margin-bottom: 40px;
 }

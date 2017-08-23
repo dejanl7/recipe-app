@@ -14,24 +14,33 @@ import {RatingModule} from "ngx-rating";
 export class EditRecipeComponent implements OnInit, OnDestroy {
     recipesSubscr: Subscription;
     recipesInfo: Array<any> = [];
+    activeRecipesInfo: Array<any> = [];
+    trashRecipesInfo: Array<any> = [];
     starsCount: number = 0;
     recipesPerPage: number = 5;
     currentRecipePage: number = 1;
-    userRecipeCategories: Array<string> = [];
+    activeRecipes: boolean = true;
+    trashRecipes: boolean = false;
 
-    userFilter: any = { recipeName: '' };
-    categoryFilter: any = { categoryName: '' };
 
     constructor( private recipeService: RecipesService ) { }
 
     // On Init
     ngOnInit() {
         this.recipesSubscr = this.recipeService.getRecipeInfo()
-        .flatMap( result => result.userRecipes )
         .subscribe( (result) => {
-            this.recipesInfo.push(result); 
-            console.log(this.recipesInfo);      
+            const recInfo = result.userRecipes;
+            for ( var r=0; r<recInfo.length; r++ ) {
+                if ( recInfo[r].recipePublish ) {
+                    this.activeRecipesInfo.push(recInfo[r]);
+                }
+                else {
+                    this.trashRecipesInfo.push(recInfo[r]);
+                }
+            }   
         });
+
+        this.recipesInfo = this.activeRecipesInfo;
     }
 
     // On Destroy
@@ -45,6 +54,26 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     ========================*/
     recipePageChange(page: number) {
         this.currentRecipePage = page;
+    }
+
+    /*=========================
+       Switch Active/Trash
+    ===========================*/
+    activeRecipeList() {
+        this.activeRecipes = !this.activeRecipes;
+        this.trashRecipes = !this.trashRecipes;
+        this.currentRecipePage = 1;
+
+        if( this.trashRecipes ) {
+            this.recipesInfo = this.trashRecipesInfo;
+        }
+            else if( this.activeRecipes ) {
+                this.recipesInfo = this.activeRecipesInfo;
+            }
+                else {
+                    this.recipesInfo = this.activeRecipesInfo;
+                }
+        
     }
 
 

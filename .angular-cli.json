@@ -1,6 +1,5 @@
 {
   "project": {
-    "version": "1.0.0-beta.28.3",
     "name": "recipes"
   },
   "apps": [
@@ -11,13 +10,17 @@
         "assets",
         "favicon.ico"
       ],
-      "index": "index.html",
+      "index": "../views/index.hbs",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
-      "scripts": []
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
     }
   ],
   "e2e": {
@@ -42,18 +45,6 @@
   },
   "defaults": {
     "styleExt": "css",
-    "prefixInterfaces": false,
-    "inline": {
-      "style": false,
-      "template": false
-    },
-    "spec": {
-      "class": false,
-      "component": true,
-      "directive": true,
-      "module": false,
-      "pipe": true,
-      "service": true
-    }
+    "component": {}
   }
 }
