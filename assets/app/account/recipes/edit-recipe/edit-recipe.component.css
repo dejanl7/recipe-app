@@ -62,6 +62,10 @@ td {
     padding-top: 0;
     padding-bottom: 0;
 }
+td a:hover,
+td a:visited {
+    text-decoration: none;
+}
 td:nth-of-type(4) {
     width: 170px;
 }

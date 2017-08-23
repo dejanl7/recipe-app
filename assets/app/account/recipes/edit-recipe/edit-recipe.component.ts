@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipesService } from "../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
-import {RatingModule} from "ngx-rating";
 
 
 @Component({
@@ -21,9 +20,30 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     currentRecipePage: number = 1;
     activeRecipes: boolean = true;
     trashRecipes: boolean = false;
+    filteredRecipes: string = '';
 
 
     constructor( private recipeService: RecipesService ) { }
+
+
+    /*===================================
+        Function for getting recipe 
+        info parameters
+    =====================================*/
+    getRecipes() { 
+        this.recipesSubscr = this.recipeService.getRecipeInfo()
+        .subscribe( (result) => {
+            const recInfo = result.userRecipes;
+            for ( var r=0; r<recInfo.length; r++ ) {
+                if ( recInfo[r].recipeDeleted ) {
+                    this.trashRecipesInfo.push(recInfo[r]);
+                }
+                else {
+                    this.activeRecipesInfo.push(recInfo[r]);
+                }
+            } 
+        });
+    }
 
     // On Init
     ngOnInit() {
@@ -31,15 +51,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         .subscribe( (result) => {
             const recInfo = result.userRecipes;
             for ( var r=0; r<recInfo.length; r++ ) {
-                if ( recInfo[r].recipePublish ) {
-                    this.activeRecipesInfo.push(recInfo[r]);
-                }
-                else {
+                if ( recInfo[r].recipeDeleted ) {
                     this.trashRecipesInfo.push(recInfo[r]);
                 }
-            }   
+                else {
+                    this.activeRecipesInfo.push(recInfo[r]);
+                }
+            } 
         });
-
         this.recipesInfo = this.activeRecipesInfo;
     }
 
@@ -60,21 +79,43 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
        Switch Active/Trash
     ===========================*/
     activeRecipeList() {
-        this.activeRecipes = !this.activeRecipes;
-        this.trashRecipes = !this.trashRecipes;
-        this.currentRecipePage = 1;
+        this.activeRecipes      = !this.activeRecipes;
+        this.trashRecipes       = !this.trashRecipes;
+        this.currentRecipePage  = 1;
 
         if( this.trashRecipes ) {
             this.recipesInfo = this.trashRecipesInfo;
         }
-            else if( this.activeRecipes ) {
+        else if( this.activeRecipes ) {
+            this.recipesInfo = this.activeRecipesInfo;
+        }
+    }
+
+    /*=============================
+       Update publish/unpublish
+    ===============================*/
+    updatePublishRecipeStatus(id: string, status: boolean) {
+        this.recipeService.updateRecipePublish(id, !status).subscribe();
+    }
+
+    /*====================
+       Move to trash
+    ======================*/
+    moveToTrash(id: string, status: boolean) {
+        this.recipeService.moveToTrash(id, !status)
+        .subscribe( (result) => {
+            this.activeRecipesInfo = [];
+            this.trashRecipesInfo = [];
+            this.getRecipes();
+            if( this.activeRecipes ) {
                 this.recipesInfo = this.activeRecipesInfo;
             }
                 else {
-                    this.recipesInfo = this.activeRecipesInfo;
+                    this.recipesInfo = this.trashRecipesInfo;
                 }
-        
+        });
     }
+
 
 
 }

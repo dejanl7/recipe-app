@@ -34,7 +34,7 @@ router.get('/:id', function(req, res, next) {
     .select('userRecipes')
     .populate({
         path: 'userRecipes',
-        select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish',
+        select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted',
         populate: {
             path: 'recipeCategories',
         }
@@ -123,33 +123,98 @@ router.post('/', function (req, res, next) {
 });
 
 
-/*=============================
-    Delete Recipe
-===============================*/
-router.delete('/:id', function(req, res, next){
-    Recipe.findById('5989a3310556210e60892796', function(err, recipe){
-        if (err) {
+/*=========================
+    Update recipe info
+===========================*/
+router.patch('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+
+    Recipe.findById(req.params.id, function(err, recipe) {
+        if(err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occured during the update recipe...',
                 error: err
             });
         }
+        if(!recipe) {
+            return res.status(500).json({
+                title: 'No Recipes Found...',
+                error: { recipe: 'Recipe not found...' }
+            });
+        }
+        if(recipe.createdFrom != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: { recipe: 'Recipe not found...' }
+            });
+        }
 
-        // Remove Recipe
-        recipe.remove(function(err, result) {
-            if (err) {
-                return result.status(500).json({
-                    title: 'An error occured during removing recipe...',
+        // Sanitize records and save recipe updated
+        sanitizedContent = sanitize(req.body);
+        recipe.recipePublish = sanitizedContent.body || recipe.recipePublish;
+       
+        recipe.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
                     error: err
                 });
             }
-            res.status(200).json({
-                recipe: 'Deleted recipe!',
+            res.status(201).json({
+                message: 'Updated recipe.',
                 obj: result
             });
         });
     });
 });
+
+
+/*=========================
+    Move to trash
+===========================*/
+router.patch('/delete/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+    console.log(req.body);
+
+    Recipe.findById(req.params.id, function(err, recipe) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured during the delete recipe...',
+                error: err
+            });
+        }
+        if(!recipe) {
+            return res.status(500).json({
+                title: 'No Recipes Found...',
+                error: { user: 'Recipe not found...' }
+            });
+        }
+        if(recipe.createdFrom != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: { recipe: 'Recipe not found...' }
+            });
+        }
+
+        // Sanitize records and save recipe updated
+        sanitizedContent = sanitize(req.body);
+        recipe.recipeDeleted = sanitizedContent.body || recipe.recipeDeleted;
+       
+        recipe.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Deletet recipe.',
+                obj: result
+            });
+        });
+    });
+});
+
 
 
 module.exports = router;

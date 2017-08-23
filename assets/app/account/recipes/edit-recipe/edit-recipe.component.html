@@ -32,9 +32,9 @@
                         <td>
                             {{ recipeInfo.recipeName }}
                             <p>
-                                <span class="trash">Delete</span>
+                                <span class="trash" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
                                 <span class="separator">|</span>
-                                <span class="edit">Edit</span>
+                                <a [routerLink]="['/account/recipes/edit/1']"><span class="edit">Edit</span></a>
                             </p>
                         </td>
                         <td>
@@ -61,7 +61,7 @@
                         </td>
                         <td>
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" [checked]="recipeInfo.recipePublish" (change)="recipeInfo.recipePublish = !recipeInfo.recipePublish">
+                                <input type="checkbox" class="custom-control-input" [checked]="recipeInfo.recipePublish" (change)="recipeInfo.recipePublish = !recipeInfo.recipePublish" (click)="updatePublishRecipeStatus(recipeInfo._id, recipeInfo.recipePublish)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">{{ recipeInfo.recipePublish ? 'Published' : 'Unpublished'}}</span>
                             </label>
@@ -69,7 +69,7 @@
                     </tr>
                 </tbody>
 
-                <ng-container *ngIf="(recipesInfo | recipeFilter: filteredRecipes).length === 0">
+                <ng-container *ngIf="filteredRecipes.length > 0 && (recipesInfo | recipeFilter: filteredRecipes).length === 0">
                     <tbody>
                         <tr>
                             <td colspan="6"><h4 class="text-center no-recipes">No Matched Recipes...</h4></td>

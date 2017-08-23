@@ -1,4 +1,4 @@
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable, Subject } from "rxjs";
@@ -65,16 +65,49 @@ export class RecipesService {
     // Get Recipe Categories 
     getRecipeCategories() {
         const token = '?token=' + this.userToken; 
-        if( this.userToken){
-            return this.http.get(this.categoryUrlAddress + token)
-                .flatMap((response: Response) => {
-                    return response.json().obj;
-                })
-                .catch((error: Response) => {
-                    this.errorService.handleError(error.json());
-                    return Observable.throw(error.json());
-                });
-        }
+        return this.http.get(this.categoryUrlAddress + token)
+            .flatMap((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Update Recipe Publish Status
+    updateRecipePublish(recipeId: string, status: boolean){
+        const token     = '?token=' + this.userToken;
+        const body      = JSON.stringify(status);
+        let headers     = new Headers({ 'Content-Type': 'application/json' });
+        let options     = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        return this.http.patch(this.recipesUrlAddress + recipeId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Delete Recipe
+    moveToTrash(recipeId: string, status: boolean){
+        const token     = '?token=' + this.userToken;
+        const body      = JSON.stringify(status);
+        let headers     = new Headers({ 'Content-Type': 'application/json' });
+        let options     = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        return this.http.patch(this.recipesUrlAddress + '/delete/' + recipeId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+        
     }
 
 
