@@ -1,3 +1,21 @@
-<p>
-  categories works!
-</p>
+<div class="recipe-categories clearfix"> 
+    <div class="r-c-content">
+      <p>Choose recipe category</p>
+      <div class="suggested-categories">
+            <form (ngSubmit)="onAddCategoryEdit(editCategoryForm)" #editCategoryForm="ngForm">
+                <div class="form-group">
+                    <ng2-completer 
+                        [datasource]="categoriesAutoSuggestEdit" 
+                        [minSearchLength]="0" 
+                        ngModel
+                        name="category"
+                    ></ng2-completer>
+                    <i class="fa fa-plus" aria-hidden="true" (click)="onAddCategoryEdit(editCategoryForm)"></i>
+                </div>
+            </form>
+            <div class="added-categories">
+                <span *ngFor="let category of selectedCategoriesEdit; let i=index" class="recipe-categories-item"><i class="fa fa-times" aria-hidden="true" (click)="removeCategoryEdit(i)"></i> {{ category }}</span>
+            </div>
+      </div>
+    </div>
+</div><!--.publish-recipe -->

@@ -6,6 +6,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // Components and modules
 import { Ng2CompleterModule } from "ng2-completer";
 import { RecipeDetailsComponent } from "./recipe-details.component";
+import { GalleryComponent } from "./gallery/gallery.component";
+import { CategoriesComponent } from "./categories/categories.component";
+import { AttachedImgComponent } from "./attached-img/attached-img.component";
+import { PaginationModule } from "../../../../shared/pagination.module";
 import { RecipeDetailsRouter } from "./recipeDetails.routing";
 
 // Services
@@ -14,7 +18,10 @@ import { RecipesService } from "../../../../services/recipes.service";
 
 @NgModule({
     declarations: [
-        RecipeDetailsComponent
+        RecipeDetailsComponent,
+        GalleryComponent,
+        CategoriesComponent,
+        AttachedImgComponent
     ],
     imports: [
         CommonModule,
@@ -22,7 +29,8 @@ import { RecipesService } from "../../../../services/recipes.service";
         FormsModule,
         ReactiveFormsModule,
         Ng2CompleterModule,
-        RecipeDetailsRouter
+        RecipeDetailsRouter,
+        PaginationModule
     ],
     providers: [
         RecipesService

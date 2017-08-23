@@ -1,3 +1,40 @@
-<p>
-  gallery works!
-</p>
+<div class="recipe-galleries clearfix"> 
+    <div class="r-c-content">
+      <p>Choose Gallery Images</p>
+      <div class="recipe-gallery-choose" *ngIf="displayGalleryImgsBoxEdit">
+          <img [src]="galleryImg" alt="recipe" class="displayed-gallery-imgs" *ngFor="let galleryImg of checkedImgPathArrayEdit">
+      </div>
+          <button class="btn btn-secondary recipe-gallery-choose" type="button" (click)="open(imgcontentEdit)">Choose</button>
+      </div>
+  </div><!--.publish-recipe -->
+  
+  
+  <!-- ==========================================
+      Modal Dialog - choose recipe image 
+  =============================================== -->
+  <ng-template #imgcontentEdit let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Choose Images</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body col-md-12">
+          <div class="row">
+              <div class="recipe-gallery" *ngFor="let img of userImgsEdit | paginate: { itemsPerPage: itemsPerPageEdit, currentPage: p }; let i=index" [ngStyle]="{'background-image': 'url(' + img + ')'}" (click)="imgsCheckedEdit[startIndexFromEdit + i] = !imgsCheckedEdit[startIndexFromEdit + i]; onChecked(imageIdsEdit[startIndexFromEdit + i], img)">
+                  <i class="fa fa-check checked-img" aria-hidden="true" *ngIf="imgsCheckedEdit[startIndexFromEdit + i]"></i>
+              </div>
+              <div class="pagination-me" *ngIf="userImgsEdit.length > 8">
+                  <pagination-controls
+                      (pageChange)="p = $event; onChangePageEdit(p)"
+                      previousLabel= ""
+                      nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="getGalleryImgPaths(); d('Close click')">Insert</button>
+          <button type="button" class="btn btn-danger" (click)="removeSelectedImgs(); c('Close click')">Remove</button>
+      </div>
+  </ng-template>

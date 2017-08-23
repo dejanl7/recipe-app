@@ -15,7 +15,6 @@ import { Subscription } from "rxjs/Subscription";
 export class CategoriesComponent implements OnInit {
     @ViewChild('newCategoryForm') categoryForm: NgForm;
     protected searchStr: string;
-    protected captain: string;
     protected dataService: CompleterData;
     getCategoriesAutoSuggest: Subscription;
     selectedCategories: Array<string> = [];
@@ -30,7 +29,6 @@ export class CategoriesComponent implements OnInit {
         this.getCategoriesAutoSuggest = this.recipeService.getRecipeCategories()
         .subscribe((r) => {
             this.categoriesAutoSuggest.push(r.categoryName);
-            console.log(this.categoriesAutoSuggest);
         });
         
     }

@@ -1,0 +1,32 @@
+input {
+    font-size: 14px;
+}
+.publish-recipe {
+    height: 120px;
+    margin-top: 30px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+}
+.content {
+    margin-top: 30px;
+}
+.p-r-content {
+    position: absolute;
+    top: 12%;
+}
+.button-groups {
+    padding-right: 15px;
+    text-align: center;
+}
+.publish-recipe .btn {
+    font-size: 12.5px;
+}
+.recipe-category {
+    margin-top: 40px;
+    border-radius: 4px;
+}
+.recipe-gallery {
+    margin-top: 40px;
+}
