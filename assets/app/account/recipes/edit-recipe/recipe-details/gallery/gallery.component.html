@@ -4,6 +4,9 @@
       <div class="recipe-gallery-choose" *ngIf="displayGalleryImgsBoxEdit">
           <img [src]="galleryImg" alt="recipe" class="displayed-gallery-imgs" *ngFor="let galleryImg of checkedImgPathArrayEdit">
       </div>
+      <div class="recipe-gallery-choose" *ngIf="userImgPathsEdit.length > 0">
+            <img [src]="galleryImg" alt="recipe" class="displayed-gallery-imgs" *ngFor="let galleryImg of userImgPathsEdit">
+      </div>
           <button class="btn btn-secondary recipe-gallery-choose" type="button" (click)="open(imgcontentEdit)">Choose</button>
       </div>
   </div><!--.publish-recipe -->

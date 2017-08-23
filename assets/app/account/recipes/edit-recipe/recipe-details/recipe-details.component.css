@@ -1,6 +1,11 @@
 input {
     font-size: 14px;
 }
+#url-address {
+    padding-left: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
 .publish-recipe {
     height: 120px;
     margin-top: 30px;

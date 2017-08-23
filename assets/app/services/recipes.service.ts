@@ -48,6 +48,19 @@ export class RecipesService {
         }
     }
 
+    // Get ONE recipe information
+    getRecipeUnique(recipeId: string) {
+        const token = '?token=' + this.userToken;
+        return this.http.get(this.recipesUrlAddress + 'unique/' + recipeId + token)
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
     // Add New Recipe
     addNewRecipe(recipeInfo: RecipeModel) {
         const token   = '?token=' + this.userToken;

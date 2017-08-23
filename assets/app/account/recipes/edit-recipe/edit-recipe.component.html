@@ -34,7 +34,7 @@
                             <p>
                                 <span class="trash" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
                                 <span class="separator">|</span>
-                                <a [routerLink]="['/account/recipes/edit/1']"><span class="edit">Edit</span></a>
+                                <a [routerLink]="['/account/recipes/edit/', recipeInfo._id]"><span class="edit">Edit</span></a>
                             </p>
                         </td>
                         <td>

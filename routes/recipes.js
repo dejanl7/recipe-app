@@ -25,7 +25,7 @@ router.use('/', function(req, res, next) {
 
 
 /*=============================
-    Get recipe info
+    Get recipes info
 ===============================*/
 router.get('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
@@ -42,11 +42,40 @@ router.get('/:id', function(req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting recipe info problem...',
+                title: 'An error occured - getting recipes info problem...',
                 error: err
             });
         }
         if(result._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to get user information!',
+                error: err
+            })
+        }
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: result
+        });
+    });
+});
+
+
+/*=============================
+    Get recipes info
+===============================*/
+router.get('/unique/:id', function(req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    
+    Recipe.findById(req.params.id)
+    .populate('recipeCategories')
+    .exec( function (err, result){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - getting recipe info problem...',
+                error: err
+            });
+        }
+        if(result.createdFrom != decoded.user._id) {
             return res.status(401).json({
                 title: 'You don\'t have role to get user information!',
                 error: err

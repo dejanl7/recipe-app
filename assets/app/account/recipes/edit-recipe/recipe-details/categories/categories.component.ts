@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import { CompleterData, CompleterService } from "ng2-completer";
 import { Subscription } from "rxjs/Subscription";
 import { RecipesService } from "../../../../../services/recipes.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-categories',
@@ -16,11 +17,13 @@ export class CategoriesComponent implements OnInit {
     protected searchStrEdit: string;
     protected dataServiceEdit: CompleterData;
     getCategoriesAutoSuggestEdit: Subscription;
+    getRecipeInfoCategories: Subscription;
+    currentCategoriesEdit: Array<string> = [];
     selectedCategoriesEdit: Array<string> = [];
     protected categoriesAutoSuggestEdit: Array<string> = [];
     
     
-    constructor( private completerService: CompleterService, private recipeService: RecipesService ) {}
+    constructor( private completerService: CompleterService, private recipeService: RecipesService, private activatedRoute: ActivatedRoute ) {}
 
 
     // On init
@@ -29,6 +32,15 @@ export class CategoriesComponent implements OnInit {
         .subscribe((r) => {
             this.categoriesAutoSuggestEdit.push(r.categoryName);
         });
+
+        this.getRecipeInfoCategories= this.activatedRoute.params
+        .subscribe( (pathElements) => {
+            this.recipeService.getRecipeUnique(pathElements.id)
+            .subscribe( (result) => {
+                console.log(result);
+                this.currentCategoriesEdit = result.recipeCategories;
+            });
+        });
         
     }
 
@@ -36,6 +48,7 @@ export class CategoriesComponent implements OnInit {
     ngOnDestroy() {
         this.getCategoriesAutoSuggestEdit.unsubscribe();
     }
+
 
 
     /*======================
@@ -48,7 +61,6 @@ export class CategoriesComponent implements OnInit {
             this.recipeService.categories.next(this.selectedCategoriesEdit);
         }
     }
-
 
     /*=================================
         Remove category from array    
