@@ -5,7 +5,8 @@ import { ImageInterface } from "./redux/interfaces";
 import { LoginService } from "./services/login.service";
 import { ImagesService } from "./services/images.service";
 
-
+// Tiny MCE
+import "tinymce/tinymce.min.js";
 
 @Component({
     selector: 'my-app',
