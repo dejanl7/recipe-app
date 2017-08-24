@@ -87,6 +87,15 @@ export class RecipeDetailsComponent implements OnInit {
     }
 
 
+    /*===========================
+        Cancel recipe editing
+    =============================*/
+    cancelRecipeEditing() {
+        if( confirm( 'Do you want to cancel recipe editing?') ) {
+            this.router.navigate(['account/recipes/edit']);
+        }
+    }
+
     /*========================
         Update recipe
     ==========================*/

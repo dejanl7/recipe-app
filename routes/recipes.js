@@ -34,7 +34,7 @@ router.get('/:id', function(req, res, next) {
     .select('userRecipes')
     .populate({
         path: 'userRecipes',
-        select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted',
+        select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
         populate: {
             path: 'recipeCategories',
         }

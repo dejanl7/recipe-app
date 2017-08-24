@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
     showSubmenu: boolean = false;  
     @select() imagesInfoLength;
     @select() profileImage;
+    @select() profileEmail;
     profileImg: string;
     userEmail: string;
     imgInfoLength: string;

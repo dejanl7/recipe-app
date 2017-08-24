@@ -133,7 +133,8 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
         .subscribe( (result) => {
             this.userInformation = result.obj;
             this.isUpdated = true;
-            this.ngRedux.dispatch({ type: GET_PROFILE_IMAGE, profileImgPayload: result.obj.profileImage });
+            console.log(result.obj);
+            this.ngRedux.dispatch({ type: GET_PROFILE_IMAGE, profileImgPayload: result.obj.profileImage, profileEmailPayload: result.obj.email });
         });
         this.isUpdated = false;
         this.allowedChangeRoute = true;
@@ -158,7 +159,8 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
         if ( this.allowedChangeRoute ) {
             return true;
         }
-        else if ( this.editUserForm.value.editProfileImage !== this.profileImg || 
+        else if ( 
+            this.editUserForm.value.editProfileImage !== this.profileImg || 
             this.editUserForm.value.editFirstName !== this.userInformation.firstName ||
             this.editUserForm.value.editLastName !== this.userInformation.lastName ||
             this.editUserForm.value.editEmail !== this.userInformation.email ||

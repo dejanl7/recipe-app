@@ -69,8 +69,19 @@ td a:visited {
 td:nth-of-type(4) {
     width: 170px;
 }
-td:last-of-type {
+th:nth-child(6),
+td:nth-of-type(5) {
+    max-width: 120px !important;
+}
+td:nth-of-type(5) {
+    position: relative;
+    left: -25px;
+}
+td:last-child {
     width: 100px;
+}
+td:last-child p {
+    margin: 0;
 }
 span {
     position: relative;

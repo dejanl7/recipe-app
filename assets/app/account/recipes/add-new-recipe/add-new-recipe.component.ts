@@ -85,4 +85,13 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.router.navigate(['../account/recipes/edit']);
         });        
     }
+
+    /*========================
+        Cancel recipe
+    ==========================*/
+    cancelRecipe() {
+        if( confirm( 'Do you want to cancel new recipe?') ) {
+            this.router.navigate(['account/recipes/edit']);
+        }
+    }
 }

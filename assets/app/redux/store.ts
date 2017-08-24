@@ -24,7 +24,7 @@ function getUserImages(state, action) {
     Get Profile Image
 =============================*/
 function getProfileImage(state, action) {
-    return tassign(state, { profileImage: action.profileImgPayload });
+    return tassign(state, { profileImage: action.profileImgPayload, profileEmail: action.profileEmailPayload });
 }
 
 

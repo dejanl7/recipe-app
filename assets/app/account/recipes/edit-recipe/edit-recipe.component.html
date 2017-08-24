@@ -23,7 +23,8 @@
                         <th>Category</th>
                         <th>Comments</th>
                         <th>Avg. Rarting</th>
-                        <th>Publish</th>
+                        <th>Status</th>
+                        <th>Publish Time</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="recipesInfo.length > 0; else noRecipes">
@@ -65,6 +66,10 @@
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">{{ recipeInfo.recipePublish ? 'Published' : 'Unpublished'}}</span>
                             </label>
+                        </td>
+                        <td>
+                            <p>{{ recipeInfo.dateCreated | timeAgo }}</p>
+                            <p><small>{{ recipeInfo.dateCreated | date: 'shortDate' }}</small></p>
                         </td>
                     </tr>
                 </tbody>
