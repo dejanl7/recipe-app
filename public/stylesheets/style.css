@@ -43,6 +43,9 @@ button:disabled,
 .mce-panel {
     padding-right: 1px !important;
 }
+.alertContent .mce-tinymce {
+    border: 1px solid red;
+}
 /* Auto Complete */
 input.completer-input {
     width: 100%;

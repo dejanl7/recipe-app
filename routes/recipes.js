@@ -102,7 +102,7 @@ router.post('/', function (req, res, next) {
                 title: 'Not authenticated!',
                 error: err
             });
-        }
+        }      
 
         var recipe = new Recipe({
             recipeName: sanitizedContent.title,
@@ -121,26 +121,47 @@ router.post('/', function (req, res, next) {
                     error: err
                 });
             }
+
+            // Push recipe to user table
             user.userRecipes.push(result);
             user.save();
 
             // Save Category
-            var catArray = [];
-            for(var i=0; i<sanitizedContent.categories.length; i++){
-                var category = new Category({
-                    categoryName: sanitizedContent.categories[i],
-                    createdBy: user._id,
-                    categoryRecipe: result._id
-                });
-                category.save();
-                catArray.push(category._id);
-            }
+            if( sanitizedContent.categories ) {
+                Category.find()
+                .exec(function(categoryError, category) {
+                    // If category exist into database - update recipes fields
+                    catArray = [];
+                    for ( var cat=0; cat<category.length; cat++ ) {
+                        catArray.push(category[cat].categoryName);
+                    }
+                    for( var tc=0; tc<catArray.length; tc++ ) {
+                        if (typeof sanitizedContent.categories[tc] !== 'undefined' ) {
+                            if ( catArray.indexOf(sanitizedContent.categories[tc]) === -1 ) {
+                                newCategoryArray = [];
+                                var categoryNew = new Category({
+                                    categoryName: sanitizedContent.categories[tc],
+                                    createdBy: user._id,
+                                    categoryRecipe: result._id
+                                });
+                                categoryNew.save();
+                                
+                                newCategoryArray.push(categoryNew._id);
+                                for( var nca=0; nca<newCategoryArray.length; nca++) {
+                                    result.recipeCategories.push(newCategoryArray[nca]);
+                                }
+                            }                
+                        }
+                        if (catArray.indexOf(sanitizedContent.categories[tc]) > -1 ){
+                            category[catArray.indexOf(sanitizedContent.categories[tc])].categoryRecipe.push(result._id);
+                            result.recipeCategories.push(category[catArray.indexOf(sanitizedContent.categories[tc])]);
+                            category[catArray.indexOf(sanitizedContent.categories[tc])].save();
+                        }
+                    }
 
-            // Push categories into related recipe
-            for( var c=0; c<catArray.length; c++) {
-                result.recipeCategories.push(catArray[c]);
+                    result.save();
+                });
             }
-                result.save();
 
             // Return status
             return res.status(201).json({

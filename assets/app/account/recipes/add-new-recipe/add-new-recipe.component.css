@@ -4,6 +4,9 @@ label {
 input {
     font-size: 14px;
 }
+.alert {
+    border: 1px solid red !important;
+}
 .publish-recipe {
     height: 120px;
     margin-top: 30px;

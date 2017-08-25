@@ -42,7 +42,7 @@
                             <p *ngIf="recipeInfo.recipeCategories.length > 0">
                                 <span *ngFor="let category of recipeInfo.recipeCategories">{{ category.categoryName }}, </span>
                             </p>   
-                            <p class="text-center" *ngIf="recipeInfo.recipeCategories.length === 0">
+                            <p *ngIf="recipeInfo.recipeCategories.length === 0">
                                 <span>No categories</span>
                             </p>          
                         </td>

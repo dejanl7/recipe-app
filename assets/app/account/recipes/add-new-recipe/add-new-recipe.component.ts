@@ -23,6 +23,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
     recipeCategories: Array<string>;
     recipeAttachment: string;
     recipeGalleryImages: Array<string>;
+    alertNotification: boolean = false;
     
     constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router ) { }
 
@@ -73,6 +74,10 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         Insert new recipe
     ==========================*/
     publishRecipe() {
+        if ( this.recipeTitle.nativeElement.value.length === 0 || this.recipeContent.length === 0 ) {
+            this.alertNotification = true;
+            return alert('Title and content are important fields.');
+        }
         let saveRecipe = new RecipeModel(
             this.recipeTitle.nativeElement.value ? this.recipeTitle.nativeElement.value : null, 
             this.recipeContent ? this.recipeContent : null,
@@ -83,7 +88,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.recipeService.addNewRecipe(saveRecipe)
         .subscribe( (resut) => {
             this.router.navigate(['../account/recipes/edit']);
-        });        
+        });
     }
 
     /*========================
