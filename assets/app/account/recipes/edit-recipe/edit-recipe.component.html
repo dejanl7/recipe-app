@@ -1,6 +1,6 @@
 <div class="row">    
     <div class="col-sm-12">
-        <h4 class="text-left">Recipes</h4>
+        <h4 class="text-left">Recipes <button class="btn btn-secondary new-recipe" [routerLink]="['/account/recipes/new']">New</button></h4>
         <div class="recipes-table-container">
             <div class="search col-md-4 col-sm-6 col-xs-12">
                 <input [(ngModel)]="filteredRecipes" class="form-control" placeholder="Search...">
@@ -77,14 +77,14 @@
                 <ng-container *ngIf="filteredRecipes.length > 0 && (recipesInfo | recipeFilter: filteredRecipes).length === 0">
                     <tbody>
                         <tr>
-                            <td colspan="6"><h4 class="text-center no-recipes">No Matched Recipes...</h4></td>
+                            <td colspan="7"><h4 class="text-center no-recipes">No Matched Recipes...</h4></td>
                         </tr>
                     <tbody>
                 </ng-container>
                 <ng-template #noRecipes>
                     <tbody>
                         <tr>
-                            <td colspan="6"><h4 class="text-center no-recipes">No Recipes</h4></td>
+                            <td colspan="7"><h4 class="text-center no-recipes">No Recipes</h4></td>
                         </tr>
                     <tbody>
                 </ng-template>

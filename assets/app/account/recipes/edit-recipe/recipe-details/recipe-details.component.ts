@@ -3,6 +3,7 @@ import { Subscription } from "rxjs/Subscription";
 import { RecipesService } from "../../../../services/recipes.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RecipeModel } from "../../../../models/recipe.model";
+import { UpdatedInfoService } from "../../../../services/updatedinfo.service";
 declare var tinymce: any;
 
 @Component({
@@ -26,7 +27,7 @@ export class RecipeDetailsComponent implements OnInit {
     recipeIdEdit: string;
     recipeInfoEdit: any;
   
-    constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute ) { }
+    constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) { }
 
     // On Init
     ngOnInit(){
@@ -110,7 +111,10 @@ export class RecipeDetailsComponent implements OnInit {
         this.recipeService.addNewRecipe(saveRecipe)
         .subscribe( (resut) => {
             this.router.navigate(['../account/recipes/edit']);
-        });        
+            this.updateInfo.isUpdated.next(true);
+            this.updateInfo.updatedInfoMessage.next('Updated recipe changes...');
+        });   
+        this.updateInfo.isUpdated.next(false);     
     }
 
 }

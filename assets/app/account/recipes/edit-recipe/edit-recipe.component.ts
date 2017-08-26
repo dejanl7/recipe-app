@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipesService } from "../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
+import { UpdatedInfoService } from "../../../services/updatedinfo.service";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     filteredRecipes: string = '';
 
 
-    constructor( private recipeService: RecipesService ) { }
+    constructor( private recipeService: RecipesService, private updateInfo: UpdatedInfoService ) { }
 
 
     /*===================================
@@ -89,31 +90,40 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         else if( this.activeRecipes ) {
             this.recipesInfo = this.activeRecipesInfo;
         }
+
+        this.updateInfo.isUpdated.next(false);
     }
 
     /*=============================
        Update publish/unpublish
     ===============================*/
     updatePublishRecipeStatus(id: string, status: boolean) {
-        this.recipeService.updateRecipePublish(id, !status).subscribe();
+        this.recipeService.updateRecipePublish(id, !status)
+        .subscribe( (result) => { 
+            this.updateInfo.isUpdated.next(true);
+            this.updateInfo.updatedInfoMessage.next('Updated recipe status...');   
+        });
+        this.updateInfo.isUpdated.next(false);
     }
 
     /*====================
        Move to trash
     ======================*/
     moveToTrash(id: string, status: boolean) {
-        this.recipeService.moveToTrash(id, !status)
-        .subscribe( (result) => {
-            this.activeRecipesInfo = [];
-            this.trashRecipesInfo = [];
-            this.getRecipes();
-            if( this.activeRecipes ) {
-                this.recipesInfo = this.activeRecipesInfo;
-            }
-                else {
-                    this.recipesInfo = this.trashRecipesInfo;
+        if( confirm("Do you want to remove this recipe?") ) {
+            this.recipeService.moveToTrash(id, !status)
+            .subscribe( (result) => {
+                this.activeRecipesInfo = [];
+                this.trashRecipesInfo = [];
+                this.getRecipes();
+                if( this.activeRecipes ) {
+                    this.recipesInfo = this.activeRecipesInfo;
                 }
-        });
+                    else {
+                        this.recipesInfo = this.trashRecipesInfo;
+                    }
+            });
+        }
     }
 
 

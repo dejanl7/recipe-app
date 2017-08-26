@@ -135,6 +135,24 @@ router.post('/', function (req, res, next) {
                     for ( var cat=0; cat<category.length; cat++ ) {
                         catArray.push(category[cat].categoryName);
                     }
+                    if( catArray.length < 1 ) {
+                        for( var ec=0; ec<sanitizedContent.categories.length; ec++ ) {
+                            console.log(sanitizedContent.categories[ec]);
+                            newCategoryArray = [];
+                            var categoryNew = new Category({
+                                categoryName: sanitizedContent.categories[ec],
+                                createdBy: user._id,
+                                categoryRecipe: result._id
+                            });
+                            categoryNew.save();
+                            newCategoryArray.push(categoryNew._id);
+                            
+                            for( var eca=0; eca<newCategoryArray.length; eca++) {
+                                result.recipeCategories.push(newCategoryArray[eca]);
+                                console.log(newCategoryArray[nca]);
+                            }
+                        }
+                    }
                     for( var tc=0; tc<catArray.length; tc++ ) {
                         if (typeof sanitizedContent.categories[tc] !== 'undefined' ) {
                             if ( catArray.indexOf(sanitizedContent.categories[tc]) === -1 ) {
@@ -149,6 +167,7 @@ router.post('/', function (req, res, next) {
                                 newCategoryArray.push(categoryNew._id);
                                 for( var nca=0; nca<newCategoryArray.length; nca++) {
                                     result.recipeCategories.push(newCategoryArray[nca]);
+                                    //console.log(newCategoryArray[nca]);
                                 }
                             }                
                         }

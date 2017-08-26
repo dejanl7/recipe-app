@@ -10,6 +10,7 @@ import { GET_PROFILE_IMAGE } from "../../redux/actions";
 import { CanComponentDeactivate } from "../../route-protected-services/can-deactivate-guard.service";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
+import { UpdatedInfoService } from "../../services/updatedinfo.service";
 
 
 @Component({
@@ -28,7 +29,7 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
     selectedImg: string;
     allowedChangeRoute: boolean = true;
     closeResult: string;
-    isUpdated: boolean = false;
+   // isUpdated: boolean = false;
     profileImg: string;
     getUserEmail: Subscription;
     getAccountInfo: Subscription;
@@ -39,7 +40,7 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
 
     @select() profileImage;
 
-    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
+    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface>, private updateInfo: UpdatedInfoService ) { }
 
     // On Init
     ngOnInit() {
@@ -132,12 +133,12 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
         this.editUserService.updateUserInfo(updatedInfo)
         .subscribe( (result) => {
             this.userInformation = result.obj;
-            this.isUpdated = true;
-            console.log(result.obj);
+            this.updateInfo.isUpdated.next(true);
+            this.updateInfo.updatedInfoMessage.next('Updated user info...');
             this.ngRedux.dispatch({ type: GET_PROFILE_IMAGE, profileImgPayload: result.obj.profileImage, profileEmailPayload: result.obj.email });
         });
-        this.isUpdated = false;
         this.allowedChangeRoute = true;
+        this.updateInfo.isUpdated.next(false);
     }
 
     /*=======================

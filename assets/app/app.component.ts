@@ -7,6 +7,8 @@ import { ImagesService } from "./services/images.service";
 
 // Tiny MCE
 import "tinymce/tinymce.min.js";
+import { UpdatedInfoService } from "./services/updatedinfo.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'my-app',
@@ -18,22 +20,48 @@ import "tinymce/tinymce.min.js";
 export class AppComponent implements OnInit {
     @select() imagesInfo;    
     imagesUrlAddress: string = 'http://localhost:3000/image';
+    messageSubscr: Subscription;
+    isActiveSubscr: Subscription;
+    message: string;
+    isActive: boolean;
 
-    constructor( private loginService: LoginService, private ngRedux: NgRedux<ImageInterface>, private imagesService: ImagesService ){}
+    constructor( private loginService: LoginService, private ngRedux: NgRedux<ImageInterface>, private imagesService: ImagesService, private updateService: UpdatedInfoService ){}
 
-    ngOnInit() {}
+    // Initialization
+    ngOnInit() {
+        this.messageSubscr = this.updateService.isUpdated
+        .subscribe( (result: boolean) => {
+            this.isActive = result;
+        });
 
+        this.isActiveSubscr = this.updateService.updatedInfoMessage
+        .subscribe( (result: string) => {
+            this.message = result;
+        });
+    }
+
+    // On Destroy
+    ngOnDestroy() {
+        this.messageSubscr.unsubscribe();
+        this.isActiveSubscr.unsubscribe();
+    }
+
+
+    /*==============================
+        Check if user is logged in
+    ================================*/
     isUserLoggedIn() {
         if( this.loginService.isLoogedIn() ) {
             return true;
         } 
     }
 
-    // Redux Module
-    getImageInfo() {
+    /*==============================
+        Redux Module
+    ================================*/
+        getImageInfo() {
         this.imagesService.getUserImages()
         .subscribe( (result) => {
-            console.log(result.uploadedImages);
             this.ngRedux.dispatch({ type: GET_IMAGES_INFO, payload: result.uploadedImages });
         });
     }

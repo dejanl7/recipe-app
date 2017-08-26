@@ -33,6 +33,7 @@ import { CanDeactivateGuard } from "./route-protected-services/can-deactivate-gu
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
 import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
 import { ImageInterface } from "./redux/interfaces";
+import { UpdatedInfoService } from "./services/updatedinfo.service";
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ImageInterface } from "./redux/interfaces";
         UserVerificationService,
         UserService, 
         ImagesService,
-        CanDeactivateGuard
+        CanDeactivateGuard,
+        UpdatedInfoService
     ],
     bootstrap: [AppComponent],
 })

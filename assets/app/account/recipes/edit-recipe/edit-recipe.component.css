@@ -1,3 +1,8 @@
+.new-recipe {
+    background-color: #95A5A6;
+    color: #fff;
+    font-size: 15px;
+}
 .recipes-table-container {
     max-width: 1200px;
 }
