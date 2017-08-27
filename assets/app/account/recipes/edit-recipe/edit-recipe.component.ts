@@ -22,6 +22,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     activeRecipes: boolean = true;
     trashRecipes: boolean = false;
     filteredRecipes: string = '';
+    order: string = 'dateCreated';
+    ascending: boolean = false;
 
 
     constructor( private recipeService: RecipesService, private updateInfo: UpdatedInfoService ) { }
@@ -110,7 +112,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
        Move to trash
     ======================*/
     moveToTrash(id: string, status: boolean) {
-        if( confirm("Do you want to remove this recipe?") ) {
+        let msgType = status ? 'restore' : 'remove';
+        if( confirm(`Do you want to ${msgType} this recipe?`) ) {
             this.recipeService.moveToTrash(id, !status)
             .subscribe( (result) => {
                 this.activeRecipesInfo = [];
@@ -126,6 +129,39 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         }
     }
 
+    /*=======================
+        Remove one recipe
+    =========================*/
+    removeRecipe(id: string) {
+        if( confirm('Delete this recipe?') ) {
+            this.recipeService.deleteRecipe(id)
+            .subscribe( (result) => {
+                this.activeRecipesInfo = [];
+                this.trashRecipesInfo = [];
+                this.getRecipes();
+                if( this.activeRecipes ) {
+                    this.recipesInfo = this.activeRecipesInfo;
+                }
+                    else {
+                        this.recipesInfo = this.trashRecipesInfo;
+                    }
+            });
+        }
+    }
+
+    /*=======================
+        Sort Table Columns
+    =========================*/
+    // Descending
+    sortDesc(orderName: string) {
+        this.order = orderName;
+        this.ascending = false;
+    }
+    // Ascending
+    sortAsc(orderName: string) {
+        this.order = orderName;
+        this.ascending = true;
+    }
 
 
 }

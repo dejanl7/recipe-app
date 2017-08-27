@@ -2,6 +2,7 @@ var express  = require('express');
 var router   = express.Router();
 var jwt      = require('jsonwebtoken');
 var sanitize = require("mongo-sanitize");
+var _        = require('lodash');
 
 var Recipe   = require('../models/recipes');
 var User     = require('../models/users');
@@ -37,8 +38,10 @@ router.get('/:id', function(req, res, next) {
         select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
         populate: {
             path: 'recipeCategories',
-        }
+        },
+        options: { sort: { _id: -1 } }
     })
+    .sort({ occupation: -1 })
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
@@ -130,54 +133,37 @@ router.post('/', function (req, res, next) {
             if( sanitizedContent.categories ) {
                 Category.find()
                 .exec(function(categoryError, category) {
-                    // If category exist into database - update recipes fields
-                    catArray = [];
+                    newCArray = [];
                     for ( var cat=0; cat<category.length; cat++ ) {
-                        catArray.push(category[cat].categoryName);
+                        newCArray.push(category[cat].categoryName);
                     }
-                    if( catArray.length < 1 ) {
-                        for( var ec=0; ec<sanitizedContent.categories.length; ec++ ) {
-                            console.log(sanitizedContent.categories[ec]);
+                    var sameValues = _.intersectionWith(newCArray, sanitizedContent.categories, _.isEqual);
+                    var dif = _.difference( sanitizedContent.categories, newCArray, _.isEqual);
+
+                    if( dif.length > 0 ) {
+                        for( var tc=0; tc<dif.length; tc++ ) {
                             newCategoryArray = [];
                             var categoryNew = new Category({
-                                categoryName: sanitizedContent.categories[ec],
+                                categoryName: dif[tc],
                                 createdBy: user._id,
                                 categoryRecipe: result._id
                             });
                             categoryNew.save();
-                            newCategoryArray.push(categoryNew._id);
                             
-                            for( var eca=0; eca<newCategoryArray.length; eca++) {
-                                result.recipeCategories.push(newCategoryArray[eca]);
-                                console.log(newCategoryArray[nca]);
-                            }
+                            newCategoryArray.push(categoryNew._id);
+                            for( var nca=0; nca<dif.length; nca++) {
+                                result.recipeCategories.push(newCategoryArray[nca]);
+                            }               
                         }
                     }
-                    for( var tc=0; tc<catArray.length; tc++ ) {
-                        if (typeof sanitizedContent.categories[tc] !== 'undefined' ) {
-                            if ( catArray.indexOf(sanitizedContent.categories[tc]) === -1 ) {
-                                newCategoryArray = [];
-                                var categoryNew = new Category({
-                                    categoryName: sanitizedContent.categories[tc],
-                                    createdBy: user._id,
-                                    categoryRecipe: result._id
-                                });
-                                categoryNew.save();
-                                
-                                newCategoryArray.push(categoryNew._id);
-                                for( var nca=0; nca<newCategoryArray.length; nca++) {
-                                    result.recipeCategories.push(newCategoryArray[nca]);
-                                    //console.log(newCategoryArray[nca]);
-                                }
-                            }                
-                        }
-                        if (catArray.indexOf(sanitizedContent.categories[tc]) > -1 ){
-                            category[catArray.indexOf(sanitizedContent.categories[tc])].categoryRecipe.push(result._id);
-                            result.recipeCategories.push(category[catArray.indexOf(sanitizedContent.categories[tc])]);
-                            category[catArray.indexOf(sanitizedContent.categories[tc])].save();
+                    if( sameValues.length > 0 ) {
+                        for( let x=0; x<sameValues.length; x++ ) {
+                            category[newCArray.indexOf(sameValues[x].toString())].categoryRecipe.push(result._id);
+                            result.recipeCategories.push(category[newCArray.indexOf(sameValues[x].toString())]);
+                            category[newCArray.indexOf(sameValues[x].toString())].save();
                         }
                     }
-
+                  
                     result.save();
                 });
             }
@@ -243,7 +229,6 @@ router.patch('/:id', function(req, res, next){
 ===========================*/
 router.patch('/delete/:id', function(req, res, next){
     var decoded = jwt.decode(req.query.token);  
-    console.log(req.body);
 
     Recipe.findById(req.params.id, function(err, recipe) {
         if(err) {
@@ -278,6 +263,43 @@ router.patch('/delete/:id', function(req, res, next){
             }
             res.status(201).json({
                 message: 'Deletet recipe.',
+                obj: result
+            });
+        });
+    });
+});
+
+
+/*==========================
+    Delete recipe (by id)
+============================*/
+router.delete('/delete/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+
+    Recipe.findById(req.params.id, function(err, recipe){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - removing recipe...',
+                error: err
+            });
+        }
+        if(recipe.createdFrom != decoded.user._id) {
+            return res.status(401).json({
+                title: 'You don\'t have role to delete this recipe!',
+                error: err
+            })
+        }
+
+        // Remove recipe  
+        recipe.remove(function(err, result) {
+            if (err) {
+                return result.status(500).json({
+                    title: 'An error occured during remove recipe...',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                image: 'Deleted image!',
                 obj: result
             });
         });

@@ -16,12 +16,14 @@ import { RecipesService } from "../../../services/recipes.service";
 
 // Custom Filter Pipe - for recipe table
 import { FilterRecipeArrayPipe } from "../../../filter-array.pipe";
+import { OrderByPipe } from "../../../order-by.pipe";
 
 
 @NgModule({
     declarations: [
         EditRecipeComponent,
-        FilterRecipeArrayPipe
+        FilterRecipeArrayPipe,
+        OrderByPipe
     ],
     imports: [
         CommonModule,

@@ -105,7 +105,7 @@ export class RecipesService {
             });
     }
 
-    // Delete Recipe
+    // Move to trash
     moveToTrash(recipeId: string, status: boolean){
         const token     = '?token=' + this.userToken;
         const body      = JSON.stringify(status);
@@ -119,8 +119,25 @@ export class RecipesService {
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
-            });
+            }); 
+    }
+
+    // Delete recipe
+    deleteRecipe(recipeId: string){
+        const token = '?token=' + this.userToken;
+        let body    = JSON.stringify({ "content": recipeId });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            headers: headers,
+            body: body
+        });
         
+        return this.http.delete(this.recipesUrlAddress + '/delete/' + recipeId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
 

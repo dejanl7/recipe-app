@@ -19,28 +19,50 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Recipe Title</th>
+                        <th>
+                            Recipe Title 
+                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'recipeName'" (click)="sortDesc('recipeName')"></i>
+                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'recipeName' && ascending" (click)="sortDesc('recipeName')"></i> 
+                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'recipeName' && !ascending" (click)="sortAsc('recipeName')"></i>
+                        </th>
                         <th>Category</th>
                         <th>Comments</th>
-                        <th>Avg. Rarting</th>
-                        <th>Status</th>
-                        <th>Publish Time</th>
+                        <th>
+                            Avg. Rarting
+                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'recipeRating'" (click)="sortDesc('recipeRating')"></i>
+                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'recipeRating' && ascending" (click)="sortDesc('recipeRating')"></i> 
+                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'recipeRating' && !ascending" (click)="sortAsc('recipeRating')"></i>
+                        </th>
+                        <th>
+                            Status
+                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'recipePublish'" (click)="sortDesc('recipePublish')"></i>
+                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'recipePublish' && ascending" (click)="sortDesc('recipePublish')"></i> 
+                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'recipePublish' && !ascending" (click)="sortAsc('recipePublish')"></i>
+                        </th>
+                        <th>
+                            Publish Time
+                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'dateCreated'" (click)="sortDesc('dateCreated')"></i>
+                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'dateCreated' && ascending" (click)="sortDesc('dateCreated')"></i> 
+                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'dateCreated' && !ascending" (click)="sortAsc('dateCreated')"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody *ngIf="recipesInfo.length > 0; else noRecipes">
-                    <tr *ngFor="let recipeInfo of recipesInfo | recipeFilter: filteredRecipes | paginate: { itemsPerPage: recipesPerPage, currentPage: currentRecipePage }; let i = index">
-                        <th scope="row">{{  (currentRecipePage - 1) * recipesPerPage + i + 1 }}</th>
+                    <tr *ngFor="let recipeInfo of recipesInfo | orderBy:order:ascending | recipeFilter: filteredRecipes | paginate: { itemsPerPage: recipesPerPage, currentPage: currentRecipePage }; let i = index">
+                        <th scope="row">{{ (currentRecipePage - 1) * recipesPerPage + i + 1 }}</th>
                         <td>
                             {{ recipeInfo.recipeName }}
                             <p>
-                                <span class="trash" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
+                                <span class="trash" [class.restore]="recipeInfo.recipeDeleted" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
                                 <span class="separator">|</span>
                                 <a [routerLink]="['/account/recipes/edit/', recipeInfo._id]"><span class="edit">Edit</span></a>
+                                <span class="separator" *ngIf="recipeInfo.recipeDeleted">|</span>
+                                <span class="remove" *ngIf="recipeInfo.recipeDeleted" (click)="removeRecipe(recipeInfo._id)">Remove</span>
                             </p>
                         </td>
                         <td>
                             <p *ngIf="recipeInfo.recipeCategories.length > 0">
-                                <span *ngFor="let category of recipeInfo.recipeCategories">{{ category.categoryName }}, </span>
+                                <span class="category-name" *ngFor="let category of recipeInfo.recipeCategories">{{ category.categoryName }}<i class="comma">, </i></span>
                             </p>   
                             <p *ngIf="recipeInfo.recipeCategories.length === 0">
                                 <span>No categories</span>

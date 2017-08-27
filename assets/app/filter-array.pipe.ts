@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import * as _ from "lodash";
 
 @Pipe({
   name: 'recipeFilter'
@@ -25,8 +26,7 @@ export class FilterRecipeArrayPipe {
                     resultArray.push(item);
                 }
             }
-        }
-
-        return resultArray;
+        }  
+        return _.uniq(resultArray);
     }
 }

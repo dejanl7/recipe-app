@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var User     = require('./users');
+var Category = require('./categories');
 
 
 /*=====================================
@@ -64,6 +65,13 @@ schema.post('remove', function(recipe) {
     User.findById(recipe.createdFrom, function(err, user) {
         user.userRecipes.pull(recipe);
         user.save();
+    });
+
+    Category.find({ _id: {$in: recipe.recipeCategories} }, function(err, category) {
+        for( var c=0; c<category.length; c++ ) {
+            category[c].categoryRecipe.pull(recipe);
+            category[c].save();
+        }
     });
 });
 

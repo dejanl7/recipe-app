@@ -97,12 +97,26 @@ span {
 .trash {
     color: #c0392b;
 }
+.restore {
+    color: #27ae60;
+}
+.remove {
+    color: #c0392b;
+}
 .edit {
     color: #34495e;   
 }
 .trash:hover,
-.edit:hover {
+.edit:hover,
+.remove:hover {
     cursor: pointer;
+}
+.comma {
+    font-size: 17px;
+    padding-left: 2px;
+}
+.category-name:last-of-type .comma {
+    display: none;
 }
 .separator {
     margin-left: 3px;

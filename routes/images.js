@@ -189,7 +189,6 @@ router.delete('/delete', function(req, res, next){
         }
         
         User.findById(decoded.user._id, function(userError, userProfileImg) {
-            console.log(userProfileImg);
             for( var x = 0; x < req.body.content.length; x++ ) {
                 fs.unlink(path.join(__dirname, '../public/images/uploaded/' + req.body.imageNames[x]));
                 userProfileImg.uploadedImages.pull(req.body.content[x]);
