@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { select } from "ng2-redux";
 import { ImagesService } from "../services/images.service";
 import { UserService } from "../services/user.service";
+import { Subscription } from "rxjs/Subscription";
+import { Router, NavigationStart } from "@angular/router";
 
 
 @Component({
@@ -13,8 +15,13 @@ import { UserService } from "../services/user.service";
 
 
 export class NavbarComponent implements OnInit {
+    userImages: Subscription;
+    imagesInfo: Subscription;
+    profileImgEmail: Subscription;
+    activatedUrl: Subscription;
     showVerticalNavbar: boolean = true;
-    showSubmenu: boolean = false;  
+    showSubmenu: boolean = false; 
+    activeElement: boolean = false; 
     @select() imagesInfoLength;
     @select() profileImage;
     @select() profileEmail;
@@ -22,26 +29,54 @@ export class NavbarComponent implements OnInit {
     userEmail: string;
     imgInfoLength: string;
 
-    constructor( private imagesService: ImagesService, private userService: UserService ) { }
 
+    constructor( private imagesService: ImagesService, private userService: UserService, private router: Router ) { }
+
+
+    // On Init
     ngOnInit() {
-        this.imagesService.getUserImages()
+        this.userImages = this.imagesService.getUserImages()
         .subscribe( (userImages) => {
             this.imgInfoLength = userImages.uploadedImages.length;
         });
 
         // Count length of all user images (redux)
-        this.imagesInfoLength
+        this.imagesInfo = this.imagesInfoLength
         .subscribe( (userImagesLength) => {
             this.imgInfoLength = userImagesLength;
         });
 
         // Profile image
-        this.userService.getProfileImageAndEmail()
+        this.profileImgEmail = this.userService.getProfileImageAndEmail()
         .subscribe( (result) => {
             this.profileImg = result.profileImage;
             this.userEmail  = result.email;
         });
+        
+        // Active route url
+        this.activatedUrl = this.router.events
+        .subscribe( (url) =>{
+            if( url instanceof NavigationStart ) {
+                if( url.url.indexOf('edit') > -1 ) {
+                    this.activeElement = true;
+                }
+                else if ( url.url.indexOf('recipe') ) {
+                    this.activeElement = false;
+                }
+                else {
+                    this.activeElement = false;
+                }
+            }
+        });
+    }
+
+
+    // Destroy
+    ngOnDestroy() {
+        this.userImages.unsubscribe();
+        this.imagesInfo.unsubscribe();
+        this.profileImgEmail.unsubscribe();
+        this.activatedUrl.unsubscribe();
     }
 
 }

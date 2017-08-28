@@ -148,6 +148,9 @@ a:hover {
 .navigation-elements.active a span.badge {
 	padding-left: 11px;
 }
+.navbar-active {
+	color: #f1c40f;
+}
 .navigation-elements a span:not(.badge),
 .navigation-elements a i {
 	-webkit-transition: color .15s;

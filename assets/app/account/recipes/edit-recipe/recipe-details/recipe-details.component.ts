@@ -30,7 +30,7 @@ export class RecipeDetailsComponent implements OnInit {
     recipeGalleryImagesEdit: Array<string>;
     recipeInfoEdit: any;
   
-    constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) { }
+    constructor( private recipeService: RecipesService, private router: Router, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) { }
 
     // On Init
     ngOnInit(){
