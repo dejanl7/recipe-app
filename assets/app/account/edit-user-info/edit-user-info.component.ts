@@ -29,7 +29,6 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
     selectedImg: string;
     allowedChangeRoute: boolean = true;
     closeResult: string;
-   // isUpdated: boolean = false;
     profileImg: string;
     getUserEmail: Subscription;
     getAccountInfo: Subscription;

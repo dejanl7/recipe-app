@@ -37,7 +37,6 @@ export class GalleryComponent implements OnInit {
             for( let im=0; im<allUserImages.length; im++) {
                 this.imageIdsEdit.push(allUserImages[im]._id);
                 this.userImgsEdit.push(allUserImages[im].imagePath);
-                this.userImgPathsEdit.push(allUserImages[im].imagePath);
             }
         });
         
@@ -117,8 +116,19 @@ export class GalleryComponent implements OnInit {
         Remove Selected Images
     ===============================*/
     removeSelectedImgs() {
+        this.userImgPathsEdit = [];
         this.checkedImgPathArrayEdit = [];
-        this.displayGalleryImgsBoxEdit = false;
+        this.checkedImgArrayEdit = [];
+
+        if( this.imgsCheckedEdit.length > 0 ) {
+            this.displayGalleryImgsBoxEdit = true;
+        }
+            else {
+                this.displayGalleryImgsBoxEdit = false;
+            }
+
+        this.checkedMarkEdit = false;
+        this.recipeService.galleryImgs.next(this.checkedImgPathArrayEdit);
     }
 
 }

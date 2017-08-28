@@ -3,7 +3,6 @@ var router       = express.Router();
 var bcrypt       = require('bcryptjs');
 var jwt          = require('jsonwebtoken');
 var sanitize     = require("mongo-sanitize");
-var sanitizeHtml = require('sanitize-html');
 var nodemailer   = require('nodemailer');
 
 var User         = require('../models/users');

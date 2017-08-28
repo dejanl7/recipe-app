@@ -8,7 +8,7 @@ export class ErrorService {
     errorOccurred = new EventEmitter<ErrorModel>();
     
     
-    constructor() { }
+    constructor() {}
 
 
     handleError(error: any) {

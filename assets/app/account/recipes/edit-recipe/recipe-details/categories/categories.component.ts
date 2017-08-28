@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
     getCategoriesAutoSuggestEdit: Subscription;
     getRecipeInfoCategories: Subscription;
     currentCategoriesEdit: Array<string> = [];
-    selectedCategoriesEdit: Array<string> = [];
+    //selectedCategoriesEdit: Array<string> = [];
     protected categoriesAutoSuggestEdit: Array<string> = [];
     
     
@@ -37,7 +37,6 @@ export class CategoriesComponent implements OnInit {
         .subscribe( (pathElements) => {
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
-                console.log(result);
                 this.currentCategoriesEdit = result.recipeCategories;
             });
         });
@@ -50,15 +49,14 @@ export class CategoriesComponent implements OnInit {
     }
 
 
-
     /*======================
         Add Category
     ========================*/
     onAddCategoryEdit( catForm: string ) {
         if ( this.categoryForm.value.category !== null ){
-            this.selectedCategoriesEdit.push(this.categoryForm.value.category);
+            this.currentCategoriesEdit.push(this.categoryForm.value.category);
             this.categoryForm.reset();
-            this.recipeService.categories.next(this.selectedCategoriesEdit);
+            this.recipeService.categories.next(this.currentCategoriesEdit);
         }
     }
 
@@ -67,8 +65,8 @@ export class CategoriesComponent implements OnInit {
     ===================================*/
     removeCategoryEdit( index: number ) {
         if( index !== -1 ){
-            this.selectedCategoriesEdit.splice(index, 1);
-            this.recipeService.categories.next(this.selectedCategoriesEdit);
+            this.currentCategoriesEdit.splice(index, 1);
+            this.recipeService.categories.next(this.currentCategoriesEdit);
         }
     }
 

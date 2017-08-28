@@ -3,6 +3,7 @@ import { RecipesService } from "../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
 import { RecipeModel } from "../../../models/recipe.model";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs/Observable";
 declare var tinymce: any;
 
 
@@ -24,6 +25,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
     recipeAttachment: string;
     recipeGalleryImages: Array<string>;
     alertNotification: boolean = false;
+    allowedChangeRoute: boolean = false;
     
     constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router ) { }
 
@@ -44,7 +46,6 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe( (gallery: Array<string>) => { 
             this.recipeGalleryImages = gallery;
         });
-        
     }
 
     // After View Init
@@ -78,6 +79,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.alertNotification = true;
             return alert('Title and content are important fields.');
         }
+        this.allowedChangeRoute = true;
         let saveRecipe = new RecipeModel(
             this.recipeTitle.nativeElement.value ? this.recipeTitle.nativeElement.value : null, 
             this.recipeContent ? this.recipeContent : null,
@@ -98,5 +100,21 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         if( confirm( 'Do you want to cancel new recipe?') ) {
             this.router.navigate(['account/recipes/edit']);
         }
+    }
+
+    /*=======================================
+        Protected from leaving unsaved data
+    =========================================*/
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {        
+        if ( this.allowedChangeRoute ) {
+            return true;
+        }
+        else if ( this.recipeTitle.nativeElement.value != '' || this.recipeContent || this.recipeCategories || this.recipeAttachment || this.recipeGalleryImages ) {
+            this.allowedChangeRoute = false;
+            return confirm('Do you want to discard the changes?');
+        }
+            else {
+                return true;
+            }       
     }
 }

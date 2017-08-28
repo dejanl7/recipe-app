@@ -4,7 +4,7 @@
             <label for="recipe-name">Title:</label>
             <input type="text" id="recipe-name" class="form-control" placeholder="Recipe Name" #recipeTitle [class.alert]="alertNotification">
         </div>
-        <div class="form-group content" [class.alertContent]="alertNotification">
+        <div class="form-group content"  #recipeContent [class.alertContent]="alertNotification">
             <label for="recipe-content">Content:</label>
             <textarea rows="15" class="add-new-recipe"></textarea>
         </div>

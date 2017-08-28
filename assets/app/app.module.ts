@@ -28,12 +28,12 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
 import { UserService } from "./services/user.service";
 import { ImagesService } from "./services/images.service";
 import { CanDeactivateGuard } from "./route-protected-services/can-deactivate-guard.service";
+import { UpdatedInfoService } from "./services/updatedinfo.service";
 
 // Import REDUX
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
 import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
 import { ImageInterface } from "./redux/interfaces";
-import { UpdatedInfoService } from "./services/updatedinfo.service";
 
 
 @NgModule({

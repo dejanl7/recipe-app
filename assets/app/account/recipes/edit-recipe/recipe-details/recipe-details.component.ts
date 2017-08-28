@@ -15,22 +15,50 @@ declare var tinymce: any;
 
 export class RecipeDetailsComponent implements OnInit {
     editor: any;
+    dbCategories: Subscription;
+    dbAttachedImg: Subscription;
+    dbGalleryImg: Subscription;
     getRecipeCategoriesEdit: Subscription;
     getRecipeAttachedImgsEdit: Subscription;
     getRecipeGalleryImgsEdit: Subscription;
     getRecipeInfoEdit: Subscription;
+    recipeId: string;
     @ViewChild('recipeTitleEdit') recipeTitleEdit: ElementRef;
     recipeContentEdit: string;
     recipeCategoriesEdit: Array<string>;
     recipeAttachmentEdit: string;
     recipeGalleryImagesEdit: Array<string>;
-    recipeIdEdit: string;
     recipeInfoEdit: any;
   
     constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) { }
 
     // On Init
     ngOnInit(){
+        // From Database
+        this.dbCategories= this.activatedRoute.params
+        .subscribe( (pathElements) => {
+            this.recipeService.getRecipeUnique(pathElements.id)
+            .subscribe( (result) => {
+                this.recipeCategoriesEdit = result.recipeCategories;
+            });
+        });
+        this.dbAttachedImg = this.activatedRoute.params
+        .subscribe( (pathElements) => {
+            this.recipeService.getRecipeUnique(pathElements.id)
+            .subscribe( (result) => {
+                this.recipeAttachmentEdit = result.recipeImage;
+            });
+        });
+        this.dbGalleryImg = this.activatedRoute.params
+        .subscribe( (pathElements) => {
+            this.recipeService.getRecipeUnique(pathElements.id)
+            .subscribe( (result) => {
+                this.recipeGalleryImagesEdit = result.recipeGallery;
+            });
+        });
+
+
+        // Updated (changed)
         this.getRecipeCategoriesEdit = this.recipeService.categories
         .subscribe( (categories: Array<string>) => {
             this.recipeCategoriesEdit = categories;
@@ -48,17 +76,15 @@ export class RecipeDetailsComponent implements OnInit {
 
         this.getRecipeInfoEdit = this.activatedRoute.params
         .subscribe( (pathElements) => {
-            this.recipeIdEdit = pathElements.id;
+            this.recipeId = pathElements.id;
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
                 this.recipeInfoEdit = result;
                 this.recipeTitleEdit.nativeElement.value = result.recipeName;
                 this.recipeCategoriesEdit = result.recipeCategories;
+                this.recipeContentEdit = result.recipeContent;
             });
-        });
-
-       
-      
+        });      
     }
 
     // After View Init
@@ -81,6 +107,9 @@ export class RecipeDetailsComponent implements OnInit {
     // Destroy
     ngOnDestroy() {
         tinymce.remove(this.editor);
+        this.dbCategories.unsubscribe();
+        this.dbAttachedImg.unsubscribe();
+        this.dbGalleryImg.unsubscribe();
         this.getRecipeCategoriesEdit.unsubscribe();
         this.getRecipeAttachedImgsEdit.unsubscribe();
         this.getRecipeGalleryImgsEdit.unsubscribe();
@@ -100,21 +129,22 @@ export class RecipeDetailsComponent implements OnInit {
     /*========================
         Update recipe
     ==========================*/
-    updateRecipe(recipeId: string) {
-        let saveRecipe = new RecipeModel(
-            this.recipeTitleEdit.nativeElement.value ? this.recipeTitleEdit.nativeElement.value : null, 
-            this.recipeContentEdit ? this.recipeContentEdit : null,
-            this.recipeCategoriesEdit ? this.recipeCategoriesEdit : null,
-            this.recipeAttachmentEdit ? this.recipeAttachmentEdit : null,
-            this.recipeGalleryImagesEdit ? this.recipeGalleryImagesEdit : null
+    updateRecipe() {
+        let updateRecipe = new RecipeModel(
+            this.recipeTitleEdit.nativeElement.value, 
+            this.recipeContentEdit,
+            this.recipeCategoriesEdit,
+            this.recipeAttachmentEdit,
+            this.recipeGalleryImagesEdit
         );
-        this.recipeService.addNewRecipe(saveRecipe)
+        this.recipeService.updateRecipe(this.recipeId, updateRecipe)
         .subscribe( (resut) => {
             this.router.navigate(['../account/recipes/edit']);
             this.updateInfo.isUpdated.next(true);
             this.updateInfo.updatedInfoMessage.next('Updated recipe changes...');
         });   
-        this.updateInfo.isUpdated.next(false);     
+        this.updateInfo.isUpdated.next(false);
+        console.log(updateRecipe);   
     }
 
 }

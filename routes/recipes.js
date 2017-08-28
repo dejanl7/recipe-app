@@ -179,7 +179,7 @@ router.post('/', function (req, res, next) {
 
 
 /*=========================
-    Update recipe info
+    Update status
 ===========================*/
 router.patch('/:id', function(req, res, next){
     var decoded = jwt.decode(req.query.token);  
@@ -305,6 +305,99 @@ router.delete('/delete/:id', function(req, res, next){
         });
     });
 });
+
+
+/*=========================
+    Update recipe info
+===========================*/
+router.patch('/edit/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+
+    Recipe.findById(req.params.id, function(err, recipe) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured during the update recipe...',
+                error: err
+            });
+        }
+        if(!recipe) {
+            return res.status(500).json({
+                title: 'No Recipes Found...',
+                error: { recipe: 'Recipe not found...' }
+            });
+        }
+        if(recipe.createdFrom != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: { recipe: 'Recipe not found...' }
+            });
+        }
+
+        // Sanitize records and save recipe updated
+        sanitizedContent = sanitize(req.body);
+        
+        recipe.recipeName       = sanitizedContent.title || recipe.recipeName;
+        recipe.recipeContent    = sanitizedContent.content || recipe.recipeContent;
+        recipe.recipeImage      = sanitizedContent.attachment || recipe.recipeImage;
+        recipe.recipeGallery    = sanitizedContent.galleryImages || recipe.recipeGallery;
+        console.log("Gallery: " + sanitizedContent.galleryImagesy);
+
+        recipe.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            // Save Category
+            if( sanitizedContent.categories ) {
+                Category.find()
+                .exec(function(categoryError, category) {
+                    newCArray = [];
+                    for ( var cat=0; cat<category.length; cat++ ) {
+                        newCArray.push(category[cat].categoryName);
+                    }
+                    var sameValues = _.intersectionWith(newCArray, sanitizedContent.categories, _.isEqual);
+                    var dif = _.difference( sanitizedContent.categories, newCArray, _.isEqual);
+                    console.log(sameValues);
+                    console.log(dif);
+
+                    /*if( dif.length > 0 ) {
+                        for( var tc=0; tc<dif.length; tc++ ) {
+                            newCategoryArray = [];
+                            var categoryNew = new Category({
+                                categoryName: dif[tc],
+                                createdBy: user._id,
+                                categoryRecipe: result._id
+                            });
+                            categoryNew.save();
+                            
+                            newCategoryArray.push(categoryNew._id);
+                            for( var nca=0; nca<dif.length; nca++) {
+                                result.recipeCategories.push(newCategoryArray[nca]);
+                            }               
+                        }
+                    }
+                    if( sameValues.length > 0 ) {
+                        for( let x=0; x<sameValues.length; x++ ) {
+                            category[newCArray.indexOf(sameValues[x].toString())].categoryRecipe.push(result._id);
+                            result.recipeCategories.push(category[newCArray.indexOf(sameValues[x].toString())]);
+                            category[newCArray.indexOf(sameValues[x].toString())].save();
+                        }
+                    }*/
+                  
+                    result.save();
+                });
+            }
+
+            res.status(201).json({
+                message: 'Updated recipe.',
+                obj: result
+            });
+        });
+    });
+});
+
 
 
 

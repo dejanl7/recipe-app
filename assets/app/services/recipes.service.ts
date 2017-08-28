@@ -88,7 +88,7 @@ export class RecipesService {
             });
     }
 
-    // Update Recipe Publish Status
+    // Update Recipe Status (publish/unpublish)
     updateRecipePublish(recipeId: string, status: boolean){
         const token     = '?token=' + this.userToken;
         const body      = JSON.stringify(status);
@@ -133,6 +133,19 @@ export class RecipesService {
         });
         
         return this.http.delete(this.recipesUrlAddress + '/delete/' + recipeId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Update Recipe Information (title, content, categories, attachment and gallery)
+    updateRecipe(recipeId: string, uniqueRecipeInfo: RecipeModel){
+        const headers   = new Headers({ 'Content-Type': 'application/json' });
+        const body      = JSON.stringify(uniqueRecipeInfo);
+        const token     = '?token=' + this.userToken; 
+        return this.http.patch(this.recipesUrlAddress +'edit/' + recipeId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

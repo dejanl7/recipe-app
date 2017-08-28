@@ -15,7 +15,7 @@
             </form>
             <div class="added-categories">
                 <span *ngFor="let currentCategory of currentCategoriesEdit;  let i=index" class="recipe-categories-item"><i class="fa fa-times" aria-hidden="true" (click)="removeCategoryEdit(i)"></i> {{ currentCategory.categoryName }}</span>
-                <span *ngFor="let category of selectedCategoriesEdit; let i=index" class="recipe-categories-item"><i class="fa fa-times" aria-hidden="true" (click)="removeCategoryEdit(i)"></i> {{ category }}</span>
+                <!-- <span *ngFor="let category of selectedCategoriesEdit; let i=index" class="recipe-categories-item"><i class="fa fa-times" aria-hidden="true" (click)="removeCategoryEdit(i)"></i> {{ category }}</span> -->
             </div>
       </div>
     </div>
