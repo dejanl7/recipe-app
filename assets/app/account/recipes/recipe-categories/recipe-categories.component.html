@@ -1,3 +1,24 @@
-<p>
-  recipe-categories works!
-</p>
+<div class="row">
+    <div class="col-md-6 col-lg-5 col-sm-12">
+      <h4 class="text-left category-title">All Categories</h4>
+      <p class="cat-desc">You can see all categories used for recipes. Also, you can edit category name or delete category.</p>
+      <ul class="list-group" *ngFor="let category of allCategories">
+        <li class="list-group-item" [class.active]="activeClass" (click)="activeClass = !activeClass">
+            <p class="category-name">
+                <span>{{ category.categoryName }}</span>
+            </p>
+            <p class="category-recipes-number">
+                <a class="badge badge-default hover">
+                    <span>{{ category.categoryRecipe.length }}</span>
+                    <i class="hovertext">Number of recipes</i>
+                </a>
+            </p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-5 col-lg-6 col-sm-12 offset-lg-1 offset-md-1 offset-sm-0 category-detail">
+        <p class="text-left"></p>
+        
+    </div>
+</div>
