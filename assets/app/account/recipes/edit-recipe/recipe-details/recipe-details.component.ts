@@ -35,13 +35,15 @@ export class RecipeDetailsComponent implements OnInit {
     // On Init
     ngOnInit(){
         // From Database
-        this.dbCategories= this.activatedRoute.params
+        /*this.dbCategories= this.activatedRoute.params
         .subscribe( (pathElements) => {
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
-                this.recipeCategoriesEdit = result.recipeCategories;
+                for( var i=0; i<result.length; i++ ) {
+                    this.recipeCategoriesEdit.push(result.recipeCategories[i].categoryName);
+                }
             });
-        });
+        });*/
         this.dbAttachedImg = this.activatedRoute.params
         .subscribe( (pathElements) => {
             this.recipeService.getRecipeUnique(pathElements.id)
@@ -61,7 +63,10 @@ export class RecipeDetailsComponent implements OnInit {
         // Updated (changed)
         this.getRecipeCategoriesEdit = this.recipeService.categories
         .subscribe( (categories: Array<string>) => {
-            this.recipeCategoriesEdit = categories;
+            this.recipeCategoriesEdit = [];
+            for( var c=0; c<categories.length; c++ ) {
+                this.recipeCategoriesEdit.push(categories[c]);
+            }
         });
 
         this.getRecipeAttachedImgsEdit = this.recipeService.attachedImg
@@ -81,7 +86,7 @@ export class RecipeDetailsComponent implements OnInit {
             .subscribe( (result) => {
                 this.recipeInfoEdit = result;
                 this.recipeTitleEdit.nativeElement.value = result.recipeName;
-                this.recipeCategoriesEdit = result.recipeCategories;
+                this.recipeCategoriesEdit = result.recipeCategories || null;
                 this.recipeContentEdit = result.recipeContent;
             });
         });      
@@ -107,7 +112,7 @@ export class RecipeDetailsComponent implements OnInit {
     // Destroy
     ngOnDestroy() {
         tinymce.remove(this.editor);
-        this.dbCategories.unsubscribe();
+        // this.dbCategories.unsubscribe();
         this.dbAttachedImg.unsubscribe();
         this.dbGalleryImg.unsubscribe();
         this.getRecipeCategoriesEdit.unsubscribe();
@@ -144,7 +149,6 @@ export class RecipeDetailsComponent implements OnInit {
             this.updateInfo.updatedInfoMessage.next('Updated recipe changes...');
         });   
         this.updateInfo.isUpdated.next(false);
-        console.log(updateRecipe);   
     }
 
 }

@@ -157,7 +157,7 @@ router.post('/', function (req, res, next) {
                         }
                     }
                     if( sameValues.length > 0 ) {
-                        for( let x=0; x<sameValues.length; x++ ) {
+                        for( var x=0; x<sameValues.length; x++ ) {
                             category[newCArray.indexOf(sameValues[x].toString())].categoryRecipe.push(result._id);
                             result.recipeCategories.push(category[newCArray.indexOf(sameValues[x].toString())]);
                             category[newCArray.indexOf(sameValues[x].toString())].save();
@@ -335,13 +335,12 @@ router.patch('/edit/:id', function(req, res, next){
 
         // Sanitize records and save recipe updated
         sanitizedContent = sanitize(req.body);
-        
         recipe.recipeName       = sanitizedContent.title || recipe.recipeName;
         recipe.recipeContent    = sanitizedContent.content || recipe.recipeContent;
         recipe.recipeImage      = sanitizedContent.attachment || recipe.recipeImage;
         recipe.recipeGallery    = sanitizedContent.galleryImages || recipe.recipeGallery;
-        console.log("Gallery: " + sanitizedContent.galleryImagesy);
 
+        // Update Recipe
         recipe.save(function(err, result){
             if(err){
                 return res.status(500).json({
@@ -353,38 +352,54 @@ router.patch('/edit/:id', function(req, res, next){
             if( sanitizedContent.categories ) {
                 Category.find()
                 .exec(function(categoryError, category) {
-                    newCArray = [];
+                    allCategoriesName = [];
+                    allCategoryIds = [];
+                    reqCategoryNames = [];
+                    
+                    // Get category name array for all database categories
                     for ( var cat=0; cat<category.length; cat++ ) {
-                        newCArray.push(category[cat].categoryName);
+                        allCategoryIds.push(category[cat]._id);
+                        allCategoriesName.push(category[cat].categoryName);
                     }
-                    var sameValues = _.intersectionWith(newCArray, sanitizedContent.categories, _.isEqual);
-                    var dif = _.difference( sanitizedContent.categories, newCArray, _.isEqual);
-                    console.log(sameValues);
-                    console.log(dif);
+                    // Get category name of categories from request
+                    for ( var i=0; i<sanitizedContent.categories.length; i++ ) {
+                        if ( sanitizedContent.categories[i].categoryName ) {
+                            reqCategoryNames.push(sanitizedContent.categories[i].categoryName);
+                        }
+                        else {
+                            reqCategoryNames = sanitizedContent.categories;
+                        }
+                    }
+                                                        
+                    var dbEqReq = _.intersectionWith(allCategoriesName, reqCategoryNames, _.isEqual); // Get the same categories from db and from request
+                    var dif     = _.difference( reqCategoryNames, allCategoriesName, _.isEqual); // Difference between requested categories and db categories     
 
-                    /*if( dif.length > 0 ) {
+                    if( dif.length > 0 ) {
                         for( var tc=0; tc<dif.length; tc++ ) {
                             newCategoryArray = [];
                             var categoryNew = new Category({
                                 categoryName: dif[tc],
-                                createdBy: user._id,
+                                createdBy: recipe.createdFrom,
                                 categoryRecipe: result._id
                             });
-                            categoryNew.save();
-                            
                             newCategoryArray.push(categoryNew._id);
-                            for( var nca=0; nca<dif.length; nca++) {
+                            categoryNew.save();    
+                            
+                            for( var nca=0; nca<newCategoryArray.length; nca++) {
                                 result.recipeCategories.push(newCategoryArray[nca]);
-                            }               
+                            }    
                         }
                     }
-                    if( sameValues.length > 0 ) {
-                        for( let x=0; x<sameValues.length; x++ ) {
-                            category[newCArray.indexOf(sameValues[x].toString())].categoryRecipe.push(result._id);
-                            result.recipeCategories.push(category[newCArray.indexOf(sameValues[x].toString())]);
-                            category[newCArray.indexOf(sameValues[x].toString())].save();
+                    if( dbEqReq.length > 0 ) {
+                        for( let x=0; x<dbEqReq.length; x++ ) {
+                            var recordPosition = allCategoriesName.indexOf(dbEqReq[x].toString());
+                            if( recipe.recipeCategories.indexOf(category[recordPosition]._id) == -1 ) {
+                                category[recordPosition].categoryRecipe.push(result._id);
+                                result.recipeCategories.push(category[recordPosition]);
+                                category[recordPosition].save();
+                            }
                         }
-                    }*/
+                    }
                   
                     result.save();
                 });

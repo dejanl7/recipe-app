@@ -140,12 +140,29 @@ export class RecipesService {
             });
     }
 
+    // Remove recipe from category (pull recipe)
+    categoryUpdate(categId: string, recipeId: string) {
+        const token     = '?token=' + this.userToken;
+        const body      = JSON.stringify(recipeId);
+        let headers     = new Headers({ 'Content-Type': 'application/json' });
+        let options     = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        return this.http.patch(this.categoryUrlAddress + 'delete-recipe-category/' + categId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
     // Update Recipe Information (title, content, categories, attachment and gallery)
     updateRecipe(recipeId: string, uniqueRecipeInfo: RecipeModel){
         const headers   = new Headers({ 'Content-Type': 'application/json' });
         const body      = JSON.stringify(uniqueRecipeInfo);
         const token     = '?token=' + this.userToken; 
-        return this.http.patch(this.recipesUrlAddress +'edit/' + recipeId + token, body, {headers: headers})
+        return this.http.patch(this.recipesUrlAddress + 'edit/' + recipeId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

@@ -1,10 +1,27 @@
 var express  = require('express');
 var router   = express.Router();
+var sanitize = require("mongo-sanitize");
 var jwt      = require('jsonwebtoken');
 
 var Recipes  = require('../models/recipes');
 var Category = require('../models/categories');
 
+
+
+/*=============================
+    Protect Route
+===============================*/
+router.use('/', function(req, res, next) {
+    jwt.verify(req.query.token, 'secret', function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not authenticated! Check out validation of your account.',
+                error: err
+            });
+        }
+        next();
+    })
+});
 
 
 /*==============================
@@ -28,6 +45,60 @@ router.get('/', function (req, res, next) {
     });
 });
 
+
+/*====================================
+    Remove recipe from category and
+    update status
+=======================================*/
+router.patch('/delete-recipe-category/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+
+    Category.findById(req.params.id, function(err, category) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured during the update category and recipe...',
+                error: err
+            });
+        }
+        if(!category) {
+            return res.status(500).json({
+                title: 'No Categories Found...',
+                error: { category: 'Category not found...' }
+            });
+        }
+        if(category.createdBy != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: { category: 'Category not found...' }
+            });
+        }
+
+        // Sanitize records and save category updated
+        var sanitizedContent = sanitize(req.body);
+        var recipeId = sanitizedContent.body.split('"').join('');
+        category.categoryRecipe.pull(recipeId);
+
+        Recipes.findById(recipeId, function(rErr, recipe) {
+            if (recipe) {
+                recipe.recipeCategories.pull(category._id);
+                recipe.save();
+            }
+        });
+
+        category.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Updated category.',
+                obj: result
+            });
+        });
+    });
+});
 
 
 /*==============================

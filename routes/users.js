@@ -266,7 +266,6 @@ router.get('/account/profile-image/:id', function(req, res, next) {
                 error: err
             })
         }
-        console.log(result);
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result

@@ -13,15 +13,15 @@ import { ActivatedRoute } from "@angular/router";
 
 
 export class CategoriesComponent implements OnInit {
-    @ViewChild('editCategoryForm') categoryForm: NgForm;
+    @ViewChild('editCategoryForm') editCategoryForm: NgForm;
     protected searchStrEdit: string;
     protected dataServiceEdit: CompleterData;
     getCategoriesAutoSuggestEdit: Subscription;
     getRecipeInfoCategories: Subscription;
     currentCategoriesEdit: Array<string> = [];
-    //selectedCategoriesEdit: Array<string> = [];
+    categoryNames: Array<string> = [];
     protected categoriesAutoSuggestEdit: Array<string> = [];
-    
+    recipeId: string;
     
     constructor( private completerService: CompleterService, private recipeService: RecipesService, private activatedRoute: ActivatedRoute ) {}
 
@@ -33,11 +33,15 @@ export class CategoriesComponent implements OnInit {
             this.categoriesAutoSuggestEdit.push(r.categoryName);
         });
 
-        this.getRecipeInfoCategories= this.activatedRoute.params
+        this.getRecipeInfoCategories = this.activatedRoute.params
         .subscribe( (pathElements) => {
+            this.recipeId = pathElements.id;
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
                 this.currentCategoriesEdit = result.recipeCategories;
+                for ( var x=0; x<result.recipeCategories.length; x++ ) {
+                    this.categoryNames.push(result.recipeCategories[x].categoryName);
+                }
             });
         });
         
@@ -46,28 +50,47 @@ export class CategoriesComponent implements OnInit {
     // On destroy
     ngOnDestroy() {
         this.getCategoriesAutoSuggestEdit.unsubscribe();
+        this.getRecipeInfoCategories.unsubscribe();
     }
 
 
     /*======================
-        Add Category
+        Edit Category
     ========================*/
-    onAddCategoryEdit( catForm: string ) {
-        if ( this.categoryForm.value.category !== null ){
-            this.currentCategoriesEdit.push(this.categoryForm.value.category);
-            this.categoryForm.reset();
-            this.recipeService.categories.next(this.currentCategoriesEdit);
+    onEditCategory( catForm: string ) {
+        if (this.editCategoryForm.value.category === null) {
+            this.editCategoryForm.reset();
+            return;
+        }
+        else if (this.categoryNames.indexOf(this.editCategoryForm.value.category) > -1 ){
+            this.editCategoryForm.reset();
+            return;
+        }
+        else {
+            this.currentCategoriesEdit.push(this.editCategoryForm.value);
+            this.categoryNames.push(this.editCategoryForm.value.category);
+            this.editCategoryForm.reset();
+            this.recipeService.categories.next(this.categoryNames);
         }
     }
 
     /*=================================
         Remove category from array    
     ===================================*/
-    removeCategoryEdit( index: number ) {
+    removeCategoryEdit( index: number, categoryId: string ) {
         if( index !== -1 ){
             this.currentCategoriesEdit.splice(index, 1);
-            this.recipeService.categories.next(this.currentCategoriesEdit);
+            this.categoryNames.splice(index, 1);
+            this.recipeService.categories.next(this.categoryNames);
+            
+            if( categoryId ) {
+                this.recipeService.categoryUpdate(categoryId, this.recipeId)
+                .subscribe( (result) => {
+                    console.log(result);
+                });
+            }
         }
+        
     }
 
 }
