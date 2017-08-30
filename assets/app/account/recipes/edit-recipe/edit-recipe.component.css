@@ -57,6 +57,9 @@ th[scope="row"],
 thead th:first-of-type  {
     text-align: center;
 }
+th i:hover {
+    cursor: pointer;
+}
 td {
     font-size: 15px;
     color: #000;
