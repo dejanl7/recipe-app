@@ -35,15 +35,6 @@ export class RecipeDetailsComponent implements OnInit {
     // On Init
     ngOnInit(){
         // From Database
-        /*this.dbCategories= this.activatedRoute.params
-        .subscribe( (pathElements) => {
-            this.recipeService.getRecipeUnique(pathElements.id)
-            .subscribe( (result) => {
-                for( var i=0; i<result.length; i++ ) {
-                    this.recipeCategoriesEdit.push(result.recipeCategories[i].categoryName);
-                }
-            });
-        });*/
         this.dbAttachedImg = this.activatedRoute.params
         .subscribe( (pathElements) => {
             this.recipeService.getRecipeUnique(pathElements.id)
@@ -112,7 +103,6 @@ export class RecipeDetailsComponent implements OnInit {
     // Destroy
     ngOnDestroy() {
         tinymce.remove(this.editor);
-        // this.dbCategories.unsubscribe();
         this.dbAttachedImg.unsubscribe();
         this.dbGalleryImg.unsubscribe();
         this.getRecipeCategoriesEdit.unsubscribe();

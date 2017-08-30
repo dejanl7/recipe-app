@@ -4,6 +4,7 @@ import { CompleterData, CompleterService } from "ng2-completer";
 import { Subscription } from "rxjs/Subscription";
 import { RecipesService } from "../../../../../services/recipes.service";
 import { ActivatedRoute } from "@angular/router";
+import { UpdatedInfoService } from "../../../../../services/updatedinfo.service";
 
 @Component({
   selector: 'app-categories',
@@ -23,7 +24,7 @@ export class CategoriesComponent implements OnInit {
     protected categoriesAutoSuggestEdit: Array<string> = [];
     recipeId: string;
     
-    constructor( private completerService: CompleterService, private recipeService: RecipesService, private activatedRoute: ActivatedRoute ) {}
+    constructor( private completerService: CompleterService, private recipeService: RecipesService, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) {}
 
 
     // On init
@@ -86,8 +87,10 @@ export class CategoriesComponent implements OnInit {
             if( categoryId ) {
                 this.recipeService.categoryUpdate(categoryId, this.recipeId)
                 .subscribe( (result) => {
-                    console.log(result);
+                    this.updateInfo.isUpdated.next(true);
+                    this.updateInfo.updatedInfoMessage.next('Removed category...');
                 });
+                this.updateInfo.isUpdated.next(false);
             }
         }
         
