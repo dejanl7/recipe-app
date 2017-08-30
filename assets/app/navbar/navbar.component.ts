@@ -59,9 +59,11 @@ export class NavbarComponent implements OnInit {
             if( url instanceof NavigationStart ) {
                 if( url.url.indexOf('edit') > -1 ) {
                     this.activeElement = true;
+                    this.showSubmenu = true;
                 }
-                else if ( url.url.indexOf('recipe') ) {
+                else if ( url.url.indexOf('recipes') > -1 ) {
                     this.activeElement = false;
+                    this.showSubmenu = true;
                 }
                 else {
                     this.activeElement = false;
