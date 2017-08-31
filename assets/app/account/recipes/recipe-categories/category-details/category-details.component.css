@@ -1,0 +1,50 @@
+.alert-category {
+   background-color: rgba(236, 240, 241, 0.7);
+   position: relative;
+   top: 75px;
+}
+.alert-category label {
+    font-weight: 600;
+}
+.alert-category input {
+    font-size: 14px;
+    letter-spacing: .5px;
+}
+.alert-category h5 {
+    color: #292b2c;
+    font-size: 17px;
+}
+.alert-category h6 {
+    margin-bottom: 0;
+    text-align: center;
+}
+.alert-category p {
+    color: #292b2c;
+}
+.alert-category a {
+    text-decoration: none;
+    color: #292b2c;
+}
+.delete-recipe-from-category {
+    font-size: 17px;
+    border-radius: 30%;
+    padding: 4px 9px 6px 10px;
+}
+.delete-recipe-from-category:hover,
+.recipe-name:hover {
+    cursor: pointer;
+}
+.category-btn {
+    width: 120px;
+    margin-top: 20px;
+    margin-left: 4px;
+    cursor: pointer;
+    background-color: #34495e;
+    color: #fff;
+    opacity: .8;
+    font-size: 14px;
+}
+.list-group-item {
+    padding: 7px 12px;
+    list-style-type: square;
+}

@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
     showVerticalNavbar: boolean = true;
     showSubmenu: boolean = false; 
     activeElement: boolean = false; 
+    activeCategoryElement: boolean = false;
     @select() imagesInfoLength;
     @select() profileImage;
     @select() profileEmail;
@@ -59,14 +60,17 @@ export class NavbarComponent implements OnInit {
             if( url instanceof NavigationStart ) {
                 if( url.url.indexOf('edit') > -1 ) {
                     this.activeElement = true;
+                    this.activeCategoryElement = false;
                     this.showSubmenu = true;
                 }
-                else if ( url.url.indexOf('recipes') > -1 ) {
+                else if ( url.url.indexOf('categories') > -1 ) {
                     this.activeElement = false;
+                    this.activeCategoryElement = true;
                     this.showSubmenu = true;
                 }
                 else {
                     this.activeElement = false;
+                    this.activeCategoryElement = false;
                 }
             }
         });

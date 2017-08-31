@@ -1,0 +1,19 @@
+<div class="alert alert-category" *ngIf="categoryInfo">
+    <div class="form-group">
+        <label for="categoryName">Category Name</label>
+        <input type="text" class="form-control" id="categoryName" placeholder="Category Name" [value]="categoryInfo.categoryName" #catName>
+    </div>
+    <div class="form-group">
+        <p>Number of recipes: {{ categoryInfo.categoryRecipe.length }}.</p>
+        <h5>Recipes:</h5>
+        <ul class="list-group">
+            <li class="list-group-item justify-content-between" *ngFor="let recipe of categoryInfo.categoryRecipe">
+                <a [routerLink]="['/account/recipes/edit/', recipe._id]">
+                    <span class="recipe-name">{{ recipe.recipeName }}</span>
+                </a>
+                <span class="badge badge-danger badge-pill delete-recipe-from-category" (click)="removeRecipe(categoryInfo._id, recipe._id)">x</span>
+            </li>
+        </ul>
+    </div>
+    <button type="button" class="btn category-btn" (click)="updateCategoryTitle(catName.value)">Save</button>
+</div>

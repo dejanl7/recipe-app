@@ -16,7 +16,7 @@ router.use('/', function(req, res, next) {
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated! Check out validation of your account.',
-                error: err
+                error: {message: 'You dont have role to get this data...'}
             });
         }
         next();
@@ -47,7 +47,147 @@ router.get('/', function (req, res, next) {
 
 
 /*====================================
-    Remove recipe from category and
+    Get Category Info by category id
+======================================*/
+router.get('/:id', function (req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    
+    Category.findById(req.params.id)
+    .select('categoryName categoryRecipe createdBy')
+    .populate({
+        path: 'categoryRecipe',
+        select: 'recipeName'
+    })
+    .exec(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured - problem with getting categories...',
+                error: {message: 'You don\'t have role to get category info...'}
+            });
+        }
+        if( result.createdBy != decoded.user._id ) {
+            return res.status(401).json({
+                title: 'Blocked getting categories!',
+                error: {message: 'You don\'t have role to get category info...'}
+            })
+        }
+        res.status(200).json({
+            title: 'Successfull getting categories information.',
+            obj: result
+        });
+    });
+});
+
+
+
+/*==============================
+    Update Category Name
+================================*/
+router.patch('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+
+    Category.findById(req.params.id, function(err, category) {
+        if(err) {
+            return res.status(500).json({
+                title: 'Problem occured..',
+                error: { message: 'An error occured during the update category...' }
+            });
+        }
+        if(!category) {
+            return res.status(500).json({
+                title: 'No Categories Found...',
+                error: { message: 'Category not found...' }
+            });
+        }
+        if(category.createdBy != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: { message: 'You dont have role to get this data...' }
+            });
+        }
+
+        // Sanitize records and save recipe updated
+        sanitizedContent = sanitize(req.body);
+        var cleanBody = sanitizedContent.body.replace(/[^a-zA-Z 0-9 _À-ž.-]/g, "");
+        category.categoryName = cleanBody || category.categoryName;
+
+       
+        category.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Updated category.',
+                obj: result
+            });
+        });
+    });
+});
+
+
+/*====================================
+    Remove recipe from category
+=======================================*/
+router.patch('/delete/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);  
+
+    Category.findById(req.params.id, function(err, category) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured during the delete category and recipe...',
+                error: { message: 'An error occured during the update category...' }
+            });
+        }
+        if(!category) {
+            return res.status(500).json({
+                title: 'No Categories Found...',
+                error: { message: 'Category not found...' }
+            });
+        }
+        if(category.createdBy != decoded.user._id) {
+            return res.status(500).json({
+                title: 'Not authenticated...',
+                error: {message: 'You dont have role to delete this data...'}
+            });
+        }
+
+        // Sanitize records and save category updated
+        var sanitizedId = sanitize(req.params.id);
+        var sanitizedContent = sanitize(req.body);
+        var recId = sanitizedContent.body.split('"').join('');
+
+        category.categoryRecipe.pull(recId);
+
+        Recipes.findById(recId, function(rErr, recipe) {
+            console.log(recipe);
+            console.log(category._id);
+            if (recipe) {
+                recipe.recipeCategories.pull(category._id);
+                recipe.save();
+            }
+        });
+
+        category.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Updated category.',
+                obj: result
+            });
+        });
+    });
+});
+
+
+/*====================================
+    Remove category from recipe and
     update status
 =======================================*/
 router.patch('/delete-recipe-category/:id', function(req, res, next){
@@ -69,7 +209,7 @@ router.patch('/delete-recipe-category/:id', function(req, res, next){
         if(category.createdBy != decoded.user._id) {
             return res.status(500).json({
                 title: 'Not authenticated...',
-                error: { category: 'Category not found...' }
+                error: {message: 'You dont have role to get this data...'}
             });
         }
 
@@ -94,73 +234,6 @@ router.patch('/delete-recipe-category/:id', function(req, res, next){
             }
             res.status(201).json({
                 message: 'Updated category.',
-                obj: result
-            });
-        });
-    });
-});
-
-
-/*==============================
-    Add New Category
-================================*/
-router.post('/', function (req, res, next) {
-    Recipes.findById('5998b9b79f08a42aecfc3d96', function(err, recipe){
-        if (err) {
-            return res.status(401).json({
-                title: 'Not authenticated!',
-                error: err
-            });
-        }
-        var category = new Category({
-            categoryName: 'lunch',
-            categoryRecipe: '5998b9b79f08a42aecfc3d96'
-        });
-
-        // Save
-        category.save(function(err, result) {
-            if(err){
-                return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
-                });
-            }
-            
-            // Save Category
-            recipe.recipeCategories.push(result);
-            recipe.save();
-
-            res.status(201).json({
-                category: 'Saved category.',
-                obj: result
-            });
-        });
-    });    
-});
-
-
-/*=============================
-    Delete Category
-===============================*/
-router.delete('/:id', function(req, res, next){
-    Category.findById('596fb715869cf827c4753d46', function(err, category){
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-
-        // Remove Category
-        category.remove(function(err, result) {
-            if (err) {
-                return result.status(500).json({
-                    title: 'An error occured during removing category...',
-                    error: err
-                });
-            }
-            res.status(200).json({
-                recipe: 'Deleted category!',
                 obj: result
             });
         });

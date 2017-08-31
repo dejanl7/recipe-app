@@ -1,11 +1,14 @@
 import { Routes, RouterModule } from "@angular/router";
 import { RecipeCategoriesComponent } from "./recipe-categories.component";
+import { CategoryDetailsComponent } from "./category-details/category-details.component";
 
 // Components and services
 
 
 const RECIPE_CATEGORY_ROUTES: Routes = [
-    { path: '', component: RecipeCategoriesComponent }
+    { path: '', component: RecipeCategoriesComponent, children: [
+        { path: ':id', component: CategoryDetailsComponent }
+    ]}
 ];
 
 

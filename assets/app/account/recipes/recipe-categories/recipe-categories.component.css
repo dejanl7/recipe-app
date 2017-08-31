@@ -24,6 +24,10 @@
     -moz-transition: 1s opacity;
     -o-transition: 1s opacity;
 }
+.category-name a {
+    text-decoration: none;
+    color: #000;
+}
 .category-name:hover {
     cursor: pointer;
 }
@@ -45,4 +49,27 @@
     background-color: #34495e;
     border: none;
     opacity: .9;
+}
+.list-group-item.active a {
+    background-color: #fff;
+    color: #000;
+}
+.list-group-item.active .category-name a {
+    background-color: #34495e;
+    color: #fff;
+}
+.list-group-item.active .category-recipes-number a {
+    position: relative;
+    left: -2px;
+}
+/* Category Details */
+.alert-category {
+    background-color: rgba(236, 240, 241, 0.7);
+    position: relative;
+    top: 75px;
+ }
+
+.alert-category h6 {
+    margin-bottom: 0;
+    text-align: center;
 }

@@ -10,19 +10,18 @@ import { TimeAgoModule } from "../../../shared/timeago.module";
 import { EditRecipesRouter } from "./editRecipe.routing";
 import { EditRecipeComponent } from "./edit-recipe.component";
 import { RatingModule } from "ngx-rating";
+import { FilterRecipeModule } from "../../../shared/filter-array.module";
 
 // Services
 import { RecipesService } from "../../../services/recipes.service";
 
 // Custom Filter Pipe - for recipe table
-import { FilterRecipeArrayPipe } from "../../../filter-array.pipe";
 import { OrderByPipe } from "../../../order-by.pipe";
 
 
 @NgModule({
     declarations: [
         EditRecipeComponent,
-        FilterRecipeArrayPipe,
         OrderByPipe
     ],
     imports: [
@@ -34,7 +33,8 @@ import { OrderByPipe } from "../../../order-by.pipe";
         Ng2CompleterModule,
         PaginationModule,
         RatingModule,
-        TimeAgoModule
+        TimeAgoModule,
+        FilterRecipeModule
     ],
     providers: [
         RecipesService

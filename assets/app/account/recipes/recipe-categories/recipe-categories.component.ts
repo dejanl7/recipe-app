@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { RecipesService } from "../../../services/recipes.service";
 import { TooltipModule } from "ngx-tooltip";
+import { CategoryModel } from "../../../models/categories.model";
+import { CategoriesService } from "../../../services/category.service";
 
 @Component({
   selector: 'app-recipe-categories',
@@ -13,16 +15,17 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategoriesSubscr: Subscription;
     allCategories: Array<string> = [];
     activeClass: boolean = false;
-    selectedCategory: string;
+    choosedCat: Object;
 
-    constructor( private categoryService: RecipesService ) {}
+    constructor( private recipeService: RecipesService, private categoryService: CategoriesService ) {}
 
     // Initialization
     ngOnInit() {
-        this.allCategoriesSubscr = this.categoryService.getRecipeCategories()
+        this.allCategoriesSubscr = this.recipeService.getRecipeCategories()
         .subscribe( (categories) => {
             this.allCategories.push(categories);
         });
+
     }
 
     // On Destroy
@@ -31,11 +34,11 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     }
 
 
-    /*===========================
+    /*==============================
         Active/deactive class
-    =============================*/
-    onActive(category) {
-        this.selectedCategory = category;
+    ================================*/
+    onActive(category: Object) {     
+        this.choosedCat = category;
     }
 
 
