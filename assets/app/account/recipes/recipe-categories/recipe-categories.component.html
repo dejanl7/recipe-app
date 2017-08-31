@@ -1,34 +1,43 @@
 <div class="row">
     <div class="col-md-6 col-lg-5 col-sm-12">
-      <h4 class="text-left category-title">All Categories</h4>
-      <p class="cat-desc">You can see all categories used for recipes. Also, you can edit category name or delete category.</p>
-      <ul class="list-group">
-        <li 
-            class="list-group-item" 
-            *ngFor="let category of allCategories | paginate: { itemsPerPage: 7, currentPage: p }; let i=index" 
-            [class.active]="category === choosedCat" 
-        >
-            <p class="category-name" 
-            (click)="onActive(category, category._id)">
-                <a [routerLink]="['/account/recipes/categories', category._id]">
-                    <span>{{ category.categoryName }}</span>
-                </a>
-            </p>
-            <p class="category-recipes-number">
-                <a class="badge badge-default hover">
-                    <span>{{ category.categoryRecipe.length }}</span>
-                    <i class="hovertext">Number of recipes</i>
-                </a>
-            </p>
-        </li>
-        <div class="pagination-me">
-            <pagination-controls
-                (pageChange)="p = $event"
-                previousLabel= ""
-                nextLabel=""
-            ></pagination-controls>
+        <h4 class="text-left category-title">All Categories</h4>
+        <p class="cat-desc">You can see all categories used for recipes. Also, you can edit category name or delete category.</p>
+        <div class="search-category">
+            <input [(ngModel)]="filteredCategories" class="form-control" placeholder="Search...">
         </div>
-      </ul>
+        <ul class="list-group">
+            <li 
+                class="list-group-item" 
+                *ngFor="let category of allCategories | recipeFilter: filteredCategories:'categoryName' | paginate: { itemsPerPage: 7, currentPage: p }; let i=index" 
+                [class.active]="category === choosedCat" 
+            >
+                <p class="category-name" 
+                (click)="onActive(category, category._id)">
+                    <a [routerLink]="['/account/recipes/categories', category._id]">
+                        <span>{{ category.categoryName }}</span>
+                    </a>
+                </p>
+                <p class="category-recipes-number">
+                    <a class="badge badge-default hover">
+                        <span>{{ category.categoryRecipe.length }}</span>
+                        <i class="hovertext">Number of recipes</i>
+                    </a>
+                </p>
+            </li>
+
+            <ng-container *ngIf="(allCategories | recipeFilter: filteredCategories:'categoryName').length === 0">
+                   <li class="list-group-item">No matched criteria...</li>
+            </ng-container>
+            <div class="pagination-me" *ngIf="allCategories.length > 7">
+                <pagination-controls
+                    (pageChange)="p = $event"
+                    previousLabel= ""
+                    nextLabel=""
+                ></pagination-controls>
+            </div>
+        </ul>
+
+       
     </div>
     
 

@@ -26,6 +26,11 @@ export class FilterRecipeArrayPipe {
                     resultArray.push(item);
                 }
             }
+            if( item[propName] ) {
+                if ( item[propName].toLowerCase().match('^.*' + filterString + '.*$') || item[propName].match('^.*' + filterString + '.*$') ) {
+                    resultArray.push(item);
+                }
+            }
         }  
         return _.uniq(resultArray);
     }
