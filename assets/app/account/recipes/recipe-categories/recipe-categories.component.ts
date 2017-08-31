@@ -13,7 +13,8 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategoriesSubscr: Subscription;
     allCategories: Array<string> = [];
     activeClass: boolean = false;
-  
+    selectedCategory: string;
+
     constructor( private categoryService: RecipesService ) {}
 
     // Initialization
@@ -28,5 +29,14 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.allCategoriesSubscr.unsubscribe();
     }
+
+
+    /*===========================
+        Active/deactive class
+    =============================*/
+    onActive(category) {
+        this.selectedCategory = category;
+    }
+
 
 }

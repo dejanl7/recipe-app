@@ -2,8 +2,8 @@
     <div class="col-md-6 col-lg-5 col-sm-12">
       <h4 class="text-left category-title">All Categories</h4>
       <p class="cat-desc">You can see all categories used for recipes. Also, you can edit category name or delete category.</p>
-      <ul class="list-group" *ngFor="let category of allCategories">
-        <li class="list-group-item" [class.active]="activeClass" (click)="activeClass = !activeClass">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of allCategories" [class.active]="category === selectedCategory" (click)="onActive(category)">
             <p class="category-name">
                 <span>{{ category.categoryName }}</span>
             </p>

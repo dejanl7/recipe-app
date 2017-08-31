@@ -25,7 +25,6 @@
     -o-transition: 1s opacity;
 }
 .category-name:hover {
-    opacity: .7;
     cursor: pointer;
 }
 .category-name:first-letter {
@@ -41,4 +40,9 @@
 }
 .category-recipes-number a:hover span {
     cursor: pointer;
+}
+.list-group-item.active {
+    background-color: #34495e;
+    border: none;
+    opacity: .9;
 }
