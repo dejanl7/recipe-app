@@ -48,3 +48,18 @@
     padding: 7px 12px;
     list-style-type: square;
 }
+label {
+    width: 100%;
+}
+.delete-category {
+    font-size: 27px;
+    color: #c0392b;
+    float: right;
+}
+.delete-category:hover {
+    cursor: pointer;
+}
+.delete-category i {
+    position: relative;
+    top: 14px; right: 5px;
+}

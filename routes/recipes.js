@@ -64,7 +64,7 @@ router.get('/:id', function(req, res, next) {
 
 
 /*=============================
-    Get recipes info
+    Get recipe info
 ===============================*/
 router.get('/unique/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
@@ -131,7 +131,7 @@ router.post('/', function (req, res, next) {
 
             // Save Category
             if( sanitizedContent.categories ) {
-                Category.find()
+                Category.find({ 'createdBy' : decoded.user._id})
                 .exec(function(categoryError, category) {
                     newCArray = [];
                     for ( var cat=0; cat<category.length; cat++ ) {
@@ -170,7 +170,7 @@ router.post('/', function (req, res, next) {
 
             // Return status
             return res.status(201).json({
-                recipe: 'Saved recipe.',
+                title: 'Saved recipe.',
                 obj: result
             });
         });
@@ -216,7 +216,7 @@ router.patch('/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Updated recipe.',
+                title: 'Updated recipe.',
                 obj: result
             });
         });
@@ -262,7 +262,7 @@ router.patch('/delete/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Deletet recipe.',
+                title: 'Deleted recipe.',
                 obj: result
             });
         });
@@ -299,7 +299,7 @@ router.delete('/delete/:id', function(req, res, next){
                 });
             }
             res.status(200).json({
-                image: 'Deleted image!',
+                title: 'Deleted recipe!',
                 obj: result
             });
         });
@@ -350,7 +350,7 @@ router.patch('/edit/:id', function(req, res, next){
             }
             // Save Category
             if( sanitizedContent.categories ) {
-                Category.find()
+                Category.find({ 'createdBy' : decoded.user._id})
                 .exec(function(categoryError, category) {
                     allCategoriesName = [];
                     allCategoryIds = [];

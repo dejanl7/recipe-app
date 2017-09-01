@@ -32,8 +32,8 @@ import { UpdatedInfoService } from "./services/updatedinfo.service";
 
 // Import REDUX
 import { NgRedux, NgReduxModule } from 'ng2-redux'; // Redux
-import { USER_IMAGES_STATE, messagingReducer } from "./redux/store";
-import { ImageInterface } from "./redux/interfaces";
+import { RECIPE_INFO_STATE, messagingReducer } from "./redux/store";
+import { RecipeInfoInterface } from "./redux/interfaces";
 
 
 @NgModule({
@@ -74,7 +74,7 @@ import { ImageInterface } from "./redux/interfaces";
 
 
 export class AppModule {
-    constructor(ngRedux: NgRedux<ImageInterface>) {
-        ngRedux.configureStore(messagingReducer, USER_IMAGES_STATE);
+    constructor(ngRedux: NgRedux<any>) {
+        ngRedux.configureStore(messagingReducer, RECIPE_INFO_STATE);
     }
 }

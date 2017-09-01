@@ -5,7 +5,7 @@ import { UserService } from "../../services/user.service";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ImagesService } from "../../services/images.service";
 import { UserInfoModel } from "../../models/userInfo.model";
-import { ImageInterface } from "../../redux/interfaces";
+import { RecipeInfoInterface } from "../../redux/interfaces";
 import { GET_PROFILE_IMAGE } from "../../redux/actions";
 import { CanComponentDeactivate } from "../../route-protected-services/can-deactivate-guard.service";
 import { Observable } from "rxjs/Observable";
@@ -39,7 +39,7 @@ export class EditUserInfoComponent implements OnInit, OnDestroy, CanComponentDea
 
     @select() profileImage;
 
-    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface>, private updateInfo: UpdatedInfoService ) { }
+    constructor( private editUserService: UserService, private modalService: NgbModal, private imagesService: ImagesService, private ngRedux: NgRedux<RecipeInfoInterface>, private updateInfo: UpdatedInfoService ) { }
 
     // On Init
     ngOnInit() {

@@ -3,6 +3,10 @@ import { CategoryModel } from "../../../../models/categories.model";
 import { CategoriesService } from "../../../../services/category.service";
 import { Subscription } from "rxjs/Subscription";
 import { ActivatedRoute } from "@angular/router";
+import { RecipeInfoInterface } from "../../../../redux/interfaces";
+import { UPDATE_CATEGORY_NAME } from "../../../../redux/actions";
+import { NgRedux } from "ng2-redux";
+import { UpdatedInfoService } from "../../../../services/updatedinfo.service";
 
 
 @Component({
@@ -14,12 +18,12 @@ import { ActivatedRoute } from "@angular/router";
 export class CategoryDetailsComponent implements OnInit, OnDestroy {
     categorySubscr: Subscription;
     currentCatSubscr: Subscription;
-    categoryInfo: Object;
+    categoryInfo: any;
     currentCategoryInfo: Object;
     categoryId: string;
     categoryName: string;
 
-    constructor( private categoryService: CategoriesService, private activatedRoute: ActivatedRoute ) { }
+    constructor( private categoryService: CategoriesService, private activatedRoute: ActivatedRoute, private ngRedux: NgRedux<RecipeInfoInterface>, private updateInfo: UpdatedInfoService ) { }
 
     // Initialize
     ngOnInit() {
@@ -45,20 +49,46 @@ export class CategoryDetailsComponent implements OnInit, OnDestroy {
     ==============================*/
     updateCategoryTitle(categName: string) {
         this.categoryService.updateCategoryName(this.categoryId, categName)
-        .subscribe( (result) => {
-            // console.log(result);
+        .subscribe( (result: Object) => {
+            this.updateInfo.isUpdated.next(true);
+            this.updateInfo.updatedInfoMessage.next('Recipe name is updated...');
+            this.ngRedux.dispatch({ type: UPDATE_CATEGORY_NAME, catNamePayload: categName, catIdPayload: this.categoryId, countRemainRecordsPayload: this.categoryInfo.categoryRecipe.length });
         });
+        
+        this.updateInfo.isUpdated.next(false);
     }
 
     /*===============================
         Remove recipe from category  
     =================================*/
-    removeRecipe(categoryId: string, recipeId: string) {
-        this.categoryService.removeRecipeFromCategory(categoryId, recipeId)
-        .subscribe( (removed) => {
-            console.log(removed);
-        });
+    removeRecipe(categoryId: string, recipeId: string, categoryName: string) {
+        if( confirm('Do you want to remove recipe from category?') ){
+            this.categoryService.removeRecipeFromCategory(categoryId, recipeId)
+            .subscribe( (removed) => {
+                this.updateInfo.isUpdated.next(true);
+                this.updateInfo.updatedInfoMessage.next('Removed recipe from category...');
+                this.categorySubscr = this.activatedRoute.params
+                .subscribe( (rparams ) => {
+                    this.categoryId = rparams.id;
+                    this.categoryService.getCategoryInfo(rparams.id)
+                    .subscribe( (result) => {
+                        this.categoryInfo = result;
+                        this.categoryName = result.categoryName;
+                        this.ngRedux.dispatch({ type: UPDATE_CATEGORY_NAME, catNamePayload: categoryName, catIdPayload: this.categoryId, countRemainRecordsPayload: this.categoryInfo.categoryRecipe.length });
+                    });
+                });
+            });
+            this.updateInfo.isUpdated.next(false);
+        }
     }
-    
+
+    /*========================================
+        Delete Category and related recipes
+    ==========================================*/
+    deleteCategory(categoryId: string) {
+        if( confirm('Do you want to delete this category?') ){
+
+        }
+    }    
 
 }

@@ -23,7 +23,7 @@ router.get('/signin', function(req, res, next){
             });
         }
         res.status(200).json({
-            message: 'Successful getting data...',
+            title: 'Successful getting data...',
             obj: result
         });
     });
@@ -131,7 +131,7 @@ router.patch('/:id', function(req, res, next){
 
             // Save Message
             res.status(201).json({
-                message: 'User is activated.',
+                title: 'User is activated.',
                 obj: result
             });
         });
@@ -171,7 +171,7 @@ router.post('/login', function(req, res, next) {
         // Log In (create token)
         var token = jwt.sign({user: user}, 'secret');
         res.status(200).json({
-            message: 'Successfully logged in...',
+            title: 'Successfully logged in...',
             token: token,
             userId: user._id
         });
@@ -193,7 +193,7 @@ router.get('/account/emails', function(req, res, next){
             });
         }
         res.status(200).json({
-            message: 'Successful getting email...',
+            title: 'Successful getting email...',
             obj: result
         });
     })
@@ -320,7 +320,7 @@ router.patch('/account/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Updated user.',
+                title: 'Updated user.',
                 obj: result
             });
         });

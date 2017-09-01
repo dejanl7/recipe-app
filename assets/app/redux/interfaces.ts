@@ -1,5 +1,7 @@
 // Interface for Image
-export interface ImageInterface {
+export interface RecipeInfoInterface {
     imageName: string;
     imagePath: string;
+    categoryName?: string;
+    categoryState?: string;
 }

@@ -120,7 +120,7 @@ router.patch('/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Updated category.',
+                title: 'Updated category.',
                 obj: result
             });
         });
@@ -162,8 +162,6 @@ router.patch('/delete/:id', function(req, res, next){
         category.categoryRecipe.pull(recId);
 
         Recipes.findById(recId, function(rErr, recipe) {
-            console.log(recipe);
-            console.log(category._id);
             if (recipe) {
                 recipe.recipeCategories.pull(category._id);
                 recipe.save();
@@ -178,7 +176,7 @@ router.patch('/delete/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Updated category.',
+                title: 'Updated category.',
                 obj: result
             });
         });
@@ -233,7 +231,7 @@ router.patch('/delete-recipe-category/:id', function(req, res, next){
                 });
             }
             res.status(201).json({
-                message: 'Updated category.',
+                title: 'Updated category.',
                 obj: result
             });
         });

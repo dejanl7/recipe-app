@@ -5,7 +5,7 @@
         <div class="search-category">
             <input [(ngModel)]="filteredCategories" class="form-control" placeholder="Search...">
         </div>
-        <ul class="list-group">
+        <ul class="list-group" *ngIf="allCategories.length > 0; else noCategories">
             <li 
                 class="list-group-item" 
                 *ngFor="let category of allCategories | recipeFilter: filteredCategories:'categoryName' | paginate: { itemsPerPage: 7, currentPage: p }; let i=index" 
@@ -14,30 +14,44 @@
                 <p class="category-name" 
                 (click)="onActive(category, category._id)">
                     <a [routerLink]="['/account/recipes/categories', category._id]">
-                        <span>{{ category.categoryName }}</span>
+                        <span *ngIf="category._id == (catId | async); else notAsyncCategory">{{ catName | async }}</span>
+                        <ng-template #notAsyncCategory>
+                            <span>{{ category.categoryName }}</span>
+                        </ng-template>
                     </a>
                 </p>
                 <p class="category-recipes-number">
                     <a class="badge badge-default hover">
-                        <span>{{ category.categoryRecipe.length }}</span>
+                        <span *ngIf="category._id == (catId | async); else notAsyncCategoryLength">{{ remainCategoryCount | async }}</span>
+                        <ng-template #notAsyncCategoryLength>
+                            <span>{{ category.categoryRecipe.length }}</span>
+                        </ng-template>
+                        
                         <i class="hovertext">Number of recipes</i>
                     </a>
                 </p>
             </li>
-
-            <ng-container *ngIf="(allCategories | recipeFilter: filteredCategories:'categoryName').length === 0">
-                   <li class="list-group-item">No matched criteria...</li>
-            </ng-container>
-            <div class="pagination-me" *ngIf="allCategories.length > 7">
-                <pagination-controls
-                    (pageChange)="p = $event"
-                    previousLabel= ""
-                    nextLabel=""
-                ></pagination-controls>
-            </div>
         </ul>
 
-       
+        <ng-template #noCategories>
+            <ul class="list-group">
+                <li class="list-group-item">No Categories...</li>
+            </ul>
+        </ng-template>
+
+        <ng-container *ngIf="filteredCategories && (allCategories | recipeFilter: filteredCategories:'categoryName').length === 0">
+            <ul class="list-group">
+                <li class="list-group-item">No matched criteria...</li>
+            </ul>
+        </ng-container>
+
+        <div class="pagination-me" *ngIf="allCategories.length > 7">
+            <pagination-controls
+                (pageChange)="p = $event"
+                previousLabel= ""
+                nextLabel=""
+            ></pagination-controls>
+        </div>
     </div>
     
 

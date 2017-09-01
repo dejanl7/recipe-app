@@ -4,6 +4,7 @@ import { RecipesService } from "../../../services/recipes.service";
 import { TooltipModule } from "ngx-tooltip";
 import { CategoryModel } from "../../../models/categories.model";
 import { CategoriesService } from "../../../services/category.service";
+import { NgRedux, select } from "ng2-redux";
 
 @Component({
   selector: 'app-recipe-categories',
@@ -16,6 +17,9 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategories: Array<string> = [];
     activeClass: boolean = false;
     choosedCat: Object;
+    @select() catName;
+    @select() catId;
+    @select() remainCategoryCount;
 
     constructor( private recipeService: RecipesService, private categoryService: CategoriesService ) {}
 
