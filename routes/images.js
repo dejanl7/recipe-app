@@ -10,31 +10,7 @@ var User    = require('../models/users');
 
 
 
-/*==============================
-    Multer Settings
-================================*/
-// Storage Destination
-var myTime = Date.now();
 
-var storage = multer.diskStorage({
-    destination: function(req, files, cb) {
-        cb(null, 'public/images/uploaded')
-    },
-    filename: function(req, file, cb) {
-        cb(null, myTime + '-' + file.originalname);
-    }
-});
-// Filter file extension
-var filterFiles = function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        return cb(new Error('Only image files are allowed!'));
-    }
-        cb(null, true);
-        
-};
-var maxFileSize = 2621440;
-
-var upload  = multer({ storage: storage, fileFilter: filterFiles, limits: {fileSize: maxFileSize} }).single('file');
 
 
 
@@ -60,6 +36,32 @@ router.use('/', function(req, res, next) {
     Save Images
 ===============================*/
 router.post('/', function(req, res, next) { 
+    /*==============================
+        Multer Settings
+    ================================*/
+    // Storage Destination
+    var myTime = Date.now();
+
+    var storage = multer.diskStorage({
+        destination: function(req, files, cb) {
+            cb(null, 'public/images/uploaded')
+        },
+        filename: function(req, file, cb) {
+            cb(null, myTime + '-' + file.originalname);
+        }
+    });
+    // Filter file extension
+    var filterFiles = function (req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+            return cb(new Error('Only image files are allowed!'));
+        }
+            cb(null, true);
+            
+    };
+    var maxFileSize = 2621440;
+    var upload  = multer({ storage: storage, fileFilter: filterFiles, limits: {fileSize: maxFileSize} }).single('file');
+    
+    
     var decoded = jwt.decode(req.headers.authorization);
     
     User.findById(decoded.user._id, function(err, user){
