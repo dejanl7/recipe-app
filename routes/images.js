@@ -47,8 +47,8 @@ router.use('/', function(req, res, next) {
     jwt.verify(tokenVerification, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
-                title: 'Not authenticated! Check out validation of your account.',
-                error: err
+                title: 'Not authenticated',
+                error: {message: '! Check out validation of your account....'}
             });
         }
         next();
@@ -81,8 +81,8 @@ router.post('/', function(req, res, next) {
             images.save(function(err, result) {
                 if(err) {
                     return res.status(500).json({
-                        title: 'An error occured. Images can\'t be saved!',
-                        error: err        
+                        title: 'An error occured',
+                        error: {message: 'Images can\'t be saved...'}   
                     });
                 }
                 // Save User
@@ -115,13 +115,13 @@ router.get('/:id', function(req, res, next){
         if(err){
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: {message: 'Problem with getting imaegs...'} 
             });
         }
         if(result._id != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to get these images!',
-                error: err
+                title: 'Authorization problem',
+                error: {message: 'You don\'t have role to get these images...'} 
             })
         }
         res.status(200).json({
@@ -142,14 +142,14 @@ router.delete('/delete/:id', function(req, res, next){
     Images.findById(req.params.id, function(err, image){
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - removing image...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with removing image...'} 
             });
         }
         if(image.uploadedBy != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to delete this image!',
-                error: err
+                title: 'Authorization problem',
+                error: {message: 'You don\'t have role to delete these image...'} 
             })
         }
         
@@ -158,8 +158,8 @@ router.delete('/delete/:id', function(req, res, next){
         image.remove(function(err, result) {
             if (err) {
                 return result.status(500).json({
-                    title: 'An error occured during removing image...',
-                    error: err
+                    title: 'An error occured',
+                    error: {message: 'Problem with removing image...'} 
                 });
             }
             
@@ -183,8 +183,8 @@ router.delete('/delete', function(req, res, next){
     Images.remove({_id: {$in: req.body.content}}, function(err, result){
         if( err ){
             return result.status(500).json({
-                title: 'Error during the multiple files (images) removing...',
-                error: err
+                title: 'Error occured',
+                error: {message: 'Problem with multiple files (images) removing...'} 
             });
         }
         

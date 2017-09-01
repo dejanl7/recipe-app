@@ -19,7 +19,7 @@ router.get('/signin', function(req, res, next){
         if(err){
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: {message: 'Problem with getting user information.'}
             });
         }
         res.status(200).json({
@@ -48,7 +48,7 @@ router.post('/', function (req, res, next) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                error: {message: 'Problem with registration...'}
             });
         }
         res.status(201).json({
@@ -90,8 +90,8 @@ router.get('/:id', function(req, res, next){
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - activation problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Activation problem is occured. Please try to registrate again with valid username, e-mail and password.'}
             });
         }
         res.status(200).json({
@@ -109,14 +109,14 @@ router.patch('/:id', function(req, res, next){
     User.findById(req.params.id, function(err, user) {
         if(err) {
             return res.status(500).json({
-                title: 'Error is occured during the activation user account...',
-                error: err
+                title: 'Activation Error',
+                error: {message: 'Invalid login credentials. User does not exist.'}
             });
         }
         if(!user) {
             return res.status(500).json({
-                title: 'User does not exist. Please register through sign in form...',
-                error: err
+                title: 'User does not exist.',
+                error: {message: 'Please register through sign in form..'}
             });
         }
 
@@ -125,7 +125,7 @@ router.patch('/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: {message: 'Users do not match!'}
+                    error: {message: 'Users do not match criterium!'}
                 });
             }
 
@@ -147,7 +147,7 @@ router.post('/login', function(req, res, next) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                error: {message: 'Problem with logging user.'}
             });
         }
         if (!user) {
@@ -189,7 +189,7 @@ router.get('/account/emails', function(req, res, next){
         if(err){
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: {message: 'Problem with getting all e-mails information.'}
             });
         }
         res.status(200).json({
@@ -208,7 +208,7 @@ router.use('/account/', function(req, res, next) {
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated! Check out validation of your account.',
-                error: err
+                error: {message: 'You must be registered if you want to approach to this route.'}
             });
         }
         next();
@@ -227,14 +227,14 @@ router.get('/account/:id', function(req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting user data problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with getting user data...'}
             });
         }
         if(result._id != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to get user information!',
-                error: err
+                title: 'Authority problem',
+                error: {message: 'You don\'t  have role to get user information...'}
             })
         }
         res.status(200).json({
@@ -256,14 +256,14 @@ router.get('/account/profile-image/:id', function(req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting profile image problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with getting profile image infromation.'}
             });
         }
         if(result._id != decoded.user._id) {
             return res.status(401).json({
                 title: 'You don\'t have role to get user information!',
-                error: err
+                error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
         res.status(200).json({
@@ -283,20 +283,20 @@ router.patch('/account/:id', function(req, res, next){
     User.findById(req.params.id, function(err, user) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the update user...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with updating user information...'}
             });
         }
         if(user._id != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to delete this message!',
-                error: err
+                title: 'Authority problem',
+                error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
         if(!user) {
             return res.status(500).json({
                 title: 'No Users Found...',
-                error: { user: 'User not found...' }
+                error: { message: 'User not found...' }
             });
         }
 
@@ -316,7 +316,7 @@ router.patch('/account/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving user...'}
                 });
             }
             res.status(201).json({

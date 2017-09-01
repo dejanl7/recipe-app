@@ -15,8 +15,8 @@ router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
-                title: 'Not authenticated! Check out validation of your account.',
-                error: {message: 'You dont have role to get this data...'}
+                title: 'Not authenticated',
+                error: {message: 'You dont have role to get this data. Check out validation of your account....'}
             });
         }
         next();
@@ -34,8 +34,8 @@ router.get('/', function (req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting categories info problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Getting categories info problem...'}
             });
         }
         res.status(200).json({
@@ -61,8 +61,8 @@ router.get('/:id', function (req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - problem with getting categories...',
-                error: {message: 'You don\'t have role to get category info...'}
+                title: 'An error occured',
+                error: {message: 'Problem with getting category information...'}
             });
         }
         if( result.createdBy != decoded.user._id ) {
@@ -116,7 +116,7 @@ router.patch('/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving categories...'}
                 });
             }
             res.status(201).json({
@@ -137,8 +137,8 @@ router.patch('/delete/:id', function(req, res, next){
     Category.findById(req.params.id, function(err, category) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the delete category and recipe...',
-                error: { message: 'An error occured during the update category...' }
+                title: 'An error occured',
+                error: { message: 'Problem with update category...' }
             });
         }
         if(!category) {
@@ -172,7 +172,7 @@ router.patch('/delete/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saved changed information...'}
                 });
             }
             res.status(201).json({
@@ -194,19 +194,19 @@ router.patch('/delete-recipe-category/:id', function(req, res, next){
     Category.findById(req.params.id, function(err, category) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the update category and recipe...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with update category and recipe...'}
             });
         }
         if(!category) {
             return res.status(500).json({
-                title: 'No Categories Found...',
-                error: { category: 'Category not found...' }
+                title: 'No Categories Found',
+                error: { message: 'Category not found...' }
             });
         }
         if(category.createdBy != decoded.user._id) {
             return res.status(500).json({
-                title: 'Not authenticated...',
+                title: 'Not authenticated',
                 error: {message: 'You dont have role to get this data...'}
             });
         }
@@ -227,7 +227,7 @@ router.patch('/delete-recipe-category/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving changes...'}
                 });
             }
             res.status(201).json({

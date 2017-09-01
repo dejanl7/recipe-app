@@ -16,8 +16,8 @@ router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
-                title: 'Not authenticated! Check out validation of your account.',
-                error: err
+                title: 'Problem occured',
+                error: {message: 'Not authenticated! Check account validation...'}
             });
         }
         next();
@@ -45,14 +45,14 @@ router.get('/:id', function(req, res, next) {
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting recipes info problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about recipes...'}
             });
         }
         if(result._id != decoded.user._id) {
             return res.status(401).json({
                 title: 'You don\'t have role to get user information!',
-                error: err
+                error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
         res.status(200).json({
@@ -74,14 +74,14 @@ router.get('/unique/:id', function(req, res, next) {
     .exec( function (err, result){
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - getting recipe info problem...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with getting recipe information...'}
             });
         }
         if(result.createdFrom != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to get user information!',
-                error: err
+                title: 'An error occured',
+                error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
         res.status(200).json({
@@ -102,8 +102,8 @@ router.post('/', function (req, res, next) {
     User.findById(decoded.user._id, function(err, user){
         if (err) {
             return res.status(401).json({
-                title: 'Not authenticated!',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with adding new recipe...'}
             });
         }      
 
@@ -121,7 +121,7 @@ router.post('/', function (req, res, next) {
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving recipe...'}
                 });
             }
 
@@ -187,20 +187,20 @@ router.patch('/:id', function(req, res, next){
     Recipe.findById(req.params.id, function(err, recipe) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the update recipe...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with updating recipes information...'}
             });
         }
         if(!recipe) {
             return res.status(500).json({
-                title: 'No Recipes Found...',
-                error: { recipe: 'Recipe not found...' }
+                title: 'No Recipes',
+                error: { message: 'Recipe not found...' }
             });
         }
         if(recipe.createdFrom != decoded.user._id) {
             return res.status(500).json({
-                title: 'Not authenticated...',
-                error: { recipe: 'Recipe not found...' }
+                title: 'Not authenticated',
+                error: {message: 'You must be registered if you want to approach to this route.'}
             });
         }
 
@@ -212,7 +212,7 @@ router.patch('/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving recipe...'}
                 });
             }
             res.status(201).json({
@@ -233,20 +233,20 @@ router.patch('/delete/:id', function(req, res, next){
     Recipe.findById(req.params.id, function(err, recipe) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the delete recipe...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with move recipe to trash...'}
             });
         }
         if(!recipe) {
             return res.status(500).json({
-                title: 'No Recipes Found...',
-                error: { user: 'Recipe not found...' }
+                title: 'No Recipe',
+                error: { recipe: 'Recipe not found...' }
             });
         }
         if(recipe.createdFrom != decoded.user._id) {
             return res.status(500).json({
-                title: 'Not authenticated...',
-                error: { recipe: 'Recipe not found...' }
+                title: 'Not authenticated',
+                error: {message: 'You must be registered if you want to approach to this route...'}
             });
         }
 
@@ -258,7 +258,7 @@ router.patch('/delete/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving removed recipe into trash basket...'}
                 });
             }
             res.status(201).json({
@@ -279,14 +279,14 @@ router.delete('/delete/:id', function(req, res, next){
     Recipe.findById(req.params.id, function(err, recipe){
         if (err) {
             return res.status(500).json({
-                title: 'An error occured - removing recipe...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with removing recipe...'}
             });
         }
         if(recipe.createdFrom != decoded.user._id) {
             return res.status(401).json({
-                title: 'You don\'t have role to delete this recipe!',
-                error: err
+                title: 'Not authenticated',
+                error: {message: 'You must be registered if you want to approach to this route...'}
             })
         }
 
@@ -294,8 +294,8 @@ router.delete('/delete/:id', function(req, res, next){
         recipe.remove(function(err, result) {
             if (err) {
                 return result.status(500).json({
-                    title: 'An error occured during remove recipe...',
-                    error: err
+                    title: 'An error occured',
+                    error: {message: 'Problem with delete recipe...'}
                 });
             }
             res.status(200).json({
@@ -316,20 +316,20 @@ router.patch('/edit/:id', function(req, res, next){
     Recipe.findById(req.params.id, function(err, recipe) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occured during the update recipe...',
-                error: err
+                title: 'An error occured',
+                error: {message: 'Problem with update recipe info...'}
             });
         }
         if(!recipe) {
             return res.status(500).json({
-                title: 'No Recipes Found...',
-                error: { recipe: 'Recipe not found...' }
+                title: 'No Recipes Found',
+                error: { message: 'Recipe not found...' }
             });
         }
         if(recipe.createdFrom != decoded.user._id) {
             return res.status(500).json({
-                title: 'Not authenticated...',
-                error: { recipe: 'Recipe not found...' }
+                title: 'Not authenticated',
+                error: {message: 'You must be registered if you want to approach to this route...'}
             });
         }
 
@@ -345,7 +345,7 @@ router.patch('/edit/:id', function(req, res, next){
             if(err){
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'Problem with saving edited changes...'}
                 });
             }
             // Save Category
