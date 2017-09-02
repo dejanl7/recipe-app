@@ -5,7 +5,10 @@
     </div>
     <div class="form-group">
         <p>Number of recipes: {{ categoryInfo.categoryRecipe.length }}.</p>
-        <h5>Recipes</h5>
+        <h5 *ngIf="categoryInfo.categoryRecipe.length > 0; else noRecipes">Recipes</h5>
+        <ng-template #noRecipes>
+            <h5>No recipes into this category.</h5>
+        </ng-template>
         <ul class="list-group">
             <li class="list-group-item justify-content-between" *ngFor="let recipe of categoryInfo.categoryRecipe">
                 <a [routerLink]="['/account/recipes/edit/', recipe._id]">
@@ -15,6 +18,10 @@
             </li>
         </ul>
     </div>
-    <button type="button" class="btn category-btn" (click)="updateCategoryTitle(categName.value)">Save</button>
-    <span class="delete-category" (click)="deleteCategory(categoryInfo._id)"><i aria-hidden="true" class="fa fa-trash"></i></span>
+    <div class="category-button-group clearfix">
+        <button type="button" class="btn category-btn pull-left" (click)="updateCategoryTitle(categName.value)">Save</button>
+        <button type="button" class="btn btn-danger pull-right delete-category" (click)="deleteCategory(categoryInfo._id, categoryInfo.categoryRecipe)">
+            <i aria-hidden="true" class="fa fa-trash"></i> Delete
+        </button>
+    </div>
 </div>

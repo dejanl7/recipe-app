@@ -25,19 +25,6 @@ var schema  = new Schema({
 });
 
 
-
-/*===============================
-    Additional actions
-=================================*/
-schema.post('remove', function(category) {
-    Recipe.findById(category.categoryRecipe, function(err, recipe) {
-        recipe.recipeCategories.pull(category);
-        recipe.save();
-    });
-});
-
-
-
 module.exports = mongoose.model(
     'Categories',
     schema

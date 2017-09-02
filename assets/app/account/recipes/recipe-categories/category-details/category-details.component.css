@@ -20,6 +20,8 @@
 }
 .alert-category p {
     color: #292b2c;
+    font-weight: 600;
+    font-size: 14px;
 }
 .alert-category a {
     text-decoration: none;
@@ -36,7 +38,6 @@
 }
 .category-btn {
     width: 120px;
-    margin-top: 20px;
     margin-left: 4px;
     cursor: pointer;
     background-color: #34495e;
@@ -51,15 +52,15 @@
 label {
     width: 100%;
 }
+.category-button-group {
+    width: 100%;
+    margin-top: 40px;
+}
 .delete-category {
-    font-size: 27px;
-    color: #c0392b;
-    float: right;
+    width: 110px;
+    font-size: 14px;
+    height: 35px;
 }
 .delete-category:hover {
-    cursor: pointer;
-}
-.delete-category i {
-    position: relative;
-    top: 14px; right: 5px;
+    opacity: .80;
 }

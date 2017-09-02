@@ -14,8 +14,9 @@ import { NgRedux, select } from "ng2-redux";
 
 export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategoriesSubscr: Subscription;
+    isCategorySelected: boolean = true;
     allCategories: Array<string> = [];
-    activeClass: boolean = false;
+    activeClass: boolean = true;
     choosedCat: Object;
     @select() catName;
     @select() catId;

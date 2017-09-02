@@ -62,8 +62,8 @@ export class CategoriesService {
                 return Observable.throw(error.json());
             });
     }
-     // Update category name
-     removeRecipeFromCategory(categoryId: string, recipeId: string) {
+    // Remove recipes from category
+    removeRecipeFromCategory(categoryId: string, recipeId: string) {
         const token     = '?token=' + this.userToken;
         const body      = JSON.stringify(recipeId);
         let headers     = new Headers({ 'Content-Type': 'application/json' });
@@ -72,6 +72,24 @@ export class CategoriesService {
             body: body
         });
         return this.http.patch(this.categoryUrlAddress+ 'delete/' + categoryId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Delete category
+    deleteCategory(categoryId: string, recipes: Array<any>){
+        const token = '?token=' + this.userToken;
+        let body    = JSON.stringify({ "content": recipes });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        
+        return this.http.delete(this.categoryUrlAddress + categoryId + token, options)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

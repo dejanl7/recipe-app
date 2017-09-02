@@ -128,6 +128,57 @@ router.patch('/:id', function(req, res, next){
 });
 
 
+/*==========================
+    Delete category
+============================*/
+router.delete('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+
+    Category.findById(req.params.id, function(err, category){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with removing category...'}
+            });
+        }
+       if(category.createdBy != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: {message: 'You must be registered if you want to approach to this route...'}
+            })
+        }
+
+        sanitizedContent = sanitize(req.body.content);
+        
+        var recipeIds = [];
+        for (var c=0; c<sanitizedContent.length; c++) {
+            recipeIds.push(sanitizedContent[c]._id);
+        }
+
+        Recipes.find({ _id: {$in: recipeIds} }, function(err, recipe) {
+            for( var r=0; r<recipe.length; r++ ) {
+                recipe[r].recipeCategories.pull(category._id);
+                recipe[r].save();
+            }
+        });
+
+        // Remove category  
+        category.remove(function(err, result) {
+            if (err) {
+                return result.status(500).json({
+                    title: 'An error occured',
+                    error: {message: 'Problem with delete category...'}
+                });
+            }
+            res.status(200).json({
+                title: 'Deleted category!',
+                obj: result
+            });
+        });
+    });
+});
+
+
 /*====================================
     Remove recipe from category
 =======================================*/
