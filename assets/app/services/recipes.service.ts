@@ -76,7 +76,7 @@ export class RecipesService {
             });
     }
 
-    // Get Recipe Categories 
+    // Get Recipe Categories - for autosuggest
     getRecipeCategories() {
         const token = '?token=' + this.userToken; 
         return this.http.get(this.categoryUrlAddress + token)

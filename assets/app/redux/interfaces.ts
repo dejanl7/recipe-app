@@ -4,5 +4,5 @@ export interface RecipeInfoInterface {
     imagePath: string;
     categoryName?: string;
     categoryState?: string;
-    categoriesCount?: string;
+    categories?: string;
 }

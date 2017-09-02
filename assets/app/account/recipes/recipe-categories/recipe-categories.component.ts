@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
-import { RecipesService } from "../../../services/recipes.service";
 import { TooltipModule } from "ngx-tooltip";
 import { CategoryModel } from "../../../models/categories.model";
 import { CategoriesService } from "../../../services/category.service";
@@ -16,21 +15,30 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategoriesSubscr: Subscription;
     isCategorySelected: boolean = true;
     allCategories: Array<string> = [];
+    allAsyncCategories: Array<string> = [];
     activeClass: boolean = true;
     choosedCat: Object;
+    asyncCategories: Array<string> = [];
     @select() catName;
     @select() catId;
     @select() remainCategoryCount;
+    @select() displayAllCategories;
 
-    constructor( private recipeService: RecipesService, private categoryService: CategoriesService ) {}
+    constructor( private categoryService: CategoriesService ) {}
 
     // Initialization
     ngOnInit() {
-        this.allCategoriesSubscr = this.recipeService.getRecipeCategories()
+        this.allCategoriesSubscr = this.categoryService.getCategories()
         .subscribe( (categories) => {
-            this.allCategories.push(categories);
+            this.allCategories = categories;
         });
 
+        this.displayAllCategories
+        .subscribe( (result) => {
+            if ( result ) {
+                this.allCategories = result;
+            }
+        });
     }
 
     // On Destroy

@@ -4,7 +4,7 @@ import { CategoriesService } from "../../../../services/category.service";
 import { Subscription } from "rxjs/Subscription";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RecipeInfoInterface } from "../../../../redux/interfaces";
-import { UPDATE_CATEGORY_NAME } from "../../../../redux/actions";
+import { UPDATE_CATEGORY_NAME, ALL_CATEGORIES } from "../../../../redux/actions";
 import { NgRedux } from "ng2-redux";
 import { UpdatedInfoService } from "../../../../services/updatedinfo.service";
 
@@ -67,7 +67,7 @@ export class CategoryDetailsComponent implements OnInit, OnDestroy {
             .subscribe( (removed) => {
                 this.updateInfo.isUpdated.next(true);
                 this.updateInfo.updatedInfoMessage.next('Removed recipe from category...');
-                this.categorySubscr = this.activatedRoute.params
+                this.activatedRoute.params
                 .subscribe( (rparams ) => {
                     this.categoryId = rparams.id;
                     this.categoryService.getCategoryInfo(rparams.id)
@@ -89,7 +89,11 @@ export class CategoryDetailsComponent implements OnInit, OnDestroy {
         if( confirm('Do you want to delete this category?') ){
             this.categoryService.deleteCategory(categoryId, recipesInCategory)
             .subscribe( (result) => {
-                this.router.navigate(['../account/recipes/categories']);
+                this.categoryService.getCategories()
+                .subscribe( (allCategories: Array<any>) => {
+                    this.ngRedux.dispatch({ type: ALL_CATEGORIES, categoriesPayload: allCategories });
+                    this.router.navigate(['../account/recipes/categories']);
+                });
             });
         }
     }    

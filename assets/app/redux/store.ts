@@ -1,5 +1,5 @@
 import { tassign } from 'tassign'; 
-import { GET_IMAGES_INFO, GET_PROFILE_IMAGE, DELETE_PROFILE_IMAGE, UPDATE_CATEGORY_NAME, COUNT_CATEGORIES } from './actions';
+import { GET_IMAGES_INFO, GET_PROFILE_IMAGE, DELETE_PROFILE_IMAGE, UPDATE_CATEGORY_NAME, ALL_CATEGORIES } from './actions';
 import { ImagesService } from '../services/images.service';
 import { RecipeInfoInterface } from "./interfaces";
 
@@ -38,10 +38,9 @@ function deleteProfileImage(state, action) {
 /*==================================
     Get category count
 ====================================*/
-function countCategories(state, action) {
-    return tassign( state, {catCount: action.catCountPayload} );
+function getAllCategories(state, action) {
+    return tassign( state, {displayAllCategories: action.categoriesPayload} );
 }
-
 
 /*==================================
     Update category name and state
@@ -59,7 +58,7 @@ export function messagingReducer(state, action) {
         case DELETE_PROFILE_IMAGE: return deleteProfileImage(state, action);
         case GET_PROFILE_IMAGE: return getProfileImage(state, action);
         case UPDATE_CATEGORY_NAME: return updateCategories(state, action);
-        case COUNT_CATEGORIES: return countCategories(state, action);
+        case ALL_CATEGORIES: return getAllCategories(state, action);
     }
 
     return state; 
