@@ -16,7 +16,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     recipesInfo: Array<any> = [];
     activeRecipesInfo: Array<any> = [];
     trashRecipesInfo: Array<any> = [];
-    starsCount: number = 0;
     recipesPerPage: number = 5;
     currentRecipePage: number = 1;
     activeRecipes: boolean = true;
@@ -63,6 +62,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
             } 
         });
         this.recipesInfo = this.activeRecipesInfo;
+        console.log(this.recipesInfo);
     }
 
     // On Destroy

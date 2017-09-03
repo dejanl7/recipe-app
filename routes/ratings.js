@@ -11,7 +11,7 @@ var Rating  = require('../models/ratings');
     Add New Rating
 ================================*/
 router.post('/', function (req, res, next) {
-    Recipe.findById('596fb03119f5e7053848a89f', function(err, recipe){
+    Recipe.findById('59a3d65e36df220624c31a5e', function(err, recipe){
         if (err) {
             return res.status(401).json({
                 title: 'Not authenticated!',
@@ -19,9 +19,9 @@ router.post('/', function (req, res, next) {
             });
         }
         var rating = new Rating({
-            rating: 5,
-            ratedFrom: '596fae299366f2056ceb7e44',
-            recipeRated: '596fb03119f5e7053848a89f',
+            rating: 1,
+            ratedFrom: '597f904f03f1e21ec873e89f',
+            recipeRated: '59a3d65e36df220624c31a5e',
         });
 
         // Save

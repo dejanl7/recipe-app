@@ -13,12 +13,8 @@ import { NgRedux, select } from "ng2-redux";
 
 export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     allCategoriesSubscr: Subscription;
-    isCategorySelected: boolean = true;
     allCategories: Array<string> = [];
-    allAsyncCategories: Array<string> = [];
-    activeClass: boolean = true;
     choosedCat: Object;
-    asyncCategories: Array<string> = [];
     @select() catName;
     @select() catId;
     @select() remainCategoryCount;

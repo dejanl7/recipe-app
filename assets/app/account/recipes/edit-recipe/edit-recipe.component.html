@@ -29,9 +29,9 @@
                         <th>Comments</th>
                         <th>
                             Avg. Rarting
-                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'recipeRating'" (click)="sortDesc('recipeRating')"></i>
-                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'recipeRating' && ascending" (click)="sortDesc('recipeRating')"></i> 
-                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'recipeRating' && !ascending" (click)="sortAsc('recipeRating')"></i>
+                            <i class="fa fa-sort" aria-hidden="true" *ngIf="order !== 'avgRating'" (click)="sortDesc('avgRating')"></i>
+                            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="order === 'avgRating' && ascending" (click)="sortDesc('avgRating')"></i> 
+                            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="order === 'avgRating' && !ascending" (click)="sortAsc('avgRating')"></i>
                         </th>
                         <th>
                             Status
@@ -75,12 +75,15 @@
                         </td>
                         <td>
                             <rating 
-                                [(ngModel)]="starsCount"
+                                [(ngModel)]="recipeInfo.avgRating"
                                 [float]="true"
                                 [readonly]="true"
                             >
                             </rating>
-                            <p>{{ recipeInfo.recipeRating.length > 0 ? starsCount/recipeInfo.recipeRating.length : 'No voters' }}</p>
+                            <p>{{ recipeInfo.recipeRating.length > 0 ? recipeInfo.avgRating : 'No voters' }} 
+                                <span *ngIf="recipeInfo.recipeRating.length === 1" class="number-of-voters">({{ recipeInfo.recipeRating.length }} voter)</span>
+                                <span *ngIf="recipeInfo.recipeRating.length > 1" class="number-of-voters">({{ recipeInfo.recipeRating.length }} voters)</span>
+                            </p>
                         </td>
                         <td>
                             <label class="custom-control custom-checkbox">

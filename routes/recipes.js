@@ -26,7 +26,7 @@ router.use('/', function(req, res, next) {
 
 
 /*=============================
-    Get recipes info
+    Get all recipes
 ===============================*/
 router.get('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
@@ -37,27 +37,35 @@ router.get('/:id', function(req, res, next) {
         path: 'userRecipes',
         select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
         populate: {
-            path: 'recipeCategories',
+            path: 'recipeCategories recipeRating',
+            select: 'categoryName rating ratedFrom'
         },
         options: { sort: { _id: -1 } }
     })
     .sort({ occupation: -1 })
-    .exec(function (err, result) {
+    .lean()
+    .exec(function (err, recipes) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
                 error: {message: 'Problem with getting information about recipes...'}
             });
         }
-        if(result._id != decoded.user._id) {
+        if(recipes._id != decoded.user._id) {
             return res.status(401).json({
                 title: 'You don\'t have role to get user information!',
                 error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
+
+        for( var i=0; i<recipes.userRecipes.length; i++ ) {
+            var allRatings = recipes.userRecipes[i].recipeRating;
+            recipes.userRecipes[i].avgRating = _.meanBy(allRatings, 'rating');       
+        }
+
         res.status(200).json({
             title: 'Successfull getting data.',
-            obj: result
+            obj: recipes
         });
     });
 });

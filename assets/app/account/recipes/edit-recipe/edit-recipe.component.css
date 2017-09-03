@@ -134,6 +134,10 @@ span {
 .custom-control {
     top: -10px;
 }
+.number-of-voters {
+    font-size: 10px;
+    top: 0;
+}
 
 
 @media screen and (max-width: 320px) {
