@@ -62,7 +62,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
             } 
         });
         this.recipesInfo = this.activeRecipesInfo;
-        console.log(this.recipesInfo);
     }
 
     // On Destroy
