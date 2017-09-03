@@ -33,10 +33,12 @@ export class CategoryDetailsComponent implements OnInit, OnDestroy {
             this.categoryService.getCategoryInfo(rparams.id)
             .subscribe( (result) => {
                 this.categoryInfo = result;
+                this.categoryService.selectedCategory.next(result);
                 this.categoryName = result.categoryName;
             });
         });
     }
+    
 
     // Destroy
     ngOnDestroy() {

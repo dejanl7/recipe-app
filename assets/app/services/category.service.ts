@@ -13,6 +13,7 @@ import { RecipeModel } from "../models/recipe.model";
 export class CategoriesService {
     userId: string;
     userToken: string;
+    selectedCategory = new Subject();
     categoryUrlAddress: string = 'http://localhost:3000/category/';
     
     constructor( private http: Http, private errorService: ErrorService ) { 
