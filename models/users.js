@@ -36,9 +36,16 @@ var schema = new Schema({
         default: ''
     },
     userRole: {
-        type: String,
-        enum: ['admin', 'moderator', 'viewer'],
-        default: 'moderator'
+        type: Object,
+        default: { roleType: 'viewer' , roles: [
+            {'canManageRecipe': false}, 
+            {'canLeaveRating': true}, 
+            {'canBlockRecipeComments': false}, 
+            {'canBuy': true },
+            {'canMakeOrder': false}, 
+            {'canManageUsers': false}, 
+            {'canBlockUserComments': false}
+        ]}
     },
     userBlocked: {
         type: Boolean,

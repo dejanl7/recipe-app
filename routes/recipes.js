@@ -7,6 +7,7 @@ var _        = require('lodash');
 var Recipe   = require('../models/recipes');
 var User     = require('../models/users');
 var Category = require('../models/categories');
+var roles    = require('../models/static-roles');
 
 
 /*=============================

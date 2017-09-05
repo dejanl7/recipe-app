@@ -1,11 +1,15 @@
-var express      = require('express');
-var router       = express.Router();
-var bcrypt       = require('bcryptjs');
-var jwt          = require('jsonwebtoken');
-var sanitize     = require("mongo-sanitize");
-var nodemailer   = require('nodemailer');
+var express       = require('express');
+var router        = express.Router();
+var bcrypt        = require('bcryptjs');
+var jwt           = require('jsonwebtoken');
+var sanitize      = require("mongo-sanitize");
+var nodemailer    = require('nodemailer');
 
-var User         = require('../models/users');
+var User          = require('../models/users');
+var roles         = require('../models/static-roles').allRoles;
+var adminRole     = require('../models/static-roles').admin;
+var moderatorRole = require('../models/static-roles').moderator;
+var viewerRole    = require('../models/static-roles').viewer;
 
 
 /*=============================
@@ -51,6 +55,7 @@ router.post('/', function (req, res, next) {
                 error: {message: 'Problem with registration...'}
             });
         }
+        
         res.status(201).json({
             message: 'User created',
             obj: result
@@ -60,7 +65,7 @@ router.post('/', function (req, res, next) {
             service: 'gmail',
             auth: {
                 user: 'dejan.loncarfx@gmail.com',
-                pass: '#your-password'
+                pass: '#'
             }
         });
         var mailOptions = {
@@ -223,7 +228,7 @@ router.get('/account/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     
     User.findById(req.params.id)
-    .select('firstName lastName username email profileImage address dateUpdated')
+    .select('firstName lastName username email profileImage address dateUpdated userRole')
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
@@ -237,6 +242,21 @@ router.get('/account/:id', function(req, res, next) {
                 error: {message: 'You don\'t  have role to get user information...'}
             })
         }
+
+        var defineRoles = [];
+
+        for (var i=0; i<roles.length; i++) {
+            if( result.userRole === 'moderator' && typeof moderatorRole[i] !== 'undefined' ) {
+                console.log(moderatorRole[i]);
+            }
+            if ( result.userRole === 'admin' && typeof adminRole[i] !== 'undefined' ) {
+                console.log(adminRole[i]);
+            }
+            if ( result.userRole === 'viewer' && typeof viewerRole[i] !== 'undefined' ) {
+                console.log(viewerRole[i]);
+            }
+        }
+
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result
