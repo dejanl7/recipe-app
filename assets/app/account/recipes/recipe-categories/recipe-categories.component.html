@@ -5,7 +5,7 @@
         <div class="search-category">
             <input [(ngModel)]="filteredCategories" class="form-control" placeholder="Search...">
         </div>
-        <ul class="list-group" *ngIf="allCategories.length > 0; else noCategories">
+        <ul class="list-group all-categories" *ngIf="allCategories.length > 0; else noCategories">
             <li 
                 class="list-group-item" 
                 *ngFor="let category of allCategories | recipeFilter: filteredCategories:'categoryName' | paginate: { itemsPerPage: 7, currentPage: p }; let i=index" 

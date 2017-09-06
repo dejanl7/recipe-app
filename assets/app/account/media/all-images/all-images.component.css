@@ -11,6 +11,8 @@
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    box-shadow: 10px 10px 70px 14px #ecf0f1;
+    border: none;
 }
 .media-images label {
     position: relative;

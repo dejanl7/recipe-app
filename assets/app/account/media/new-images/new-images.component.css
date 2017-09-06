@@ -1,6 +1,7 @@
 #my-drop-zone {
     height: 150px;
     border: 2px dashed #34495e !important;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;

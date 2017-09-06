@@ -8,6 +8,9 @@
 }
 .recipes-table {
     margin-bottom: 40px;
+    background-color: #fff;
+    border: none;
+    box-shadow: 10px 10px 70px 10px #ecf0f1;  
 }
 .search {
     margin-bottom: 20px;

@@ -9,6 +9,10 @@
 .category-detail {
     margin-top: 50px;
 }
+.all-categories {
+    box-shadow: 10px 10px 70px 10px #ecf0f1;
+    border: none;
+}
 .category-name,
 .category-recipes-number {
     width: 50%;
@@ -64,10 +68,12 @@
 }
 .alert.alert-category.not-selected-category {
     top: 170px;
+    box-shadow: 10px 10px 70px 10px #ecf0f1;
+    background-color: #fff;
 }
 /* Category Details */
 .alert-category {
-    background-color: rgba(236, 240, 241, 0.7);
+    background-color: #fff;
     position: relative;
     top: 75px;
  }

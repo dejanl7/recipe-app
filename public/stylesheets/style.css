@@ -1,5 +1,6 @@
 body {
     overflow-y: scroll;
+    background-color: rgba(252, 252, 252, .9);
 }
 p {
     font-size: 14px;

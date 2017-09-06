@@ -4,7 +4,6 @@ import { UserService } from "../../../services/user.service";
 import { ImagesService } from "../../../services/images.service";
 import { GET_IMAGES_INFO } from "../../../redux/actions";
 import { NgRedux, select } from "ng2-redux";
-import { ImageInterface } from "../../../redux/interfaces";
 
 
 @Component({
@@ -21,7 +20,7 @@ export class NewImagesComponent implements OnInit {
     imagesName = [];
 
 
-    constructor ( private userService: UserService, private imagesService: ImagesService, private ngRedux: NgRedux<ImageInterface> ) { }
+    constructor ( private userService: UserService, private imagesService: ImagesService, private ngRedux: NgRedux<any> ) { }
     
 
     ngOnInit() {
@@ -55,6 +54,7 @@ export class NewImagesComponent implements OnInit {
     hasBaseDropZoneOver:boolean = false;
 
     fileOverBase(e:any) {
+        console.log('Daj boju');
         this.hasBaseDropZoneOver = e;
     }
 }
