@@ -1,5 +1,16 @@
 .sign-in {
-    margin-top: -30px;
+  margin-top: -30px;
+  box-shadow: 0 7px 70px 2px #bdc3c7;
+  padding: 17px 20px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+}
+.sign-in input {
+  border: 1px solid #bdc3c7;
 }
 .registration {
     margin-top: 30px;

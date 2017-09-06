@@ -1,6 +1,17 @@
-.r-c-content {
-    background-color: #ecf0f1;
+.r-c-content { 
+    box-shadow: 0 3px 70px 2px #bdc3c7;
+    background-color: #fff;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -o-border-radius: 7px;
+    -ms-border-radius: 7px;
     padding: 15px;
+}
+.r-c-content p {
+    font-size: 12.5px;
+    color: #000;
+    font-weight: 600;
 }
 .suggested-categories form {
     margin-bottom: -30px;

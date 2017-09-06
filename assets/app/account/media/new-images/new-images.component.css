@@ -7,7 +7,7 @@
     align-items: center;
 }
 .nv-file-over {
-    background-color:#ecf0f1;
+    background-color:#ecf0f1 !important;
 }
 .multiple-images-upload {
     margin-top: 20px;

@@ -11,9 +11,14 @@ input {
 }
 .publish-recipe {
     height: 120px;
-    margin-top: 30px;
-    background-color: #ecf0f1;
-    border-radius: 4px;
+    margin-top: 30px;  
+    box-shadow: 0 3px 70px 2px #bdc3c7;
+    background-color: #fff;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -o-border-radius: 7px;
+    -ms-border-radius: 7px;
     padding: 15px;
     position: relative;
 }
@@ -22,7 +27,11 @@ input {
 }
 .p-r-content {
     position: absolute;
-    top: 12%;
+}
+.p-r-content p {
+    font-size: 12.5px;
+    color: #000;
+    font-weight: 600;
 }
 .button-groups {
     padding-right: 15px;
