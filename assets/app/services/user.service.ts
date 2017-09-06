@@ -85,4 +85,16 @@ export class UserService {
             });
     }
 
+    // Grant Creator role to viewer - make creator from viewer
+    grantCreatorRole() {
+        const headers   = new Headers({ 'Content-Type': 'application/json' });
+        const token     = '?token=' + this.userToken; 
+        return this.http.patch(this.accountUrlAddress + 'grant-creator-role/' + this.userId + token, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
 }

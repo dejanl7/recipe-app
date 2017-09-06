@@ -188,7 +188,9 @@ a:hover {
     position: relative;
     top: -7px; left: 3px;
 }
-
+.creator-role {
+	margin-top: 30px;
+}
 
 /*=================================
 	2. Smaller Devices

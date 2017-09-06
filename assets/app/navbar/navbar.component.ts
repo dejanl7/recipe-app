@@ -4,6 +4,7 @@ import { ImagesService } from "../services/images.service";
 import { UserService } from "../services/user.service";
 import { Subscription } from "rxjs/Subscription";
 import { Router, NavigationStart } from "@angular/router";
+import * as _ from "lodash";
 
 
 @Component({
@@ -15,6 +16,8 @@ import { Router, NavigationStart } from "@angular/router";
 
 
 export class NavbarComponent implements OnInit {
+    canManageRecipe: boolean = true;
+    userAuthorizaiton: Subscription;
     userImages: Subscription;
     imagesInfo: Subscription;
     profileImgEmail: Subscription;
@@ -74,6 +77,15 @@ export class NavbarComponent implements OnInit {
                 }
             }
         });
+
+        // Get user roles
+        this.userAuthorizaiton = this.userService.getUserAccountInfo()
+        .subscribe( (user) => {
+            var canManageRecipe = _.find(user.userRole.roles, { 'canManageRecipe': true });
+            if ( !canManageRecipe ) {
+                this.canManageRecipe = false;
+            }
+        });
     }
 
 
@@ -83,6 +95,19 @@ export class NavbarComponent implements OnInit {
         this.imagesInfo.unsubscribe();
         this.profileImgEmail.unsubscribe();
         this.activatedUrl.unsubscribe();
+        this.userAuthorizaiton.unsubscribe();
     }
 
+
+    /*========================
+        Grant Creator Role
+    ==========================*/
+    makeMeCreator() {
+        if( confirm('Do you want to extend authorization rules and become recipe creators?') ){
+            this.userService.grantCreatorRole()
+            .subscribe( (result) => {
+                location.reload();
+            });
+        }
+    }
 }

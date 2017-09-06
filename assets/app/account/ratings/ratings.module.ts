@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Components and modules
 import { RatingsComponent } from "./ratings.component";
 import { RatingsRouter } from "./ratings.routing";
-import { TestComponent } from "../test/test.component";
 
 
 // Pipes
@@ -18,8 +17,7 @@ import { CutstringPipe } from "../../cutstring.pipe";
 @NgModule({
   declarations: [
       RatingsComponent,
-      TestComponent,
-      CutstringPipe,
+      CutstringPipe
   ],
   imports: [
       CommonModule,

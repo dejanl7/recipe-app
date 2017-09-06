@@ -61,10 +61,9 @@
                             </p>
                         </td>
                         <td>
-                            <p *ngIf="recipeInfo.recipeCategories.length > 0">
+                            <p *ngIf="recipeInfo.recipeCategories.length > 0" class="category-display">
                                 <a [routerLink]="['/account/recipes/categories/', category._id]"  *ngFor="let category of recipeInfo.recipeCategories">
-                                    <span class="category-name">{{ category.categoryName }}<i class="comma">, </i>
-                                    </span>
+                                    <span class="category-name">{{ category.categoryName }}<i class="comma">, </i></span>
                                 </a>
                             </p>   
                             <p *ngIf="recipeInfo.recipeCategories.length === 0">

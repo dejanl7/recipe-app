@@ -1,15 +1,15 @@
-var express       = require('express');
-var router        = express.Router();
-var bcrypt        = require('bcryptjs');
-var jwt           = require('jsonwebtoken');
-var sanitize      = require("mongo-sanitize");
-var nodemailer    = require('nodemailer');
+var express     = require('express');
+var router      = express.Router();
+var bcrypt      = require('bcryptjs');
+var jwt         = require('jsonwebtoken');
+var sanitize    = require("mongo-sanitize");
+var nodemailer  = require('nodemailer');
 
-var User          = require('../models/users');
-var roles         = require('../models/static-roles').allRoles;
-var adminRole     = require('../models/static-roles').admin;
-var moderatorRole = require('../models/static-roles').moderator;
-var viewerRole    = require('../models/static-roles').viewer;
+var User        = require('../models/users');
+var roles       = require('../models/static-roles').allRoles;
+var adminRole   = require('../models/static-roles').admin;
+var creatorRole = require('../models/static-roles').creator;
+var viewerRole  = require('../models/static-roles').viewer;
 
 
 /*=============================
@@ -243,20 +243,6 @@ router.get('/account/:id', function(req, res, next) {
             })
         }
 
-        var defineRoles = [];
-
-        for (var i=0; i<roles.length; i++) {
-            if( result.userRole === 'moderator' && typeof moderatorRole[i] !== 'undefined' ) {
-                console.log(moderatorRole[i]);
-            }
-            if ( result.userRole === 'admin' && typeof adminRole[i] !== 'undefined' ) {
-                console.log(adminRole[i]);
-            }
-            if ( result.userRole === 'viewer' && typeof viewerRole[i] !== 'undefined' ) {
-                console.log(viewerRole[i]);
-            }
-        }
-
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result
@@ -328,7 +314,7 @@ router.patch('/account/:id', function(req, res, next){
         user.firstName    = sanitizedContent.editFirstName || user.firstName;
         user.lastName     = sanitizedContent.editLastName || user.lastName;
         user.email        = sanitizedContent.editEmail || user.email;
-        user.address      = sanitizedContent.editAddress || user.profileImage;
+        user.address      = sanitizedContent.editAddress || user.address;
         user.dateUpdated  = Date.now();
        
 
@@ -348,6 +334,59 @@ router.patch('/account/:id', function(req, res, next){
 });
 
 
+/*=========================
+    Grant Creator Role
+===========================*/
+router.patch('/account/grant-creator-role/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with updating user information...'}
+            });
+        }
+        if(user._id != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Authority problem',
+                error: {message: 'You must be registered if you want to approach to this route.'}
+            })
+        }
+        if(!user) {
+            return res.status(500).json({
+                title: 'No Users Found...',
+                error: { message: 'User not found...' }
+            });
+        }
+        
+        user.userRole = {
+            roleType: 'creator',
+            roles: [
+                { canManageRecipe: true },
+                { canLeaveRating: true },
+                { canBlockRecipeComments: true },
+                { canBuy: true },
+                { canMakeOrder: true },
+                { canManageUsers: false },
+                { canBlockUserComments: false }
+            ]
+        };
+  
+        user.save(function(err, result){
+            if(err){
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: {message: 'Problem with updating user roles...'}
+                });
+            }
+            res.status(201).json({
+                title: 'Updated user.',
+                obj: result
+            });
+        });
+    });
+});
 
 
 module.exports = router;

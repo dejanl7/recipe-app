@@ -4,6 +4,8 @@ import { Subscription } from "rxjs/Subscription";
 import { RecipeModel } from "../../../models/recipe.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
+import { UserService } from "../../../services/user.service";
+import * as _ from "lodash";
 declare var tinymce: any;
 
 
@@ -15,6 +17,7 @@ declare var tinymce: any;
 
 
 export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
+    recipeAuthorization: Subscription;
     editor: any;
     getRecipeCategories: Subscription;
     getRecipeAttachedImgs: Subscription;
@@ -27,7 +30,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
     alertNotification: boolean = false;
     allowedChangeRoute: boolean = false;
     
-    constructor( private recipeService: RecipesService, private route: ActivatedRoute, private router: Router ) { }
+    constructor( private userService: UserService, private recipeService: RecipesService, private route: ActivatedRoute, private router: Router ) { }
 
 
     // On Init
@@ -45,6 +48,15 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.getRecipeGalleryImgs = this.recipeService.galleryImgs
         .subscribe( (gallery: Array<string>) => { 
             this.recipeGalleryImages = gallery;
+        });
+
+        // Get user roles
+        this.recipeAuthorization = this.userService.getUserAccountInfo()
+        .subscribe( (user) => {
+            var canManage = _.find(user.userRole.roles, { 'canManageRecipe': true });
+            if ( !canManage ) {
+                this.router.navigate(['/']);
+            }
         });
     }
 
@@ -68,6 +80,7 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.getRecipeCategories.unsubscribe();
         this.getRecipeAttachedImgs.unsubscribe();
         this.getRecipeGalleryImgs.unsubscribe();
+        this.recipeAuthorization.unsubscribe();
     }
 
 

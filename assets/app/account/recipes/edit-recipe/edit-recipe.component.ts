@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipesService } from "../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
 import { UpdatedInfoService } from "../../../services/updatedinfo.service";
+import { UserService } from "../../../services/user.service";
+import { Router } from "@angular/router";
+import * as _ from "lodash";
 
 
 @Component({
@@ -13,6 +16,7 @@ import { UpdatedInfoService } from "../../../services/updatedinfo.service";
 
 export class EditRecipeComponent implements OnInit, OnDestroy {
     recipesSubscr: Subscription;
+    recipeAuthorization: Subscription;
     recipesInfo: Array<any> = [];
     activeRecipesInfo: Array<any> = [];
     trashRecipesInfo: Array<any> = [];
@@ -25,7 +29,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     ascending: boolean = false;
 
 
-    constructor( private recipeService: RecipesService, private updateInfo: UpdatedInfoService ) { }
+    constructor( private userService: UserService, private recipeService: RecipesService, private updateInfo: UpdatedInfoService, private router: Router ) { }
 
 
     /*===================================
@@ -62,11 +66,21 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
             } 
         });
         this.recipesInfo = this.activeRecipesInfo;
+
+        // Get user roles
+        this.recipeAuthorization = this.userService.getUserAccountInfo()
+        .subscribe( (user) => {
+            var canManage = _.find(user.userRole.roles, { 'canManageRecipe': true });
+            if ( !canManage ) {
+                this.router.navigate(['/']);
+            }
+        });
     }
 
     // On Destroy
     ngOnDestroy() {
         this.recipesSubscr.unsubscribe();
+        this.recipeAuthorization.unsubscribe();
     }
 
 

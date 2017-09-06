@@ -28,7 +28,7 @@
                     </ng-template>
                 </a> 
             </li>
-            <li class="navigation-elements">
+            <li class="navigation-elements" *ngIf="canManageRecipe">
                 <a><i class="fa fa-book"></i> <span class="list-name" (click)="showSubmenu = !showSubmenu">Recipes <i class="fa" [class.fa-chevron-down]="showSubmenu" [class.fa-chevron-up]="!showSubmenu"></i></span></a>
                 <ul class="navigation-group" *ngIf="showSubmenu">
                     <li class="navigation-subelements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
@@ -50,6 +50,9 @@
             </li> 
             <li class="navigation-elements" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a [routerLink]="['/account/orders']"><i class="fa fa-shopping-cart"></i> <span class="list-name">Orders</span></a>
+            </li>
+            <li class="navigation-elements creator-role" *ngIf="!canManageRecipe">
+                <a (click)="makeMeCreator()"><i class="fa fa-user-plus" aria-hidden="true"></i> <span>Give me a creator role</span></a>
             </li>
         </ul>
 

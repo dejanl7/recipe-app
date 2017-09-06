@@ -117,8 +117,9 @@ span {
 .comma {
     font-size: 17px;
     padding-left: 2px;
+    color: #000;
 }
-.category-name:last-of-type .comma {
+.category-display a:last-of-type .comma {
     display: none;
 }
 .separator {

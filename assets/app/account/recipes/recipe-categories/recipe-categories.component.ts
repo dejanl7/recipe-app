@@ -4,7 +4,9 @@ import { TooltipModule } from "ngx-tooltip";
 import { CategoryModel } from "../../../models/categories.model";
 import { CategoriesService } from "../../../services/category.service";
 import { NgRedux, select } from "ng2-redux";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserService } from "../../../services/user.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-recipe-categories',
@@ -12,7 +14,9 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./recipe-categories.component.css']
 })
 
+
 export class RecipeCategoriesComponent implements OnInit, OnDestroy {
+    recipeAuthorization: Subscription;
     allCategoriesSubscr: Subscription;
     choosecCatSubscr: Subscription;
     allCategories: Array<string> = [];
@@ -23,7 +27,7 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
     @select() remainCategoryCount;
     @select() displayAllCategories;
 
-    constructor( private categoryService: CategoriesService, private activatedRoute: ActivatedRoute ) {}
+    constructor( private userService: UserService, private categoryService: CategoriesService, private activatedRoute: ActivatedRoute, private router: Router ) {}
 
     // Initialization
     ngOnInit() {
@@ -46,7 +50,15 @@ export class RecipeCategoriesComponent implements OnInit, OnDestroy {
         .subscribe( (selectedCat: any) => {
             this.choosedCat = selectedCat;
         });
-        
+
+         // Get user roles
+         this.recipeAuthorization = this.userService.getUserAccountInfo()
+         .subscribe( (user) => {
+             var canManage = _.find(user.userRole.roles, { 'canManageRecipe': true });
+             if ( !canManage ) {
+                 this.router.navigate(['/']);
+             }
+         });       
         
     }
 

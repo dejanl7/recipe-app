@@ -14,6 +14,7 @@ footer {
     font-weight: 400;
     display: flex;
     align-items: center;
+    z-index: 2;
 }
 footer p {
     top: -20px;
@@ -102,6 +103,8 @@ footer.hide {
 }
 
 .updated {
+    width: 240px;
+    margin: 0 auto;
     opacity: 0;
     position: fixed;
     top: 14%; left: 0; right: 0;
@@ -110,7 +113,7 @@ footer.hide {
     font-weight: 400;
     display: flex;
     align-items: center;
-    z-index: 0;
+    z-index: 2;
 }
 .updated p {
     top: -20px;

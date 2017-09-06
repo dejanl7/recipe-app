@@ -33,10 +33,10 @@ router.get('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     
     User.findById(req.params.id)
-    .select('userRecipes')
+    .select('userRecipes userRole')
     .populate({
         path: 'userRecipes',
-        select: 'recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
+        select: 'userRole recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
         populate: {
             path: 'recipeCategories recipeRating',
             select: 'categoryName rating ratedFrom'
@@ -56,7 +56,17 @@ router.get('/:id', function(req, res, next) {
             return res.status(401).json({
                 title: 'You don\'t have role to get user information!',
                 error: {message: 'You must be registered if you want to approach to this route.'}
-            })
+            });
+        }
+
+
+        var canManage = _.find(recipes.userRole.roles, { 'canManageRecipe': true });
+        if( !canManage ) {
+            recipes.userRole.canEditRecipe = 'ne moze';
+            return res.status(401).json({
+                title: 'Authorization Error',
+                error: {message: 'You don\'t have role to manage user recipes. If you want to do that, you need to dispose with authorization roles like "Creator".'}
+            });
         }
 
         for( var i=0; i<recipes.userRecipes.length; i++ ) {
@@ -79,7 +89,7 @@ router.get('/unique/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     
     Recipe.findById(req.params.id)
-    .populate('recipeCategories')
+    .populate('recipeCategories createdFrom')
     .exec( function (err, result){
         if (err) {
             return res.status(500).json({
@@ -87,12 +97,20 @@ router.get('/unique/:id', function(req, res, next) {
                 error: {message: 'Problem with getting recipe information...'}
             });
         }
-        if(result.createdFrom != decoded.user._id) {
+        if(result.createdFrom._id != decoded.user._id) {
             return res.status(401).json({
                 title: 'An error occured',
                 error: {message: 'You must be registered if you want to approach to this route.'}
             })
         }
+        var canManage = _.find(result.createdFrom.userRole.roles, { 'canManageRecipe': true });
+        if( !canManage ) {
+            return res.status(401).json({
+                title: 'Authorization Error',
+                error: {message: 'You don\'t have role to manage user recipes. If you want to do that, you need to be registered like "Creator".'}
+            });
+        }
+        
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: result
@@ -113,6 +131,13 @@ router.post('/', function (req, res, next) {
             return res.status(401).json({
                 title: 'An error occured',
                 error: {message: 'Problem with adding new recipe...'}
+            });
+        }
+        var canManage = _.find(user.userRole.roles, { 'canManageRecipe': true });
+        if( !canManage ) {
+            return res.status(401).json({
+                title: 'Authorization Error',
+                error: {message: 'You don\'t have role to manage user recipes. If you want to do that, you need to be registered like "Creator".'}
             });
         }      
 
@@ -211,7 +236,8 @@ router.patch('/:id', function(req, res, next){
                 title: 'Not authenticated',
                 error: {message: 'You must be registered if you want to approach to this route.'}
             });
-        }
+        }  
+        
 
         // Sanitize records and save recipe updated
         sanitizedContent = sanitize(req.body);
@@ -257,7 +283,7 @@ router.patch('/delete/:id', function(req, res, next){
                 title: 'Not authenticated',
                 error: {message: 'You must be registered if you want to approach to this route...'}
             });
-        }
+        } 
 
         // Sanitize records and save recipe updated
         sanitizedContent = sanitize(req.body);
@@ -297,7 +323,7 @@ router.delete('/delete/:id', function(req, res, next){
                 title: 'Not authenticated',
                 error: {message: 'You must be registered if you want to approach to this route...'}
             })
-        }
+        }  
 
         // Remove recipe  
         recipe.remove(function(err, result) {
@@ -340,7 +366,7 @@ router.patch('/edit/:id', function(req, res, next){
                 title: 'Not authenticated',
                 error: {message: 'You must be registered if you want to approach to this route...'}
             });
-        }
+        }   
 
         // Sanitize records and save recipe updated
         sanitizedContent = sanitize(req.body);

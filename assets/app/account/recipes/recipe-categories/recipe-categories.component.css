@@ -62,6 +62,9 @@
     position: relative;
     left: -2px;
 }
+.alert.alert-category.not-selected-category {
+    top: 170px;
+}
 /* Category Details */
 .alert-category {
     background-color: rgba(236, 240, 241, 0.7);

@@ -3,6 +3,9 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 import { NgForm } from "@angular/forms";
 import { RecipesService } from "../../../../services/recipes.service";
 import { Subscription } from "rxjs/Subscription";
+import { UserService } from "../../../../services/user.service";
+import { Router } from "@angular/router";
+import * as _ from "lodash";
 
 
 @Component({
@@ -13,6 +16,7 @@ import { Subscription } from "rxjs/Subscription";
 
 
 export class CategoriesComponent implements OnInit {
+    recipeAuthorization: Subscription;
     @ViewChild('newCategoryForm') categoryForm: NgForm;
     protected searchStr: string;
     protected dataService: CompleterData;
@@ -21,7 +25,7 @@ export class CategoriesComponent implements OnInit {
     protected categoriesAutoSuggest: Array<string> = [];
     
     
-    constructor( private completerService: CompleterService, private recipeService: RecipesService ) {}
+    constructor( private userService: UserService, private completerService: CompleterService, private recipeService: RecipesService, private router: Router ) {}
 
 
     // On init
@@ -31,11 +35,20 @@ export class CategoriesComponent implements OnInit {
             this.categoriesAutoSuggest.push(r.categoryName);
         });
         
+        // Get user roles
+        this.recipeAuthorization = this.userService.getUserAccountInfo()
+         .subscribe( (user) => {
+             var canManage = _.find(user.userRole.roles, { 'canManageRecipe': true });
+             if ( !canManage ) {
+                 this.router.navigate(['/']);
+             }
+        });
     }
 
     // On destroy
     ngOnDestroy() {
         this.getCategoriesAutoSuggest.unsubscribe();
+        this.recipeAuthorization.unsubscribe();
     }
 
 
