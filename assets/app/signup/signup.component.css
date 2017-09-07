@@ -413,7 +413,9 @@ input.ng-touched {
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ebccd1;
 }
-
+button {
+  margin-bottom: 4px;
+}
 
 @media screen and (max-width: 991px) {
     form {

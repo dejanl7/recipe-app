@@ -20,3 +20,6 @@ h4 {
 .sign-in input {
     border: 1px solid #bdc3c7;
 }
+button {
+    margin-bottom: 4px !important;
+}
