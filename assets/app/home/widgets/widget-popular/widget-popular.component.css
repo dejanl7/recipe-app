@@ -1,0 +1,8 @@
+.popular-recipes ul li {
+    border-top: none !important;
+}
+.recipe-name-img-widget {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 15.5px;
+}
