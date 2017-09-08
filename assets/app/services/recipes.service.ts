@@ -34,6 +34,18 @@ export class RecipesService {
     /*===========================
         Services
     =============================*/
+    // Get All Recipes - publish must be true
+    getAllRecipes() {
+        return this.http.get(this.recipesUrlAddress + 'get-all-recipes')
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
     // Get recipes info
     getRecipeInfo() {
         const token = '?token=' + this.userToken; 

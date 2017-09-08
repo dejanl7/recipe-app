@@ -11,6 +11,44 @@ var roles    = require('../models/static-roles');
 
 
 /*=============================
+    Get all recipes
+===============================*/
+router.get('/get-all-recipes', function(req, res, next) {
+    Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
+    .select('recipeName recipeContent recipeImage recipeGallery createdFrom dateCreated createdFrom recipeComments recipeCategories recipeRating recipeDeleted')
+    .populate({
+        path: 'createdFrom recipeComments recipeCategories recipeRating',
+        select: ('username profileImage categoryName ratedFrom rating')
+    })
+    .sort({ dateCreated: -1 })
+    .lean()
+    .exec(function (err, recipes) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about recipes...'}
+            });
+        }
+
+        for( var i=0; i<recipes.length; i++ ) {
+            var allRatings = recipes[i].recipeRating;
+            if ( recipes[i].recipeRating.length > 0 ) {
+                recipes[i].avgRating = _.meanBy(allRatings, 'rating');  
+            }
+                else {
+                    recipes[i].avgRating = 0;
+                }     
+        }
+
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: recipes
+        });
+    });
+});
+
+
+/*=============================
     Protect Route
 ===============================*/
 router.use('/', function(req, res, next) {
@@ -26,9 +64,9 @@ router.use('/', function(req, res, next) {
 });
 
 
-/*=============================
-    Get all recipes
-===============================*/
+/*=========================================
+    Get all recipes from logged in user
+===========================================*/
 router.get('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     

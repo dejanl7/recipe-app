@@ -1,87 +1,35 @@
-<div class="col-md-6 col-sm-12 pull-left">
+<div class="col-md-6 col-sm-12 pull-left recipe-whole" *ngFor="let recipe of publishedRecipes; let i=index">
     <div class="card-deck recipe-card">
       <div class="card">
-          <img class="card-img-top img-responsive recipe-image" src="http://localhost:3000/images/recipe-logo.png" alt="recipe">
-          <rating 
-              class="recipe-rating"
-              [float]="true"
-              [readonly]="true"
+        <div class="card-img">
+            <img class="card-img-top img-responsive recipe-image" [src]="recipe.recipeImage ? recipe.recipeImage :'/images/recipe-logo.png'" alt="recipe">
+        </div>
+        <rating 
+            class="recipe-rating"
+            [float]="true"
+            [readonly]="true"
           >
-          </rating>
-          <div class="card-block">
-            <h4 class="card-title"><a>Card title</a></h4>
-            <p class="card-text recipe-content">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer. This is a longer card with supporting text below as a natural lead-in to additional content...</p>
+        </rating>
+        <div class="card-block">
+            <h4 class="card-title"><a>{{ recipe.recipeName }}</a></h4>
+            <div [innerHTML]="recipe.recipeContent | cutstring:'177'"></div>
             <div class="author">
-                <img src="http://localhost:3000/images/avatar-profile.png" alt="author">
-                <span class="author-name"> &nbsp; By: <a>dejanfx</a></span>
+                <img [src]="recipe.createdFrom.profileImage ? recipe.createdFrom.profileImage : '/images/avatar-profile.png'" alt="author">
+                <span class="author-name"> &nbsp; By: <a>{{ recipe.createdFrom.username }}</a></span>
             </div>
-            <button class="btn btn-recipe">More</button>
-          </div>
-          <div class="card-footer">
-              <div class="row justify-content-center text-center">
-                  <small class="text-muted publish-date col-lg-4 col-sm-12"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days ago</small>
-                  <small class="text-muted category col-lg-4 col-sm-12"><i class="fa fa-book" aria-hidden="true"></i> <a>recipe</a></small>
-                  <small class="text-muted ratings col-lg-4 col-sm-12"><i class="fa fa-smile-o" aria-hidden="true"></i> 3 ratings</small>
-              </div>
-          </div>
-      </div>
-  </div>
-</div><!-- .col-md-6 -->
-<div class="col-md-6 col-sm-12 pull-left">
-    <div class="card-deck recipe-card">
-      <div class="card">
-          <img class="card-img-top img-responsive recipe-image" src="http://localhost:3000/images/recipe-logo.png" alt="recipe">
-          <rating 
-              class="recipe-rating"
-              [float]="true"
-              [readonly]="true"
-          >
-          </rating>
-          <div class="card-block">
-            <h4 class="card-title"><a>Card title</a></h4>
-            <p class="card-text recipe-content">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer. This is a longer card with supporting text below as a natural lead-in to additional content...</p>
-            <div class="author">
-                <img src="http://localhost:3000/images/avatar-profile.png" alt="author">
-                <span class="author-name"> &nbsp; By: <a>dejanfx</a></span>
+            <button class="btn btn-recipe">See</button>
+        </div>
+        <div class="card-footer clearfix">
+            <div class="row justify-content-center text-center">
+            <small class="text-muted publish-date col-lg-4 col-sm-12"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ recipe.dateCreated | timeAgo }}</small>
+            <small class="text-muted category col-lg-4 col-sm-12"><i class="fa fa-book" aria-hidden="true"></i> 
+                <a *ngFor="let category of recipe.recipeCategories" class="category-name"> {{ category.categoryName }}
+                    <span class="category-separator">,</span>
+                </a>
+            </small>
+            <small class="text-muted ratings col-lg-4 col-sm-12"><i class="fa fa-smile-o" aria-hidden="true"></i> {{ recipe.avgRating }} voters</small>
             </div>
-            <button class="btn btn-recipe">More</button>
-          </div>
-          <div class="card-footer">
-              <div class="row justify-content-center text-center">
-                  <small class="text-muted publish-date col-lg-4 col-sm-12"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days ago</small>
-                  <small class="text-muted category col-lg-4 col-sm-12"><i class="fa fa-book" aria-hidden="true"></i> <a>recipe</a></small>
-                  <small class="text-muted ratings col-lg-4 col-sm-12"><i class="fa fa-smile-o" aria-hidden="true"></i> 3 ratings</small>
-              </div>
-          </div>
-      </div>
-  </div>
-</div><!-- .col-md-6 -->
-<div class="col-md-6 col-sm-12 pull-left">
-    <div class="card-deck recipe-card">
-      <div class="card">
-          <img class="card-img-top img-responsive recipe-image" src="http://localhost:3000/images/recipe-logo.png" alt="recipe">
-          <rating 
-              class="recipe-rating"
-              [float]="true"
-              [readonly]="true"
-          >
-          </rating>
-          <div class="card-block">
-            <h4 class="card-title"><a>Card title</a></h4>
-            <p class="card-text recipe-content">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer. This is a longer card with supporting text below as a natural lead-in to additional content...</p>
-            <div class="author">
-                <img src="http://localhost:3000/images/avatar-profile.png" alt="author">
-                <span class="author-name"> &nbsp; By: <a>dejanfx</a></span>
-            </div>
-            <button class="btn btn-recipe">More</button>
-          </div>
-          <div class="card-footer">
-              <div class="row justify-content-center text-center">
-                  <small class="text-muted publish-date col-lg-4 col-sm-12"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days ago</small>
-                  <small class="text-muted category col-lg-4 col-sm-12"><i class="fa fa-book" aria-hidden="true"></i> <a>recipe</a></small>
-                  <small class="text-muted ratings col-lg-4 col-sm-12"><i class="fa fa-smile-o" aria-hidden="true"></i> 3 ratings</small>
-              </div>
-          </div>
+        </div>
       </div>
   </div>
 </div><!-- .col-md-6 -->

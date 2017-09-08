@@ -10,7 +10,7 @@ import { TimeAgoModule } from "../../../shared/timeago.module";
 import { EditRecipesRouter } from "./editRecipe.routing";
 import { EditRecipeComponent } from "./edit-recipe.component";
 import { RatingModule } from "ngx-rating";
-import { FilterRecipeModule } from "../../../shared/filter-array.module";
+import { CustomPipesModule } from "../../../shared/custom-pipes.module";
 
 // Services
 import { RecipesService } from "../../../services/recipes.service";
@@ -21,8 +21,7 @@ import { OrderByPipe } from "../../../order-by.pipe";
 
 @NgModule({
     declarations: [
-        EditRecipeComponent,
-        OrderByPipe
+        EditRecipeComponent
     ],
     imports: [
         CommonModule,
@@ -34,7 +33,7 @@ import { OrderByPipe } from "../../../order-by.pipe";
         PaginationModule,
         RatingModule,
         TimeAgoModule,
-        FilterRecipeModule
+        CustomPipesModule
     ],
     providers: [
         RecipesService

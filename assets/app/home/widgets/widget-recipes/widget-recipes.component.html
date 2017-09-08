@@ -1,21 +1,11 @@
 <div class="widget recent-recipes clearfix">
     <h5 class="text-left widget-title">Recent Recipes</h5>
     <ul class="list-group">
-        <li class="list-group-item">
-            <img src="http://localhost:3000/images/recipe-logo.png" class="recent-recipes-img img-responsive" alt="recipe">
-            <a>Cras justo odio</a>
-        </li>
-        <li class="list-group-item">
-            <img src="http://localhost:3000/images/recipe-logo.png" class="recent-recipes-img img-responsive" alt="recipe">
-            <a>Dapibus ac facilisis in</a>
-        </li>
-        <li class="list-group-item">
-            <img src="http://localhost:3000/images/recipe-logo.png" class="recent-recipes-img img-responsive" alt="recipe">
-            <a>Morbi leo risus</a>
-        </li>
-        <li class="list-group-item">
-            <img src="http://localhost:3000/images/recipe-logo.png" class="recent-recipes-img img-responsive" alt="recipe">
-            <a>Morbi leo risus</a>
-        </li>
+        <ng-container *ngFor="let recipe of recentRecipes; let i=index">
+            <li class="list-group-item" *ngIf="i<4">
+                <img [src]="recipe.recipeImage ? recipe.recipeImage : 'http://localhost:3000/images/recipe-logo.png'" class="recent-recipes-img img-responsive" alt="recipe">
+                <a>{{ recipe.recipeName }}</a>
+            </li>
+        </ng-container>
     </ul>
 </div><!-- .recent-recipes -->

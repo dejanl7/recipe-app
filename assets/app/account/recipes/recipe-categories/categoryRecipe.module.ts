@@ -15,7 +15,7 @@ import { RecipesService } from "../../../services/recipes.service";
 import { CategoriesService } from "../../../services/category.service";
 
 // Custom Filter Pipe - for recipe table
-import { FilterRecipeModule } from "../../../shared/filter-array.module";
+import { CustomPipesModule } from "../../../shared/custom-pipes.module";
 
 
 
@@ -32,7 +32,7 @@ import { FilterRecipeModule } from "../../../shared/filter-array.module";
         PaginationModule,
         TimeAgoModule,
         RecipeCategoryRouter,
-        FilterRecipeModule
+        CustomPipesModule
     ],
     providers: [
         RecipesService,

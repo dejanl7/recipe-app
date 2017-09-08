@@ -13,10 +13,12 @@ import { WidgetRecipesComponent } from './widgets/widget-recipes/widget-recipes.
 import { WidgetAuthorsComponent } from './widgets/widget-authors/widget-authors.component';
 import { WidgetPopularComponent } from './widgets/widget-popular/widget-popular.component';
 import { RecipesContentComponent } from './recipes-content/recipes-content.component';
-
+import { TimeAgoModule } from "../shared/timeago.module";
+import { CustomPipesModule } from "../shared/custom-pipes.module";
 
 // Services
-
+import { RecipesService } from "../services/recipes.service";
+import { CategoriesService } from "../services/category.service"
 
 
 @NgModule({
@@ -35,9 +37,14 @@ import { RecipesContentComponent } from './recipes-content/recipes-content.compo
       FormsModule,
       ReactiveFormsModule,
       HomeRouting,
-      RatingModule
+      RatingModule,
+      TimeAgoModule,
+      CustomPipesModule
   ],
-  providers: []
+  providers: [
+      RecipesService,
+      CategoriesService
+  ]
 })
 
 

@@ -10,14 +10,12 @@ import { RatingsRouter } from "./ratings.routing";
 
 // Pipes
 import { AppModule as FilterModule } from 'ng-filter'; // Filter Module
-import { CutstringPipe } from "../../cutstring.pipe";
 
 
 
 @NgModule({
   declarations: [
       RatingsComponent,
-      CutstringPipe
   ],
   imports: [
       CommonModule,

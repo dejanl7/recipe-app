@@ -118,7 +118,7 @@ span.rating.readonly span i {
     padding: 0;
 }
 .widget {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     background-color: #fff;
     box-shadow: 10px 10px 70px 14px #ecf0f1; 
     padding: 14px 25px 10px 25px;
@@ -159,8 +159,7 @@ span.rating.readonly span i {
     border-left: none;
     border-right: none;
     font-size: 14px;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 10px 4px 10px 0;
 }
 .widget ul li:first-child {
     border-top: none;

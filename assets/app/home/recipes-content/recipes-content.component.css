@@ -1,3 +1,6 @@
+.recipe-whole {
+    margin-bottom: 30px;
+}
 .recipes-body-container {
     margin-top: 30px;
     margin-bottom: 140px;
@@ -7,11 +10,28 @@
     border: none;
     box-shadow: 10px 10px 70px 14px #ecf0f1; 
 }
-.recipe-card {
-    margin-bottom: 40px;
+.card-img {  
+    width: 100%;
+    height: 240px;
+    margin-bottom: 0;
+    overflow: hidden;
+    position: relative;
 }
 .recipe-image {
-    max-height: 240px;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    -webkit-transition: all .5s;
+}
+.recipe-image:hover {
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
 }
 .recipe-rating {
     position: relative;
@@ -22,6 +42,15 @@
 }
 .card-title {
     font-size: 20px;
+    -webkit-transition: opacity .2s;
+    -moz-transition: opacity .2s;
+    transition: opacity .2s;
+    -moz-transition: opacity .2s;
+    -ms-transition: opacity .2s;
+}
+.card-title:hover {
+    cursor: pointer;
+    opacity: .7;
 }
 .card-block {
     padding-left: 30px;
@@ -56,24 +85,22 @@
     font-weight: 600;
 }
 .author-name a {
-    color: #16a085;
-    -webkit-transition: opacity .2s;
-    -moz-transition: opacity .2s;
-    transition: opacity .2s;
-    -moz-transition: opacity .2s;
-    -ms-transition: opacity .2s;
+    color: #95a5a6;
+    -webkit-transition: color .2s;
+    -moz-transition: color .2s;
+    transition: color .2s;
+    -moz-transition: color .2s;
+    -ms-transition: color .2s;
 }
 .author-name a:hover {
-    opacity: .9;
-}
-.author-name a:hover {
+    color: #34495e;
     cursor: pointer;
 }
 .card-footer {
     background-color: #fff;
 }
 .btn-recipe {
-    width: 200px;
+    width: 140px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -93,4 +120,24 @@
 }
 .btn-recipe:hover {
     opacity: .8;
+}
+.card-footer small {
+    font-size: 10px;
+    padding: 0;
+}
+.category-name {
+    font-size: 11px;
+    font-weight: 600;
+}
+.category-separator {
+    color: #000;
+    position: relative;
+    left: -2px;
+}
+.category-name:hover {
+    color: #000;
+    cursor: pointer;
+}
+.category-name:last-of-type .category-separator {
+    display: none;
 }

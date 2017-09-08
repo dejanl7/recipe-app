@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-widgets',
   templateUrl: './widgets.component.html'
 })
+
 export class WidgetsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }
