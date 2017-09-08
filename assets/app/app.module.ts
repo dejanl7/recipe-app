@@ -39,8 +39,7 @@ import { RecipeInfoInterface } from "./redux/interfaces";
 @NgModule({
     declarations: [
         AppComponent, 
-        HeaderComponent, 
-        HomeComponent, 
+        HeaderComponent,
         LoginComponent, 
         SignupComponent, 
         ErrorsComponent,

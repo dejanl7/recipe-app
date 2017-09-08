@@ -1,17 +1,15 @@
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { NgModule } from "@angular/core";
 
-import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
-
 import { RouteLoggedOutService } from "./route-protected-services/protected-loggedin-route.service";
 
 
 
 const APP_ROUTES: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', loadChildren: './home/home.module#HomeModule' },
     { path: 'profiles', loadChildren: './profiles/profiles.module#ProfilesModule' },
     { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
     { path: 'login', component: LoginComponent },
