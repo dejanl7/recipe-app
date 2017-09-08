@@ -29,7 +29,7 @@ router.get('/get-all-recipes', function(req, res, next) {
                 error: {message: 'Problem with getting information about recipes...'}
             });
         }
-
+        
         for( var i=0; i<recipes.length; i++ ) {
             var allRatings = recipes[i].recipeRating;
             if ( recipes[i].recipeRating.length > 0 ) {

@@ -32,6 +32,19 @@ export class CategoriesService {
         Services
     =============================*/
     // Get Recipe Categories - for suggestion category system, service is "recipes.service.ts"
+    
+    // Get Pupular 4 Categories 
+    getPopularCategories() {
+        return this.http.get(this.categoryUrlAddress + 'get-popular-categories')
+        .map((response: Response) => {
+            return response.json().obj;
+        })
+        .catch((error: Response) => {
+            this.errorService.handleError(error.json());
+            return Observable.throw(error.json());
+        });
+    }
+    
     // Get Recipe Categories 
     getCategories() {
         const token = '?token=' + this.userToken; 

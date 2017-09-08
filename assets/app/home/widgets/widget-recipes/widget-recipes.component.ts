@@ -20,7 +20,6 @@ export class WidgetRecipesComponent implements OnInit, OnDestroy {
         this.recentRecipesInfo = this.recipeService.getAllRecipes()
         .subscribe( (result) => {
             this.recentRecipes = result;
-            console.log(this.recentRecipes);
         })
     }
 

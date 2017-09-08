@@ -20,7 +20,6 @@ export class RecipesContentComponent implements OnInit, OnDestroy {
         this.allRecipesInfo = this.recipeService.getAllRecipes()
         .subscribe( (result) => {
             this.publishedRecipes = result;
-            console.log(this.publishedRecipes);
         })
     }
 

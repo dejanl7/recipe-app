@@ -90,8 +90,8 @@ input.completer-input {
 }
 
 /* Ratings (home page) */
-span.rating,
-span.rating.readonly  {
+rating:not(.editRecipeRating ) span.rating,
+rating:not(.editRecipeRating ) span.rating.readonly  {
     background-color: rgba(252, 252, 252, .9);
     padding-left: 10px;
     padding-right: 10px;
@@ -101,11 +101,11 @@ span.rating.readonly  {
     -o-border-radius: 7px;
     -ms-border-radius: 7px;
 }
-span.rating {
+rating:not(.editRecipeRating ) span.rating {
     box-shadow: 0px 2px 70px 0 #bdc3c7;
 }
-span.rating span i,
-span.rating.readonly span i {
+rating:not(.editRecipeRating ) span.rating span i,
+rating:not(.editRecipeRating ) span.rating.readonly span i {
     color: #2c3e50;
     font-size: 27px;
 }

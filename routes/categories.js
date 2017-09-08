@@ -2,10 +2,54 @@ var express  = require('express');
 var router   = express.Router();
 var sanitize = require("mongo-sanitize");
 var jwt      = require('jsonwebtoken');
+var _        = require('lodash');
 
 var Recipes  = require('../models/recipes');
 var Category = require('../models/categories');
 
+
+/*=============================
+    Get Popular Categories (4)
+===============================*/
+router.get('/get-popular-categories', function(req, res, next) {
+    Category.find()
+    .select('categoryName categoryRecipe')
+    .populate({
+        path: 'categoryRecipe recipeDeleted recipePublish dateCreated',
+        select: ('recipeName recipeDeleted recipePublish')
+    })
+    .limit(4)
+    .lean()
+    .exec(function (err, categories) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about categories...'}
+            });
+        }
+
+        // Use lodash library to sort category by number of recipe per category (from max to min)
+        var sortedRecipes = _.orderBy(categories, ['categoryRecipe'], ['desc']);
+        if (sortedRecipes.length > 0 ){
+            for( var i=0; i<sortedRecipes.length; i++ ) {
+                categories[i].popularCategoryName = sortedRecipes[i].categoryName;
+                var allRecipes = sortedRecipes[i].categoryRecipe;
+                if ( allRecipes.length > 0 ) {
+                    categories[i].count = _.filter(allRecipes, {'recipePublish': true, 'recipeDeleted': false}).length;
+                }
+                else {
+                    categories[i].count = 0;
+                }  
+            }
+        }     
+
+
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: categories
+        });
+    });
+});
 
 
 /*=============================

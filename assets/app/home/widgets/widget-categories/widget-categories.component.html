@@ -1,21 +1,9 @@
 <div class="widget categories clearfix">
-    <h5 class="text-left widget-title">Recent Categories</h5>
+    <h5 class="text-left widget-title">Popular Categories</h5>
     <ul class="list-group">
-        <li class="list-group-item justify-content-between">
-            <a>Cras justo odio</a>
-            <span class="badge badge-default badge-pill">14</span>
-        </li>
-        <li class="list-group-item justify-content-between">
-            <a>Dapibus ac facilisis in</a>
-            <span class="badge badge-default badge-pill">2</span>
-        </li>
-        <li class="list-group-item justify-content-between">
-            <a>Morbi leo risus</a>
-            <span class="badge badge-default badge-pill">1</span>
-        </li>
-        <li class="list-group-item justify-content-between">
-            <a>Morbi leo risus</a>
-            <span class="badge badge-default badge-pill">1</span>
+        <li class="list-group-item justify-content-between" *ngFor="let category of popularCategories; let i=index">
+            <a>{{ category.popularCategoryName }}</a>
+            <span class="badge badge-default badge-pill">{{ category.count }}</span>
         </li>
     </ul>
 </div><!-- .categories -->
