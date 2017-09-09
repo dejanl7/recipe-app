@@ -10,10 +10,61 @@ var Category = require('../models/categories');
 var roles    = require('../models/static-roles');
 
 
+
 /*=============================
-    Get all recipes
+    Get recipes number
 ===============================*/
-router.get('/get-all-recipes', function(req, res, next) {
+router.get('/all-recipes-count', function(req, res, next) {
+        Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
+        .select('recipeName')
+        .sort({ dateCreated: -1 })
+        .exec(function (err, recipes) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: {message: 'Problem with getting information about recipes...'}
+                });
+            }
+        
+            res.status(200).json({
+                title: 'Successfull getting data.',
+                obj: recipes
+            });
+        });
+    });
+
+
+
+/*=============================
+    Get recipes for category
+===============================*/
+router.get('/get-recipes-for-category', function(req, res, next) {
+
+    Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
+    .select('recipeName recipeImage')
+    .sort({ dateCreated: -1 })
+    .lean()
+    .limit(4)
+    .exec(function (err, recipes) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about recipes...'}
+            });
+        }
+
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: recipes
+        });
+    });
+});
+
+
+/*=============================
+    Get last inserted ID
+===============================*/
+router.get('/get-last-id', function(req, res, next) {
     Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
     .select('recipeName recipeContent recipeImage recipeGallery createdFrom dateCreated createdFrom recipeComments recipeCategories recipeRating recipeDeleted')
     .populate({
@@ -22,6 +73,38 @@ router.get('/get-all-recipes', function(req, res, next) {
     })
     .sort({ dateCreated: -1 })
     .lean()
+    .limit(3)
+    .exec(function (err, recipes) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about recipes...'}
+            });
+        }
+
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: recipes
+        });
+    });
+});
+
+
+/*=============================
+    Get scrolled recipes
+===============================*/
+router.get('/get-scrolled-recipes', function(req, res, next) {
+    var sanitizedQuery = req.query.lastId;
+
+    Recipe.find({ '_id': {$lt: sanitizedQuery}, 'recipePublish': true, 'recipeDeleted': false })
+    .select('recipeName recipeContent recipeImage recipeGallery createdFrom dateCreated createdFrom recipeComments recipeCategories recipeRating recipeDeleted')
+    .populate({
+        path: 'createdFrom recipeComments recipeCategories recipeRating',
+        select: ('username profileImage categoryName ratedFrom rating')
+    })
+    .sort({ dateCreated: -1 })
+    .lean()
+    .limit(3)
     .exec(function (err, recipes) {
         if (err) {
             return res.status(500).json({
@@ -30,6 +113,8 @@ router.get('/get-all-recipes', function(req, res, next) {
             });
         }
         
+        console.log(recipes.length);
+
         for( var i=0; i<recipes.length; i++ ) {
             var allRatings = recipes[i].recipeRating;
             if ( recipes[i].recipeRating.length > 0 ) {

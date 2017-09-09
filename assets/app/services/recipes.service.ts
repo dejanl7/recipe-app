@@ -34,9 +34,45 @@ export class RecipesService {
     /*===========================
         Services
     =============================*/
-    // Get All Recipes - publish must be true
-    getAllRecipes() {
-        return this.http.get(this.recipesUrlAddress + 'get-all-recipes')
+    // Count all recipes to define infinite scrolling end
+    countAllRecipes() {
+        return this.http.get(this.recipesUrlAddress + 'all-recipes-count')
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Get Recipes for WIDGET "Recent Recipes" - publish must be true
+    getRecipesForCategory() {
+        return this.http.get(this.recipesUrlAddress + 'get-recipes-for-category')
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Get last id of init recipes (initial number of recipes is 3)
+    getLastId() {
+        return this.http.get(this.recipesUrlAddress + 'get-last-id')
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+    
+    // Infinite Scroll - show older recipes
+    getScrollRecipes(lastRecipeId: string) {
+        return this.http.get(this.recipesUrlAddress + 'get-scrolled-recipes?lastId=' + lastRecipeId)
             .map((response: Response) => {
                 return response.json().obj;
             })

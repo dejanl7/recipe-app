@@ -33,3 +33,26 @@
       </div>
   </div>
 </div><!-- .col-md-6 -->
+
+<div
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="1400"
+    (scrolled)="onScroll()"
+    [ngBusy]="allRecipesCount"
+>
+</div>
+<ng-container *ngIf="!scrollingEnd">
+    <div class="col-md-12 col-sm-12 pull-left">
+        <div class="card-deck recipe-card" [ngBusy]="{busy: busy, minDuration: 600}">
+
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="scrollingEnd">
+    <div class="col-md-12 col-sm-12 pull-left">
+        <div class="alert alert-success scroll-finished" role="alert">
+            <p class="text-center"><strong>Well done!</strong> All recipes are loaded.</p>
+        </div>
+    </div>
+</ng-container>

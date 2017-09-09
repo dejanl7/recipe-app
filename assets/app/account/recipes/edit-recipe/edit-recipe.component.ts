@@ -17,6 +17,7 @@ import * as _ from "lodash";
 export class EditRecipeComponent implements OnInit, OnDestroy {
     recipesSubscr: Subscription;
     recipeAuthorization: Subscription;
+    busyTable: Subscription;
     recipesInfo: Array<any> = [];
     activeRecipesInfo: Array<any> = [];
     trashRecipesInfo: Array<any> = [];
@@ -75,12 +76,17 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/']);
             }
         });
+
+        // Loading table gif
+        this.busyTable = this.userService.getUserAccountInfo()
+        .subscribe();
     }
 
     // On Destroy
     ngOnDestroy() {
         this.recipesSubscr.unsubscribe();
         this.recipeAuthorization.unsubscribe();
+        this.busyTable.unsubscribe();
     }
 
 

@@ -15,6 +15,8 @@ import { WidgetPopularComponent } from './widgets/widget-popular/widget-popular.
 import { RecipesContentComponent } from './recipes-content/recipes-content.component';
 import { TimeAgoModule } from "../shared/timeago.module";
 import { CustomPipesModule } from "../shared/custom-pipes.module";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BusyModule } from 'angular2-busy';
 
 // Services
 import { RecipesService } from "../services/recipes.service";
@@ -39,7 +41,9 @@ import { CategoriesService } from "../services/category.service"
       HomeRouting,
       RatingModule,
       TimeAgoModule,
-      CustomPipesModule
+      CustomPipesModule,
+      InfiniteScrollModule,
+      BusyModule
   ],
   providers: [
       RecipesService,

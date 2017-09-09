@@ -57,6 +57,7 @@ export class CategoriesService {
                 return Observable.throw(error.json());
             });
     }
+
     // Get Category By Id - all category info
     getCategoryInfo(categoryId: string) {
         const token = '?token=' + this.userToken; 
@@ -71,6 +72,7 @@ export class CategoriesService {
             });
         }
     }
+
     // Update category name
     updateCategoryName(categoryId: string, categoryName: string) {
         const token     = '?token=' + this.userToken;
@@ -87,6 +89,7 @@ export class CategoriesService {
                 return Observable.throw(error.json());
             });
     }
+    
     // Remove recipes from category
     removeRecipeFromCategory(categoryId: string, recipeId: string) {
         const token     = '?token=' + this.userToken;

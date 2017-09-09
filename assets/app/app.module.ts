@@ -1,6 +1,7 @@
 // Angular 4 Basic Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { Routes, RouterModule } from "@angular/router";
@@ -53,7 +54,8 @@ import { RecipeInfoInterface } from "./redux/interfaces";
         NgbModule.forRoot(),
         AppRoutingModule,
         ReactiveFormsModule,
-        NgReduxModule
+        NgReduxModule,
+        NoopAnimationsModule
     ],
     providers: [
         SignUpService, 

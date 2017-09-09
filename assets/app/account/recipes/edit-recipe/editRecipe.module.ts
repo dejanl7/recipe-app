@@ -17,6 +17,7 @@ import { RecipesService } from "../../../services/recipes.service";
 
 // Custom Filter Pipe - for recipe table
 import { OrderByPipe } from "../../../order-by.pipe";
+import { BusyModule } from "angular2-busy";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { OrderByPipe } from "../../../order-by.pipe";
         PaginationModule,
         RatingModule,
         TimeAgoModule,
-        CustomPipesModule
+        CustomPipesModule,
+        BusyModule
     ],
     providers: [
         RecipesService

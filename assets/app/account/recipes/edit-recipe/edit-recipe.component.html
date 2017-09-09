@@ -100,6 +100,7 @@
                             <p><small>{{ recipeInfo.dateCreated | date: 'shortDate' }}</small></p>
                         </td>
                     </tr>
+                    <tr [ngBusy]="{busy: busyTable, minDuration: 300}"></tr>
                 </tbody>
 
                 <ng-container *ngIf="filteredRecipes.length > 0 && (recipesInfo | recipeFilter: filteredRecipes).length === 0">
