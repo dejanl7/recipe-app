@@ -34,6 +34,7 @@ export class RecipesService {
     /*===========================
         Services
     =============================*/
+    // Get recipes - WIDGET 
     // Count all recipes to define infinite scrolling end
     countAllRecipes() {
         return this.http.get(this.recipesUrlAddress + 'all-recipes-count')
@@ -47,8 +48,20 @@ export class RecipesService {
     }
 
     // Get Recipes for WIDGET "Recent Recipes" - publish must be true
-    getRecipesForCategory() {
-        return this.http.get(this.recipesUrlAddress + 'get-recipes-for-category')
+    getRecipesForWidget() {
+        return this.http.get(this.recipesUrlAddress + 'get-recipes-for-widget')
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // Get Recipes for WIDGET "Recent Recipes" - publish must be true
+    getPopularRecipes() {
+        return this.http.get(this.recipesUrlAddress + 'get-recipes-for-widget-popular')
             .map((response: Response) => {
                 return response.json().obj;
             })

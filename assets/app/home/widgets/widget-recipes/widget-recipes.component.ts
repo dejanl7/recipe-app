@@ -17,7 +17,7 @@ export class WidgetRecipesComponent implements OnInit, OnDestroy {
 
     // Init
     ngOnInit() {
-        this.recentRecipesInfo = this.recipeService.getRecipesForCategory()
+        this.recentRecipesInfo = this.recipeService.getRecipesForWidget()
         .subscribe( (result) => {
             this.recentRecipes = result;
         })

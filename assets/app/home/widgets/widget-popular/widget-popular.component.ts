@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RecipesService } from '../../../services/recipes.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-widget-popular',
@@ -6,11 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-popular.component.css']
 })
 
-export class WidgetPopularComponent implements OnInit {
+export class WidgetPopularComponent implements OnInit, OnDestroy {
+    recipesInfoSubscr: Subscription;
+    popularRecipes: Array<any>;
 
-  constructor() { }
+    constructor( private recipeService: RecipesService ) { }
 
-  ngOnInit() {
-  }
+    // Initialization
+    ngOnInit() {
+        this.recipesInfoSubscr = this.recipeService.getPopularRecipes()
+          .subscribe( (allRecipes) => {
+              this.popularRecipes = allRecipes;
+          });
+    }
 
+    // Destroy (leave)
+    ngOnDestroy() {
+        this.recipesInfoSubscr.unsubscribe();
+    }
 }

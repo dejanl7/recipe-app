@@ -34,12 +34,11 @@ router.get('/all-recipes-count', function(req, res, next) {
     });
 
 
-
 /*=============================
-    Get recipes for category
+    Get recipes for widget
+    "Recent recipes"
 ===============================*/
-router.get('/get-recipes-for-category', function(req, res, next) {
-
+router.get('/get-recipes-for-widget', function(req, res, next) {
     Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
     .select('recipeName recipeImage')
     .sort({ dateCreated: -1 })
@@ -52,6 +51,38 @@ router.get('/get-recipes-for-category', function(req, res, next) {
                 error: {message: 'Problem with getting information about recipes...'}
             });
         }
+
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: recipes
+        });
+    });
+});
+
+
+/*=============================
+    Get recipes for widget
+    "Popular recipes"
+===============================*/
+router.get('/get-recipes-for-widget-popular', function(req, res, next) {
+    Recipe.find({ 'recipePublish': true, 'recipeDeleted': false })
+    .select('recipeName recipeImage recipeRating')
+    .populate({
+        path: 'recipeRating',
+        select: ('rating')
+    })
+    .sort({ dateCreated: -1 })
+    .lean()
+    .limit(2)
+    .exec(function (err, recipes) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting information about recipes...'}
+            });
+        }
+
+        console.log(recipes);
 
         res.status(200).json({
             title: 'Successfull getting data.',
@@ -112,9 +143,7 @@ router.get('/get-scrolled-recipes', function(req, res, next) {
                 error: {message: 'Problem with getting information about recipes...'}
             });
         }
-        
-        console.log(recipes.length);
-
+    
         for( var i=0; i<recipes.length; i++ ) {
             var allRatings = recipes[i].recipeRating;
             if ( recipes[i].recipeRating.length > 0 ) {
