@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from "ng2-redux";
 import { GET_IMAGES_INFO } from "./redux/actions";
-import { ImageInterface } from "./redux/interfaces";
+import { RecipeInfoInterface } from "./redux/interfaces";
 import { LoginService } from "./services/login.service";
 import { ImagesService } from "./services/images.service";
 
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     message: string;
     isActive: boolean;
 
-    constructor( private loginService: LoginService, private ngRedux: NgRedux<ImageInterface>, private imagesService: ImagesService, private updateService: UpdatedInfoService ){}
+    constructor( private loginService: LoginService, private ngRedux: NgRedux<RecipeInfoInterface>, private imagesService: ImagesService, private updateService: UpdatedInfoService ){}
 
     // Initialization
     ngOnInit() {
