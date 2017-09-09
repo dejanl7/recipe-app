@@ -26,8 +26,8 @@ router.get('/all-users', function(req, res, next){
                 title: 'An error occured',
                 error: {message: 'Problem with getting users profile information.'}
             });
-        }
-                
+        } 
+        
         res.status(200).json({
             title: 'Successful getting profile information...',
             obj: result

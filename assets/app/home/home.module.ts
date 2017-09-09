@@ -21,6 +21,7 @@ import { BusyModule } from 'angular2-busy';
 // Services
 import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
+import { UserService } from '../services/user.service';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { CategoriesService } from "../services/category.service"
       BusyModule
   ],
   providers: [
+      UserService,
       RecipesService,
       CategoriesService
   ]
