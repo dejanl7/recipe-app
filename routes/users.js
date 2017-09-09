@@ -4,12 +4,36 @@ var bcrypt      = require('bcryptjs');
 var jwt         = require('jsonwebtoken');
 var sanitize    = require("mongo-sanitize");
 var nodemailer  = require('nodemailer');
+var random      = require('mongoose-random');
 
 var User        = require('../models/users');
 var roles       = require('../models/static-roles').allRoles;
 var adminRole   = require('../models/static-roles').admin;
 var creatorRole = require('../models/static-roles').creator;
 var viewerRole  = require('../models/static-roles').viewer;
+
+
+/*================================
+    Get all users (author widget)
+==================================*/
+router.get('/all-users', function(req, res, next){
+    User.findRandom()
+    .limit(8)
+    .select('username profileImage')
+    .exec(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting users profile information.'}
+            });
+        }
+                
+        res.status(200).json({
+            title: 'Successful getting profile information...',
+            obj: result
+        });
+    });
+});
 
 
 /*=============================

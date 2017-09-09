@@ -20,13 +20,11 @@
                     </a>
                 </p>
                 <p class="category-recipes-number">
-                    <a class="badge badge-default hover">
+                    <a class="badge badge-default" data-balloon="Number of categories" data-balloon-pos="right">
                         <span *ngIf="category._id == (catId | async); else notAsyncCategoryLength">{{ remainCategoryCount | async }}</span>
                         <ng-template #notAsyncCategoryLength>
                             <span>{{ category.categoryRecipe.length }}</span>
                         </ng-template>
-                        
-                        <i class="hovertext">Number of recipes</i>
                     </a>
                 </p>
             </li>

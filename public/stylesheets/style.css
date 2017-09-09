@@ -55,39 +55,6 @@ input.completer-input {
     border-radius: 4px;
     padding-left: 7px;
 }
-/* Tooltip */
-.hover {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-.hover .hovertext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #34495e;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 110%; left: -150%;
-    font-size: 11.5px;
-    padding: 10px;
-    letter-spacing: .3px;
-}
-.hover .hovertext::after {
-    content: "";
-    position: absolute;
-    top: 100%; left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-}
-.hover:hover .hovertext {
-    visibility: visible;
-}
 
 /* Ratings (home page) */
 rating:not(.editRecipeRating ) span.rating,

@@ -11,6 +11,7 @@ import { ErrorService } from "./error.service";
 export class UserService {
     userId: string;
     userToken: string;
+    userUrlAddress: string = 'http://localhost:3000/user/';
     accountUrlAddress: string = 'http://localhost:3000/user/account/';
 
     
@@ -29,6 +30,18 @@ export class UserService {
     /*===========================
         Services
     =============================*/
+    // Get all users - for WIDGET "Some authors"
+    getAllUsers() {
+        return this.http.get(this.userUrlAddress + 'all-users')
+        .map((response: Response) => {
+            return response.json().obj;
+        })
+        .catch((error: Response) => {
+            this.errorService.handleError(error.json());
+            return Observable.throw(error.json());
+        });
+    }
+
     // Get User by id
     getUserAccountInfo() {
         const token = '?token=' + this.userToken; 

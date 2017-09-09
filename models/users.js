@@ -1,7 +1,7 @@
 var mongoose        = require('mongoose');
 var Schema          = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
-
+var random          = require('mongoose-random');
 
 // Blueprint for Users Collection
 var schema = new Schema({
@@ -71,9 +71,8 @@ var schema = new Schema({
 });
 
 
-// Plugin for checking unique records
-schema.plugin(uniqueValidator);
-
+schema.plugin(uniqueValidator); // Plugin for checking unique records
+schema.plugin(random, { path: 'r' }); // Random records for some authors WIDGET
 
 
 module.exports = mongoose.model(
