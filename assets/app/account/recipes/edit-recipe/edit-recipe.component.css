@@ -5,6 +5,7 @@
 }
 .recipes-table-container {
     max-width: 1200px;
+    margin-bottom: 100px;
 }
 .recipes-table {
     margin-bottom: 40px;
