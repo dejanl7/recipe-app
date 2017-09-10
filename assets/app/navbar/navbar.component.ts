@@ -17,6 +17,12 @@ import * as _ from "lodash";
 
 export class NavbarComponent implements OnInit {
     canManageRecipe: boolean = true;
+    canLeaveRating: boolean = true;
+    canBlockRecipeComments: boolean = true;
+    canBuy: boolean = true;
+    canMakeOrder: boolean = true;
+    canManageUsers: boolean = true;
+    canBlockUserComments: boolean = true;
     userAuthorizaiton: Subscription;
     userImages: Subscription;
     imagesInfo: Subscription;
@@ -81,9 +87,34 @@ export class NavbarComponent implements OnInit {
         // Get user roles
         this.userAuthorizaiton = this.userService.getUserAccountInfo()
         .subscribe( (user) => {
-            var canManageRecipe = _.find(user.userRole.roles, { 'canManageRecipe': true });
+            let canManageRecipe         = _.find(user.userRole.roles, { 'canManageRecipe': true });
+            let canLeaveRating          = _.find(user.userRole.roles, { 'canLeaveRating': true });
+            let canBlockRecipeComments  = _.find(user.userRole.roles, { 'canBlockRecipeComments': true });
+            let canBuy                  = _.find(user.userRole.roles, { 'canBuy': true });
+            let canMakeOrder            = _.find(user.userRole.roles, { 'canMakeOrder': true });
+            let canManageUsers          = _.find(user.userRole.roles, { 'canManageUsers': true });
+            let canBlockUserComments    = _.find(user.userRole.roles, { 'canBlockUserComments': true });
+
             if ( !canManageRecipe ) {
                 this.canManageRecipe = false;
+            }
+            if ( !canLeaveRating ) {
+                this.canLeaveRating = false;
+            }
+            if ( !canBlockRecipeComments ) {
+                this.canBlockRecipeComments = false;
+            }
+            if ( !canBuy ) {
+                this.canBuy = false;
+            }
+            if ( !canMakeOrder ) {
+                this.canMakeOrder = false;
+            }
+            if ( !canManageUsers ) {
+                this.canManageUsers = false;
+            }
+            if ( !canBlockUserComments ) {
+                this.canBlockUserComments = false;
             }
         });
     }

@@ -16,10 +16,9 @@ import { TimeAgoModule } from "../shared/timeago.module";
 import { PaginationModule } from "../shared/pagination.module";
 
 
-
 @NgModule({
   declarations: [
-      AccountComponent
+      AccountComponent,
   ],
   imports: [
       CommonModule,

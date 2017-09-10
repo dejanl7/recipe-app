@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class WidgetsComponent implements OnInit {
+    arr: Array<any> = ['Some Authors', 'Popular Categories', 'Recent Recipes', 'Popular Recipes'];
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {}
+    ngOnInit() {}
 
 }

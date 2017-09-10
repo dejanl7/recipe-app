@@ -1,0 +1,30 @@
+.manage-widgets {
+    margin-bottom: 70px;
+}
+.display-widgets h5 {
+    margin-bottom: 50px;
+}
+.widgets h5 {
+    margin-bottom: 20px;
+}
+.widgets i {
+    position: absolute;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    top: 0; bottom: 0;
+}
+.homepage-manage {
+    margin-bottom: 70px;
+}
+.homepage-manage h5 {
+    margin-bottom: 20px;
+}
+.homepage-manage .custom-select {
+    margin-left: -14px;
+}
+.btn-recipe {
+    background-color: #95A5A6;
+    font-size: 15px;
+    border: none;
+}

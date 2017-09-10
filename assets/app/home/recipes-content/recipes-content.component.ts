@@ -33,9 +33,11 @@ export class RecipesContentComponent implements OnInit, OnDestroy {
 
         this.allRecipesInfo = this.recipeService.getLastId()
         .subscribe( (initialRecipeRecords) => {
-            this.publishedRecipes = initialRecipeRecords;
             let lastIndex = _.last(initialRecipeRecords, '_id');
-            this.lastId = lastIndex._id;
+            if( this.lastId != lastIndex ) {
+                this.publishedRecipes = initialRecipeRecords;
+                this.lastId = lastIndex._id;
+            }
         });
     }
 

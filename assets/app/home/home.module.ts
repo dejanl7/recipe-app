@@ -23,6 +23,9 @@ import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
 import { UserService } from '../services/user.service';
 
+// Pipes
+import { EscapeHtmlPipe } from '../keep-html.pipe';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { UserService } from '../services/user.service';
       WidgetRecipesComponent,
       WidgetAuthorsComponent,
       WidgetPopularComponent,
-      RecipesContentComponent
+      RecipesContentComponent,
+      EscapeHtmlPipe
   ],
   imports: [
       CommonModule,

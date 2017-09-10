@@ -16,7 +16,6 @@ import { CustomPipesModule } from "../../../shared/custom-pipes.module";
 import { RecipesService } from "../../../services/recipes.service";
 
 // Custom Filter Pipe - for recipe table
-import { OrderByPipe } from "../../../order-by.pipe";
 import { BusyModule } from "angular2-busy";
 
 
