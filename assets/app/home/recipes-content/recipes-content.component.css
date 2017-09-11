@@ -143,7 +143,11 @@
 }
 .scroll-finished {
     padding-top: 30px;
+    background-color: #95A5A6;
+    border-color: transparent;
+
 }
 .scroll-finished p {
     font-size: 17px;
+    color: #fff;
 }
