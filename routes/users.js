@@ -11,6 +11,7 @@ var roles       = require('../models/static-roles').allRoles;
 var adminRole   = require('../models/static-roles').admin;
 var creatorRole = require('../models/static-roles').creator;
 var viewerRole  = require('../models/static-roles').viewer;
+var _           = require('lodash');
 
 
 /*================================
@@ -19,7 +20,7 @@ var viewerRole  = require('../models/static-roles').viewer;
 router.get('/all-users', function(req, res, next){
     User.findRandom()
     .limit(8)
-    .select('username profileImage')
+    .select('username profileImage userRecipes')
     .exec(function (err, result) {
         if (err) {
             return res.status(500).json({
@@ -27,10 +28,18 @@ router.get('/all-users', function(req, res, next){
                 error: {message: 'Problem with getting users profile information.'}
             });
         } 
+
+        var usersWithRecipes = [];
+        for ( var r=0; r<result.length; r++ ) {
+            if ( result[r].userRecipes.length > 0 ) {
+                usersWithRecipes.push(result[r]);
+            }
+        }
         
+
         res.status(200).json({
             title: 'Successful getting profile information...',
-            obj: result
+            obj: usersWithRecipes
         });
     });
 });

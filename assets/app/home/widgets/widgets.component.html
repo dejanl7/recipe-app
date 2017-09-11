@@ -1,8 +1,8 @@
 <div class="col-sm-12 widgets">
-    <div *ngFor="let widgetPosition of arr">
-        <app-widget-recipes *ngIf="widgetPosition == 'Recent Recipes'"></app-widget-recipes>
-        <app-widget-categories *ngIf="widgetPosition == 'Popular Categories'"></app-widget-categories>
-        <app-widget-authors *ngIf="widgetPosition == 'Some Authors'"></app-widget-authors>
-        <app-widget-popular *ngIf="widgetPosition == 'Popular Recipes'"></app-widget-popular> 
+    <div *ngFor="let widget of widgetsArray; let i=index">
+        <app-widget-recipes *ngIf="widget.widgetName == 'Recent Recipes' && widget.widgetDisplay"></app-widget-recipes>
+        <app-widget-categories *ngIf="widget.widgetName == 'Popular Categories' && widget.widgetDisplay"></app-widget-categories>
+        <app-widget-authors *ngIf="widget.widgetName == 'Some Authors' && widget.widgetDisplay"></app-widget-authors>
+        <app-widget-popular *ngIf="widget.widgetName == 'Popular Recipes' && widget.widgetDisplay"></app-widget-popular> 
     </div>
 </div>

@@ -4,18 +4,14 @@ var Schema          = mongoose.Schema;
 
 // Blueprint for Admin Collection
 var schema = new Schema({
-    widgetsDisplay: {
+    widgets: {
         type: Array,
         default: [
-            {'Recent Recipes': true}, 
-            {'Popular Categories': true}, 
-            {'Some Authors': true}, 
-            {'Popular Recipes': true }
+            { widgetName: 'Recent Recipes', widgetDisplay: true}, 
+            { widgetName: 'Popular Categories', widgetDisplay: true}, 
+            { widgetName: 'Some Authors', widgetDisplay: true}, 
+            { widgetName: 'Popular Recipes', widgetDisplay: true }
         ]
-    },
-    widgetsPosition: {
-        type: Array,
-        default: ['Recent Recipes', 'Popular Categories', 'Some Authors', 'Popular Recipes']
     },
     homePageLayout: {
         type: String,

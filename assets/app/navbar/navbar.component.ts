@@ -97,24 +97,31 @@ export class NavbarComponent implements OnInit {
 
             if ( !canManageRecipe ) {
                 this.canManageRecipe = false;
+                this.router.navigate(['/']);
             }
             if ( !canLeaveRating ) {
                 this.canLeaveRating = false;
+                this.router.navigate(['/']);
             }
             if ( !canBlockRecipeComments ) {
                 this.canBlockRecipeComments = false;
+                this.router.navigate(['/']);
             }
             if ( !canBuy ) {
                 this.canBuy = false;
+                this.router.navigate(['/']);
             }
             if ( !canMakeOrder ) {
                 this.canMakeOrder = false;
+                this.router.navigate(['/']);
             }
             if ( !canManageUsers ) {
                 this.canManageUsers = false;
+                this.router.navigate(['/']);
             }
             if ( !canBlockUserComments ) {
                 this.canBlockUserComments = false;
+                this.router.navigate(['/']);
             }
         });
     }

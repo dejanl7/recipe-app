@@ -22,6 +22,7 @@ import { BusyModule } from 'angular2-busy';
 import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
 import { UserService } from '../services/user.service';
+import { AdminService } from '../services/admin.service';
 
 // Pipes
 import { EscapeHtmlPipe } from '../keep-html.pipe';
@@ -53,7 +54,8 @@ import { EscapeHtmlPipe } from '../keep-html.pipe';
   providers: [
       UserService,
       RecipesService,
-      CategoriesService
+      CategoriesService,
+      AdminService
   ]
 })
 

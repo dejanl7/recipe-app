@@ -1,4 +1,4 @@
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable, Subject } from "rxjs";
@@ -35,6 +35,27 @@ export class AdminService {
             this.errorService.handleError(error.json());
             return Observable.throw(error.json());
         });
+    }
+
+    // Update Widget Positions and Widget(s) Display
+    updateWidgets(widgetPositions: Array<string>, homePageLayout: any) {
+        const token          = '?token=' + this.userToken;
+        const data           = {
+            'widgetPosition': widgetPositions,
+            'homePageLayout': homePageLayout
+        }
+        const body     = JSON.stringify(data);
+        let headers     = new Headers({ 'Content-Type': 'application/json' });
+        let options     = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        return this.http.patch(this.adminUrlAddress + 'manage/' + this.userId + token, options)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
 }
