@@ -87,13 +87,16 @@ export class RecipeDetailsComponent implements OnInit {
     ngAfterViewInit() {
         tinymce.init({
             selector:'textarea',
-            plugins: ['advlist', 'anchor', 'autolink', 'autoresize', 'bbcode',  'charmap', 'code', 'colorpicker', 'contextmenu', 'emoticons', 'image', 'link',  'lists', 'paste', 'print', 'preview', 'table'],
+            plugins: ['charmap', 'colorpicker', 'contextmenu', 'emoticons', 'image imagetools', 'link',  'lists', 'table'],
             setup: editor => {
                 this.editor = editor;
                 editor.on('init', () => {
                     editor.setContent(this.recipeInfoEdit.recipeContent ? this.recipeInfoEdit.recipeContent : '');
                 });
                 editor.on('keyup', () => {
+                    this.recipeContentEdit = editor.getContent();
+                });
+                editor.on('change', () => {
                     this.recipeContentEdit = editor.getContent();
                 });
             }

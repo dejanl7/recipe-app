@@ -524,8 +524,8 @@ router.patch('/edit/:id', function(req, res, next){
         sanitizedContent = sanitize(req.body);
         recipe.recipeName       = sanitizedContent.title || recipe.recipeName;
         recipe.recipeContent    = sanitizedContent.content || recipe.recipeContent;
-        recipe.recipeImage      = sanitizedContent.attachment || recipe.recipeImage;
-        recipe.recipeGallery    = sanitizedContent.galleryImages || recipe.recipeGallery;
+        recipe.recipeImage      = sanitizedContent.attachment;
+        recipe.recipeGallery    = sanitizedContent.galleryImages;
 
         // Update Recipe
         recipe.save(function(err, result){
