@@ -10,6 +10,7 @@ import { RouteLoggedOutService } from "./route-protected-services/protected-logg
 
 const APP_ROUTES: Routes = [
     { path: '', loadChildren: './home/home.module#HomeModule' },
+    { path: 'single', loadChildren: './single/singlePage.module#SinglePageModule' },
     { path: 'profiles', loadChildren: './profiles/profiles.module#ProfilesModule' },
     { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
     { path: 'login', component: LoginComponent },

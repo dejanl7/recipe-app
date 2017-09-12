@@ -11,13 +11,22 @@
           >
         </rating>
         <div class="card-block">
-            <h4 class="card-title"><a>{{ recipe.recipeName }}</a></h4>
+            <h4 class="card-title">
+                <a  
+                    [routerLink]="['/single/', recipe._id ]"
+                    [queryParams]="{'creted-by': recipe.createdFrom._id}"
+                >{{ recipe.recipeName }}</a>
+            </h4>
             <div [innerHTML]="recipe.recipeContent | cutstring:'177'"></div>
             <div class="author">
                 <img [src]="recipe.createdFrom.profileImage ? recipe.createdFrom.profileImage : '/images/avatar-profile.png'" alt="author">
                 <span class="author-name"> &nbsp; By: <a>{{ recipe.createdFrom.username }}</a></span>
             </div>
-            <button class="btn btn-recipe">See</button>
+            <button 
+                class="btn btn-recipe" 
+                [routerLink]="['/single/', recipe._id ]"
+                [queryParams]="{'creted-by': recipe.createdFrom._id}"
+            >See</button>
         </div>
         <div class="card-footer clearfix">
             <div class="row justify-content-center text-center">

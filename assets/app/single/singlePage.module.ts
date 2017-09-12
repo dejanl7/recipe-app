@@ -4,43 +4,39 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components and modules
-import { HomeComponent } from "./home.component";
-import { HomeRouting } from "./home.routing";
+import { SinglePageComponent } from './single-page.component';
+import { MediaComponent } from './media/media.component';
+import { ContentComponent } from './content/content.component';
+import { CommentsComponent } from './comments/comments.component';
 import { RatingModule } from "ngx-rating";
-import { RecipesContentComponent } from './recipes-content/recipes-content.component';
 import { TimeAgoModule } from "../shared/timeago.module";
 import { CustomPipesModule } from "../shared/custom-pipes.module";
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { BusyModule } from 'angular2-busy';
-import { CustomWidgetModule } from '../shared/shared.widgets';
+import { SinglePageRouting } from './singlePage.routing';
 
 // Services
 import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
 import { UserService } from '../services/user.service';
 import { AdminService } from '../services/admin.service';
-
-// Pipes
-import { EscapeHtmlPipe } from '../keep-html.pipe';
+import { CustomWidgetModule } from '../shared/shared.widgets';
 
 
 @NgModule({
   declarations: [
-      HomeComponent,
-      RecipesContentComponent,
-      EscapeHtmlPipe
+      SinglePageComponent,
+      MediaComponent,
+      ContentComponent,
+      CommentsComponent
   ],
   imports: [
       CommonModule,
       HttpModule,
       FormsModule,
       ReactiveFormsModule,
-      HomeRouting,
       RatingModule,
       TimeAgoModule,
       CustomPipesModule,
-      InfiniteScrollModule,
-      BusyModule,
+      SinglePageRouting,
       CustomWidgetModule
   ],
   providers: [
@@ -52,4 +48,4 @@ import { EscapeHtmlPipe } from '../keep-html.pipe';
 })
 
 
-export class HomeModule { }
+export class SinglePageModule { }
