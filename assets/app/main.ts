@@ -15,4 +15,5 @@ import '../../node_modules/tinymce/plugins/link/plugin.js';
 import '../../node_modules/tinymce/plugins/lists/plugin.js';
 import '../../node_modules/tinymce/plugins/table/plugin.js';
 
+
 platformBrowserDynamic().bootstrapModule(AppModule);
