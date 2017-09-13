@@ -12,13 +12,15 @@ import { RatingModule } from "ngx-rating";
 import { TimeAgoModule } from "../shared/timeago.module";
 import { CustomPipesModule } from "../shared/custom-pipes.module";
 import { SinglePageRouting } from './singlePage.routing';
+import { CustomWidgetModule } from '../shared/shared.widgets';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LightboxModule } from 'angular2-lightbox';
 
 // Services
 import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
 import { UserService } from '../services/user.service';
 import { AdminService } from '../services/admin.service';
-import { CustomWidgetModule } from '../shared/shared.widgets';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { CustomWidgetModule } from '../shared/shared.widgets';
       TimeAgoModule,
       CustomPipesModule,
       SinglePageRouting,
-      CustomWidgetModule
+      CustomWidgetModule,
+      NgbModule.forRoot(),
+      LightboxModule
   ],
   providers: [
       UserService,

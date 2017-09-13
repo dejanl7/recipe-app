@@ -87,7 +87,10 @@ export class RecipeDetailsComponent implements OnInit {
     ngAfterViewInit() {
         tinymce.init({
             selector:'textarea',
-            plugins: ['charmap', 'colorpicker', 'contextmenu', 'emoticons', 'image imagetools', 'link',  'lists', 'table'],
+            relative_urls : false,
+            remove_script_host : false,
+            convert_urls : true,
+            plugins: ['charmap', 'code', 'colorpicker', 'contextmenu', 'emoticons', 'image', 'link',  'lists', 'table'],
             setup: editor => {
                 this.editor = editor;
                 editor.on('init', () => {

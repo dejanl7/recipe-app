@@ -63,8 +63,11 @@ export class AddNewRecipeComponent implements OnInit, AfterViewInit, OnDestroy {
     // After View Init
     ngAfterViewInit() {
         tinymce.init({
-            selector:'textarea',
-            plugins:  ['charmap', 'colorpicker', 'contextmenu', 'emoticons', 'image imagetools', 'link',  'lists', 'table'],
+            selector:'textarea', 
+            relative_urls : false,
+            remove_script_host : false,
+            convert_urls : true,
+            plugins:  ['charmap', 'colorpicker', 'contextmenu', 'emoticons', 'image', 'link',  'lists', 'table'],
             setup: editor => {
                 this.editor = editor;
                 editor.on('keyup', () => {

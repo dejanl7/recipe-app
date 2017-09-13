@@ -1,0 +1,68 @@
+.gallery-slider,
+.attached-image {
+    width: 100%;
+    height: 470px;
+    object-fit: fill;
+}
+ngb-carousel {
+    outline: none;
+}
+.tabs {
+    list-style-type: none;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+}
+.recipe-tab {
+    box-shadow: 10px 10px 30px 14px #ecf0f1; 
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 2.5%;
+    text-align: center;
+    display: inline-block;
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 16px;
+    letter-spacing: .5px;
+    font-weight: 600;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -o-border-radius: 7px;
+    -ms-border-radius: 7px;
+}
+.recipe-tab.active,
+.recipe-tab:hover {
+    cursor: pointer;
+    opacity: .7;
+    background-color: #34495e;
+    color: #fff;
+}
+.recipe-tab.active:before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 0px 10px 10px;
+    display: block;
+    width: 0px;
+    z-index: 1;
+    top: -4px;
+    color: transparent;
+    border-color: #34495e transparent;
+    transform: translate(-50%,0%);
+    -moz-transform: translate(-50%,0%);
+    -webkit-transform: translate(-50%,0%);
+    -ms-transform: translate(-50%,0%);
+}
+.recipe-tab:first-child.active:before {   
+    left: 25%;
+}
+.recipe-tab:last-child.active:before {
+    right: 25%;
+}

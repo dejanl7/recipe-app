@@ -1,3 +1,22 @@
-<p>
-  media works!
-</p>
+<div class="gallery-slider-container">
+    <ngb-carousel *ngIf="defaultSelected === 'gallery'; else attachedImage">
+        <ng-template ngbSlide *ngFor="let image of recipeGallery; let i=index">
+            <img [src]="image.src" alt="gallery" class="gallery-slider" (click)="open(i)">
+        </ng-template>
+    </ngb-carousel>
+    <ng-template #attachedImage>
+        <img [src]="attachmentImg ? attachmentImg : '/images/recipe-logo.png'" alt="attachment" class="attached-image">
+    </ng-template>
+    <ul class="nav tabs clearfix">
+        <li class="nav-link recipe-tab" [class.active]="defaultSelected === 'attachedImg'" (click)="changeSelected('attachedImg')">
+            <a>Image</a>
+        </li>
+        <li class="nav-link recipe-tab" [class.active]="defaultSelected === 'gallery'" (click)="changeSelected('gallery')" *ngIf="recipeGalleryCount > 0">
+            <a>Gallery</a>
+        </li>
+    </ul>
+
+    <h4 class="recipeTitle">{{ recipeName }}</h4>
+
+
+</div>

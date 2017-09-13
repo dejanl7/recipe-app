@@ -1,3 +1,6 @@
-<p>
-  content works!
-</p>
+<div class="single-recipe-content clearfix">
+    <div #printFile class="printFile clearfix" [innerHTML]="recContent | safeHtml">
+    </div>
+
+    <button class="btn btn-block btn-secondary" (click)="printPdf()">Download</button>
+</div>

@@ -71,6 +71,18 @@ export class RecipesService {
             });
     }
 
+    // Get recipe for SINGLE page (recipe by id)
+    getSingleRecipe(recipeId: string) {
+        return this.http.get(this.recipesUrlAddress + 'single-recipe/' + recipeId)
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
     // Get last id of init recipes (initial number of recipes is 3)
     getLastId() {
         return this.http.get(this.recipesUrlAddress + 'get-last-id')

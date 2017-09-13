@@ -24,6 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.28",
     "angular-star-rating": "^3.0.4",
     "angular2-fontawesome": "^0.9.3",
+    "angular2-lightbox": "^1.2.0",
     "bcrypt": "^1.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.1",

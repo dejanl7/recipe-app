@@ -21,14 +21,12 @@ import { UserService } from '../services/user.service';
 import { AdminService } from '../services/admin.service';
 
 // Pipes
-import { EscapeHtmlPipe } from '../keep-html.pipe';
 
 
 @NgModule({
   declarations: [
       HomeComponent,
       RecipesContentComponent,
-      EscapeHtmlPipe
   ],
   imports: [
       CommonModule,

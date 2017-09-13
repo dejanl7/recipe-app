@@ -163,6 +163,27 @@ router.get('/get-scrolled-recipes', function(req, res, next) {
 
 
 /*=============================
+    Get recipe (SINGLE page)
+===============================*/
+router.get('/single-recipe/:id', function(req, res, next) {
+    Recipe.findById(req.params.id)
+    .exec( function (err, result){
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: {message: 'Problem with getting recipe information...'}
+            });
+        }
+        
+        res.status(200).json({
+            title: 'Successfull getting data.',
+            obj: result
+        });
+    });
+});
+
+
+/*=============================
     Protect Route
 ===============================*/
 router.use('/', function(req, res, next) {
