@@ -51,12 +51,11 @@
                     <tr *ngFor="let recipeInfo of recipesInfo | orderBy:order:ascending | recipeFilter: filteredRecipes | paginate: { itemsPerPage: recipesPerPage, currentPage: currentRecipePage }; let i = index">
                         <th scope="row">{{ (currentRecipePage - 1) * recipesPerPage + i + 1 }}</th>
                         <td>
-                            {{ recipeInfo.recipeName }}
+                            <a [routerLink]="['/account/recipes/edit/', recipeInfo._id]">{{ recipeInfo.recipeName }}</a>
                             <p>
                                 <span class="trash" [class.restore]="recipeInfo.recipeDeleted" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
                                 <span class="separator">|</span>
-                                <a [routerLink]="['/account/recipes/edit/', recipeInfo._id]"><span class="edit">Edit</span></a>
-                                <span class="separator" *ngIf="recipeInfo.recipeDeleted">|</span>
+                                <a *ngIf="!recipeInfo.recipeDeleted" (click)="visitRecipePage(recipeInfo._id, recipeInfo.createdFrom)"><span class="visit">Visit</span></a>
                                 <span class="remove" *ngIf="recipeInfo.recipeDeleted" (click)="removeRecipe(recipeInfo._id)">Remove</span>
                             </p>
                         </td>

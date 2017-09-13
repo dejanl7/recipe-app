@@ -1,6 +1,8 @@
 <div class="single-recipe-content clearfix">
-    <div #printFile class="printFile clearfix" [innerHTML]="recContent | safeHtml">
-    </div>
-
-    <button class="btn btn-block btn-secondary" (click)="printPdf()">Download</button>
+    <h4 class="recipeTitle">{{ recName }} 
+        <span data-balloon="Print PDF" data-balloon-pos="right">
+            <i class="fa fa-file-pdf-o" aria-hidden="true" (click)="printPdf()"></i>
+        </span>
+    </h4>
+    <div #printFile class="printFile clearfix" [innerHTML]="recContent | safeHtml"></div>
 </div>

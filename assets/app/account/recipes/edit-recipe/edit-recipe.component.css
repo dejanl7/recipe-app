@@ -66,6 +66,18 @@ thead th:first-of-type  {
 th i:hover {
     cursor: pointer;
 }
+td:first-of-type > a {
+    text-decoration: none;
+    color: #000;
+    -webkit-transition: opacity .2s;
+    -moz-transition: opacity .2s;
+    transition: opacity .2s;
+    -moz-transition: opacity .2s;
+    -ms-transition: opacity .2s;
+}
+td:first-of-type > a:hover {
+    opacity: .7;
+}
 td {
     font-size: 15px;
     color: #000;
@@ -112,11 +124,11 @@ span {
 .remove {
     color: #c0392b;
 }
-.edit {
+.visit {
     color: #34495e;   
 }
 .trash:hover,
-.edit:hover,
+.visit:hover,
 .remove:hover {
     cursor: pointer;
 }

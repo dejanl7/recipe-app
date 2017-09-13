@@ -18,7 +18,6 @@ export class MediaComponent implements OnInit, OnDestroy {
     createdBySubscr: Subscription;
     recipeId: string;
     createdBy: string;
-    recipeName: string;
     recipeContent: any;
     recipeGallery: Array<any> = [];
     recipeGalleryCount: number;
@@ -35,7 +34,6 @@ export class MediaComponent implements OnInit, OnDestroy {
             this.recipeId = params.id;
             this.recipeService.getSingleRecipe(this.recipeId)
             .subscribe( (result) => {
-                this.recipeName = result.recipeName;
                 this.attachmentImg = result.recipeImage;
                 this.recipeGalleryCount = +result.recipeGallery.length;
                 for (let i = 1; i < result.recipeGallery.length; i++) {

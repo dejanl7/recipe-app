@@ -23,12 +23,14 @@ export class RecipeDetailsComponent implements OnInit {
     getRecipeGalleryImgsEdit: Subscription;
     getRecipeInfoEdit: Subscription;
     recipeId: string;
+    createdFrom: string;
     @ViewChild('recipeTitleEdit') recipeTitleEdit: ElementRef;
     recipeContentEdit: string;
     recipeCategoriesEdit: Array<string>;
     recipeAttachmentEdit: string;
     recipeGalleryImagesEdit: Array<string>;
     recipeInfoEdit: any;
+    recipeUrl: string;
   
     constructor( private recipeService: RecipesService, private router: Router, private activatedRoute: ActivatedRoute, private updateInfo: UpdatedInfoService ) { }
 
@@ -39,6 +41,7 @@ export class RecipeDetailsComponent implements OnInit {
         .subscribe( (pathElements) => {
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
+                this.createdFrom = result.createdFrom._id;
                 this.recipeAttachmentEdit = result.recipeImage;
             });
         });
@@ -75,6 +78,7 @@ export class RecipeDetailsComponent implements OnInit {
             this.recipeId = pathElements.id;
             this.recipeService.getRecipeUnique(pathElements.id)
             .subscribe( (result) => {
+                this.recipeUrl = 'http://localhost:3000/single/' + this.recipeId + '?createdBy=' + this.createdFrom;
                 this.recipeInfoEdit = result;
                 this.recipeTitleEdit.nativeElement.value = result.recipeName;
                 this.recipeCategoriesEdit = result.recipeCategories || null;
@@ -147,4 +151,10 @@ export class RecipeDetailsComponent implements OnInit {
         this.updateInfo.isUpdated.next(false);
     }
 
+    /*===========================
+        Go to recipe page
+    =============================*/
+    goToRecipePage() {
+       this.router.navigate(['/single/', this.recipeId, { queryParams: { createdBy: this.createdFrom } }]);
+    }
 }

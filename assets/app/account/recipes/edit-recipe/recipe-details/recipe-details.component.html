@@ -3,7 +3,7 @@
         <div class="form-group">
             <label for="recipe-name">Title:</label>
             <input type="text" id="recipe-name" class="form-control" placeholder="Recipe Name" #recipeTitleEdit>
-            <p id="url-address">Url: <a>#{{ recipeIdEdit }}</a></p>
+            <p class="url"><span class="url-address">Url: </span><a (click)="goToRecipePage()">{{ recipeUrl }}</a></p>
         </div>
         <div class="form-group content">
             <label for="recipe-content">Content:</label>

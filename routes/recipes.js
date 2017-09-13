@@ -209,7 +209,7 @@ router.get('/:id', function(req, res, next) {
     .select('userRecipes userRole')
     .populate({
         path: 'userRecipes',
-        select: 'userRole recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
+        select: 'createdFrom userRole recipeName recipeContent recipeImage recipeCategories recipeComments recipeRating recipePublish recipeDeleted dateCreated',
         populate: {
             path: 'recipeCategories recipeRating',
             select: 'categoryName rating ratedFrom'

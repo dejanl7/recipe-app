@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     printPdf() {
       let printContents, popupWin;
       printContents = this.el.nativeElement.innerHTML;
-      popupWin = window.open('', '_blank', 'top=0,left=0,height=900,width=600');
+      popupWin = window.open('', '_blank', 'top=0,left=0,height=600,width=990');
       popupWin.document.open();
       popupWin.document.write(`
         <html>

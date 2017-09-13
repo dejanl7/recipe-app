@@ -182,5 +182,12 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         this.ascending = true;
     }
 
+    /*==============================
+        Visit recipe (single page)
+    ================================*/
+    visitRecipePage(recipeId: string, recipeAuthor: string) {
+        this.router.navigate(['/single/', recipeId, { queryParams: { createdBy: recipeAuthor } }]);
+    }
+
 
 }

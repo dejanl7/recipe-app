@@ -4,7 +4,10 @@ label {
 input {
     font-size: 14px;
 }
-#url-address {
+.url:hover {
+    cursor: pointer;
+}
+.url-address {
     padding-left: 5px;
     font-weight: 600;
     font-size: 14px;

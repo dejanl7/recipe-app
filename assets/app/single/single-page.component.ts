@@ -15,7 +15,7 @@ export class SinglePageComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(
             (params) => {
-              console.log(params);
+              //console.log(params);
             }
         );
     }

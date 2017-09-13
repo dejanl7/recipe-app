@@ -174,21 +174,23 @@ img.recipe-widget {
     Recipe Content
 =========================*/
 .printFile {
-    background: #fff;
-    box-shadow: 10px 10px 70px 10px #ecf0f1;
-    padding: 3%;
-    border-radius: 7px;
     color: #000;
 }
 .printFile 
 .printFile,
 .printFile p,
 .printFile span {
-    font-size: 17px;
+    font-size: 17px !important;
 }
 .printFile img {
     display: block;
-    margin: 10px 15px;
+    margin: 15px;
     max-width: 97%;
     max-height: 450px;
+}
+.printFile img[style*="float: left"] {
+    margin: 5px 15px 0 0 !important;
+}
+.printFile img[style*="float: right"] {
+    margin: 5px 0 5px 15px !important;
 }
