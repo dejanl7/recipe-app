@@ -51,6 +51,12 @@ export class ContentComponent implements OnInit, OnDestroy {
           <head>
             <title>${this.recName}</title>
             <style>
+                img[style*="float: left"] {
+                    margin: 5px 15px 0 0 !important;
+                }
+                img[style*="float: right"] {
+                    margin: 5px 0 5px 15px !important;
+                }
             </style>
           </head>
           <body onload="window.print();window.close()">${printContents}</body>

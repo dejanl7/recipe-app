@@ -168,11 +168,9 @@ img.recipe-widget {
 .lb-nav:hover a.lb-next {
     opacity: .7;
 }
-
-
-/*=======================
-    Recipe Content
-=========================*/
+/*===============================
+    Recipe Content (single page)
+=================================*/
 .printFile {
     color: #000;
 }
