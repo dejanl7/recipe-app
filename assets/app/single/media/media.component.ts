@@ -35,17 +35,22 @@ export class MediaComponent implements OnInit, OnDestroy {
             this.recipeService.getSingleRecipe(this.recipeId)
             .subscribe( (result) => {
                 this.attachmentImg = result.recipeImage;
-                this.recipeGalleryCount = +result.recipeGallery.length;
-                for (let i = 1; i < result.recipeGallery.length; i++) {
-                    const src = result.recipeGallery[i];
-                    const album = {
-                       src: src,
-                       caption: 'Caption-name',
-                       thumb: src
-                    };
-               
-                    this.recipeGallery.push(album);
+                
+                if( result.recipeGallery ) {
+                    this.recipeGalleryCount = +result.recipeGallery.length;
+                    for (let i = 1; i < result.recipeGallery.length; i++) {
+                        const src = result.recipeGallery[i];
+                        const album = {
+                            src: src,
+                            caption: 'Caption-name',
+                            thumb: src
+                        };
+                        this.recipeGallery.push(album);
+                    }
                 }
+                    else {
+                        this.recipeGalleryCount = 0;
+                    }
 
                 // Lightbox config
                 this.lightboxConfig.positionFromTop = 77;

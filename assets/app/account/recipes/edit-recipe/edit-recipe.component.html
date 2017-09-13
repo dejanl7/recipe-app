@@ -56,6 +56,8 @@
                                 <span class="trash" [class.restore]="recipeInfo.recipeDeleted" (click)="moveToTrash(recipeInfo._id, recipeInfo.recipeDeleted)">{{  recipeInfo.recipeDeleted ? 'Restore' : 'Delete' }}</span>
                                 <span class="separator">|</span>
                                 <a *ngIf="!recipeInfo.recipeDeleted" (click)="visitRecipePage(recipeInfo._id, recipeInfo.createdFrom)"><span class="visit">Visit</span></a>
+                                <span class="separator" *ngIf="!recipeInfo.recipeDeleted">|</span>
+                                <a class="edit" *ngIf="!recipeInfo.recipeDeleted" [routerLink]="['/account/recipes/edit/', recipeInfo._id]"><span>Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
                                 <span class="remove" *ngIf="recipeInfo.recipeDeleted" (click)="removeRecipe(recipeInfo._id)">Remove</span>
                             </p>
                         </td>

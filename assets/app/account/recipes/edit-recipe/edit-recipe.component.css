@@ -125,7 +125,14 @@ span {
     color: #c0392b;
 }
 .visit {
-    color: #34495e;   
+    color: #7f8c8d;   
+}
+.edit {
+    color: #34495e;
+}
+.edit i {
+    position: relative;
+    top: -3px; left: 2px;
 }
 .trash:hover,
 .visit:hover,

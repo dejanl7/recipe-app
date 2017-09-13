@@ -17,7 +17,7 @@
                     [queryParams]="{'createdBy': recipe.createdFrom._id}"
                 >{{ recipe.recipeName }}</a>
             </h4>
-            <div [innerHTML]="recipe.recipeContent | cutstring:'177'"></div>
+            <div [innerHTML]="recipe.recipeContent | cutstring:'177' | safeHtml "></div>
             <div class="author">
                 <img [src]="recipe.createdFrom.profileImage ? recipe.createdFrom.profileImage : '/images/avatar-profile.png'" alt="author">
                 <span class="author-name"> &nbsp; By: <a>{{ recipe.createdFrom.username }}</a></span>
