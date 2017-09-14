@@ -10,7 +10,7 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Angul
 // Routes
 import { AppRoutingModule } from "./app.routing";
 
-// Components, Directives and Services
+// Components, Modules, Directives and Services
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +19,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ErrorsComponent } from './errors/errors.component';
 import { UserVerificationComponent } from "./user-verification/user-verification.component";
 import { NavbarComponent } from "./navbar/navbar.component";
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
 import { SignUpService } from "./services/signup.service";
 import { LoginService } from "./services/login.service";
@@ -55,7 +56,8 @@ import { RecipeInfoInterface } from "./redux/interfaces";
         AppRoutingModule,
         ReactiveFormsModule,
         NgReduxModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        Ng2PageScrollModule        
     ],
     providers: [
         SignUpService, 

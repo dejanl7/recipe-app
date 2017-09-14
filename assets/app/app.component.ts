@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { NgRedux, select } from "ng2-redux";
 import { GET_IMAGES_INFO } from "./redux/actions";
 import { RecipeInfoInterface } from "./redux/interfaces";
 import { LoginService } from "./services/login.service";
 import { ImagesService } from "./services/images.service";
+import { PageScrollConfig } from 'ng2-page-scroll';
+import { DOCUMENT } from '@angular/platform-browser';
 
 // Tiny MCE
 import "tinymce/tinymce.min.js";
@@ -24,8 +26,9 @@ export class AppComponent implements OnInit {
     isActiveSubscr: Subscription;
     message: string;
     isActive: boolean;
+    displaySmoothScrollBar: boolean = false;
 
-    constructor( private loginService: LoginService, private ngRedux: NgRedux<RecipeInfoInterface>, private imagesService: ImagesService, private updateService: UpdatedInfoService ){}
+    constructor( private loginService: LoginService, private ngRedux: NgRedux<RecipeInfoInterface>, private imagesService: ImagesService, private updateService: UpdatedInfoService, @Inject(DOCUMENT) private document: Document ){}
 
     // Initialization
     ngOnInit() {
@@ -65,4 +68,15 @@ export class AppComponent implements OnInit {
             this.ngRedux.dispatch({ type: GET_IMAGES_INFO, payload: result.uploadedImages });
         });
     }
+
+    @HostListener("window:scroll", [])
+        onWindowScroll() {
+            let distanceFromTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            if (distanceFromTop > 300) {
+                this.displaySmoothScrollBar = true;
+            } 
+                else {
+                    this.displaySmoothScrollBar = false;
+                }
+        }
 }

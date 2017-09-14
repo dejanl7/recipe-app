@@ -30,6 +30,31 @@ footer i {
 footer {
     opacity: 1;
 }
+/* Smooth scroll */
+#scroll-to-top {
+    position: fixed;
+    right: 20px; bottom: 15px;
+    background-color: #34495e;
+    color: #fff;
+    padding: 0px;
+    text-align: center;
+    padding: 4px 9px;
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -o-transition: opacity .5s;
+    -webkit-transition: opacity .5s;
+}
+#scroll-to-top i {
+    font-size: 17px;
+    line-height: 29px;
+    display: block;
+}
+#scroll-to-top:hover {
+    cursor: pointer;
+    background-color: #7f8c8d;
+    color: #fff;
+}
 
 /*===========================
     Key Frames

@@ -44,6 +44,7 @@
     "ng-filter": "^0.1.6",
     "ng2-completer": "^1.6.1",
     "ng2-dnd": "^4.2.0",
+    "ng2-page-scroll": "^4.0.0-beta.11",
     "ng2-redux": "^5.1.2",
     "ng2-search-filter": "^0.3.1",
     "ngx-filter-pipe": "^1.0.0",

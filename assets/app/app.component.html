@@ -1,4 +1,5 @@
-<div class="container">
+<div class="container" (scroll)="onScroll($event)">
+    <span id="pageTop"></span>
     <div class="row header">
         <app-header></app-header>
     </div>
@@ -22,6 +23,7 @@
     </p>
 </div>
 
+<span pageScroll  [style.opacity]="displaySmoothScrollBar ? '.7' : '0'" [style.visibility]="displaySmoothScrollBar ? 'visible' : 'hidden'"  href="#pageTop" id="scroll-to-top" [pageScrollOffset]="700" [pageScrollDuration]="777" ><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
 
 <app-navbar *ngIf="isUserLoggedIn()"></app-navbar>
 <app-errors></app-errors>
