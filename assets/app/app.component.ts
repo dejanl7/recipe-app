@@ -69,6 +69,9 @@ export class AppComponent implements OnInit {
         });
     }
 
+    /*==============================
+        Smooth Scrolling
+    ================================*/
     @HostListener("window:scroll", [])
         onWindowScroll() {
             let distanceFromTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
