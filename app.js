@@ -4,6 +4,7 @@ var favicon       = require('serve-favicon');
 var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
+var urlParse      = require('url');
 var mongoose      = require('mongoose'); // Working with MongoDB
 
 // Routes
@@ -17,6 +18,8 @@ var imageRoutes     = require('./routes/images');
 var adminRoutes     = require('./routes/admin');
 
 var app = express();
+
+
 mongoose.connect('localhost:27017/recipes'); // Connect to database 
 
 

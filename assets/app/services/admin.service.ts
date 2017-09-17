@@ -44,7 +44,7 @@ export class AdminService {
             'widgetPosition': widgetPositions,
             'homePageLayout': homePageLayout
         }
-        const body     = JSON.stringify(data);
+        const body      = JSON.stringify(data);
         let headers     = new Headers({ 'Content-Type': 'application/json' });
         let options     = new RequestOptions({
             headers: headers,
@@ -58,4 +58,22 @@ export class AdminService {
             });
     }
 
+
+
+
+
+    // Only for testing PROXY Server
+    proxyGet(proxy: number) {
+        const token = '?token=' + this.userToken;
+        return this.http.get('http://localhost:3001/proxy' + token)
+        .map((response: Response) => {
+            console.log(response.json().obj);
+            return response.json().obj;
+        })
+        .catch((error: Response) => {
+            console.log(error.json());
+            this.errorService.handleError(error.json());
+            return Observable.throw(error.json());
+        });
+    }
 }
