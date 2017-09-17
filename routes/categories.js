@@ -14,36 +14,36 @@ var Category = require('../models/categories');
     ONLY FOR PROXY TESTING!!!!!
     Later will be removed...
 ==================================*/
-router.get('/proxy', function(req, res, next) {
-    Category.find()
-    .select('categoryName categoryRecipe')
-    .populate({
-        path: 'categoryRecipe recipeDeleted recipePublish dateCreated',
-        select: ('recipeName recipeDeleted recipePublish')
-    })
-    .exec(function (err, categories) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'Problem with getting information about categories from PROXY Server...'}
-            });
-        }
-        if ( !req.query.token ) {
-            return res.status(500).json({
-                title: 'An error occured - getting proxy response...',
-                error: {message: 'Wrong login credentials. Proxy server is blocked your request. Please, check your log-in credentials.'}
-            });
-        }
+// router.get('/proxy', function(req, res, next) {
+//     Category.find()
+//     .select('categoryName categoryRecipe')
+//     .populate({
+//         path: 'categoryRecipe recipeDeleted recipePublish dateCreated',
+//         select: ('recipeName recipeDeleted recipePublish')
+//     })
+//     .exec(function (err, categories) {
+//         if (err) {
+//             return res.status(500).json({
+//                 title: 'An error occured',
+//                 error: {message: 'Problem with getting information about categories from PROXY Server...'}
+//             });
+//         }
+//         if ( !req.query.token ) {
+//             return res.status(500).json({
+//                 title: 'An error occured - getting proxy response...',
+//                 error: {message: 'Wrong login credentials. Proxy server is blocked your request. Please, check your log-in credentials.'}
+//             });
+//         }
         
-        console.log(categories);
+//         console.log(categories);
 
-        res.status(200).json({
-            title: 'Successfull getting data.',
-            obj: categories
-        });
+//         res.status(200).json({
+//             title: 'Successfull getting data.',
+//             obj: categories
+//         });
         
-    });
-});
+//     });
+// });
 
 
 

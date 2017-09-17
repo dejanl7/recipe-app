@@ -95,9 +95,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
         PROXY - only for testing 
         (later will be removed)
     ====================================*/
-    proxy(pr: number) {
-        this.adminService.proxyGet(pr)
-        .subscribe();
-    }
+    // proxy(pr: number) {
+    //     this.adminService.proxyGet(pr)
+    //     .subscribe();
+    // }
 
 }
