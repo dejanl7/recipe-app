@@ -17,6 +17,9 @@
     overflow: hidden;
     position: relative;
 }
+.card-img.singleLayoutContainer {
+    height: 380px !important;
+}
 .recipe-image {
     width: 100%;
     height: 100%;

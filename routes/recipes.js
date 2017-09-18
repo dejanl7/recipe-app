@@ -104,7 +104,7 @@ router.get('/get-last-id', function(req, res, next) {
     })
     .sort({ dateCreated: -1 })
     .lean()
-    .limit(3)
+    .limit(4)
     .exec(function (err, recipes) {
         if (err) {
             return res.status(500).json({
@@ -135,7 +135,7 @@ router.get('/get-scrolled-recipes', function(req, res, next) {
     })
     .sort({ dateCreated: -1 })
     .lean()
-    .limit(3)
+    .limit(4)
     .exec(function (err, recipes) {
         if (err) {
             return res.status(500).json({

@@ -5,6 +5,7 @@ import { Subscription } from "rxjs/Subscription";
 import * as _ from 'lodash';
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { AdminService } from '../../services/admin.service';
 
 
 @Component({
@@ -16,13 +17,16 @@ import { Subject } from "rxjs/Subject";
 export class RecipesContentComponent implements OnInit, OnDestroy {
     allRecipesInfo: Subscription;
     allRecipesCount: Subscription;
+    homePageLayout: Subscription;
     busy = new Subject();
     publishedRecipes: Array<any> = [];
     numberOfPublishedRecipes: number;
     lastId: string;
     scrollingEnd: boolean = false;
+    pageLayout: string;
+    cutstringLength: number = 177;
 
-    constructor( private recipeService: RecipesService, private categoryService: CategoriesService ) { }
+    constructor( private recipeService: RecipesService, private categoryService: CategoriesService, private adminService: AdminService ) { }
 
     // Init
     ngOnInit() {
@@ -39,12 +43,21 @@ export class RecipesContentComponent implements OnInit, OnDestroy {
                 this.lastId = lastIndex._id;
             }
         });
+
+        this.homePageLayout = this.adminService.getAdminInfo()
+        .subscribe( (layout) => {
+            this.pageLayout = layout.homePageLayout;
+            if ( layout.homePageLayout == 'one-and-right-sidebar' ) {
+                this.cutstringLength = 420;
+            }
+        });
     }
 
     // Destroy
     ngOnDestroy() {
         this.allRecipesCount.unsubscribe();
         this.allRecipesInfo.unsubscribe();
+        this.homePageLayout.unsubscribe();
     }
 
 

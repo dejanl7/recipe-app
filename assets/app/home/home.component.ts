@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../services/admin.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class HomeComponent implements OnInit {
+    homePageLayout: Subscription;
+    homeLayout: string;
 
-    constructor() { }
+    constructor( private adminService: AdminService ) { }
 
-    ngOnInit() { }
+    // Init
+    ngOnInit() { 
+        this.homePageLayout = this.adminService.getAdminInfo()
+        .subscribe( (result) => {
+            this.homeLayout = result.homePageLayout;
+        });
+    }
+
+    // Destroy
+    ngOnDestroy() {
+        this.homePageLayout.unsubscribe();
+    }
+
     
 }

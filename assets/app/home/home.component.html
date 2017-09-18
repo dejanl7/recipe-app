@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row recipes-body-container">
-    <div class="col-md-9 col-sm-12 recipes-container">
+    <div class="col-sm-12 recipes-container" [class.col-md-9]="homeLayout != 'three-without-sidebar'">
         <app-recipes-content></app-recipes-content>
     </div>
-    <div class="col-md-3 col-sm-12 sidebar">
+    <div class="col-md-3 col-sm-12 sidebar" *ngIf="homeLayout != 'three-without-sidebar'">
         <app-widgets></app-widgets>
     </div>
   </div>
