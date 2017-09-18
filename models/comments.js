@@ -14,10 +14,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },
-    comentedRecipe: [{
+    comentedRecipe: {
         type: Schema.Types.ObjectId,
         ref: 'Recipes'
-    }],
+    },
     approve: {
         type: Boolean,
         default: false

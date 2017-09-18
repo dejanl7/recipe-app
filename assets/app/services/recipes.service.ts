@@ -15,6 +15,7 @@ export class RecipesService {
     userToken: string;
     recipesUrlAddress: string  = 'http://localhost:3000/recipe/';
     categoryUrlAddress: string = 'http://localhost:3000/category/';
+    commentUrlAddress: string  = 'http://localhost:3000/comment/';
     categories  = new Subject();
     attachedImg = new Subject();
     galleryImgs = new Subject();
@@ -242,6 +243,39 @@ export class RecipesService {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             });
+    }
+
+
+    /*===================================
+        Comments SERVICE
+    =====================================*/
+    // Get comments
+    getComments(recipeId: string) {
+        return this.http.get(this.commentUrlAddress + recipeId)
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    // POST comment
+    addNewComment(content: string, recipeId: string) {
+        const token   = '?token=' + this.userToken;
+        const body    = JSON.stringify(content);
+        let headers   = new Headers({'Content-Type': 'application/json'});
+        let options   = new RequestOptions({
+            headers: headers,
+            body: body
+        });
+        
+        return this.http.post(this.commentUrlAddress + recipeId + token, options)
+        .map((response: Response) => response.json())
+        .catch((error: Response) => {
+            return Observable.throw(error.json());
+        });
     }
 
 

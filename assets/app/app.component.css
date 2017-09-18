@@ -44,6 +44,7 @@ footer {
     -moz-transition: opacity .5s;
     -o-transition: opacity .5s;
     -webkit-transition: opacity .5s;
+    z-index: 110;
 }
 #scroll-to-top i {
     font-size: 17px;

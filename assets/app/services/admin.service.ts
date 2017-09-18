@@ -43,7 +43,7 @@ export class AdminService {
         const data           = {
             'widgetPosition': widgetPositions,
             'homePageLayout': homePageLayout
-        }
+        };
         const body      = JSON.stringify(data);
         let headers     = new Headers({ 'Content-Type': 'application/json' });
         let options     = new RequestOptions({

@@ -1,0 +1,78 @@
+.comments-container {
+    margin-top: -70px;
+    margin-bottom: 140px;
+}
+.comment-headline {
+    margin-bottom: 40px;
+}
+.media {
+    margin-bottom: 20px;
+}
+.comment-container {
+    width: 100%;
+    box-shadow: 10px 10px 70px 14px #ecf0f1;
+    padding: 20px;
+}
+.comment-author-img {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #bdc3c7;
+    float: left;
+}
+.posted-by {
+    font-size: 14px;
+    font-weight: 400;
+    color: #2c3e50;
+}
+.creator-name {
+    font-size: 14px;
+    font-weight: 400;
+    border-bottom: 1px solid;
+}
+.published-time {
+    font-size: 11px;
+    font-style: italic;
+}
+.comment-content {
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: .25px;
+    color: #2c3e50;
+    text-align: justify;
+}
+.leave-comment {
+    margin-bottom: 40px;
+}
+#commentTextarea {
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 21px;
+}
+.leave-comment label {
+    font-weight: 600;
+}
+.btn-comment {
+    cursor: pointer;
+    background-color: #34495e;
+    color: #fff;
+    opacity: .8;
+    font-size: 13px;
+}
+.btn-comment:disabled {
+    cursor: not-allowed;
+    opacity: .3;
+}
+textarea.ng-dirty.ng-invalid {
+    border: 1px solid #c0392b;
+}
+.help-block {
+    font-size: 14px;
+    padding-left: 10px;
+}
+.help-block.help-warning {
+    color: #c0392b;
+}
+.pending {
+    color: #d35400;
+    margin: 10px;
+}

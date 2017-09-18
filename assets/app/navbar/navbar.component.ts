@@ -16,13 +16,13 @@ import * as _ from "lodash";
 
 
 export class NavbarComponent implements OnInit {
-    canManageRecipe: boolean = true;
-    canLeaveRating: boolean = true;
-    canBlockRecipeComments: boolean = true;
-    canBuy: boolean = true;
-    canMakeOrder: boolean = true;
-    canManageUsers: boolean = true;
-    canBlockUserComments: boolean = true;
+    canManageRecipe: boolean;
+    canLeaveRating: boolean;
+    canBlockRecipeComments: boolean;
+    canBuy: boolean;
+    canMakeOrder: boolean;
+    canManageUsers: boolean;
+    canBlockUserComments: boolean ;
     userAuthorizaiton: Subscription;
     userImages: Subscription;
     imagesInfo: Subscription;
@@ -95,34 +95,35 @@ export class NavbarComponent implements OnInit {
             let canManageUsers          = _.find(user.userRole.roles, { 'canManageUsers': true });
             let canBlockUserComments    = _.find(user.userRole.roles, { 'canBlockUserComments': true });
 
-            if ( !canManageRecipe ) {
-                this.canManageRecipe = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canLeaveRating ) {
-                this.canLeaveRating = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canBlockRecipeComments ) {
-                this.canBlockRecipeComments = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canBuy ) {
-                this.canBuy = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canMakeOrder ) {
-                this.canMakeOrder = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canManageUsers ) {
-                this.canManageUsers = false;
-                this.router.navigate(['/']);
-            }
-            if ( !canBlockUserComments ) {
-                this.canBlockUserComments = false;
-                this.router.navigate(['/']);
-            }
+            canManageRecipe ? this.canManageRecipe = true: this.canManageRecipe = false;
+            canLeaveRating ? this.canLeaveRating = true: this.canLeaveRating = false;
+            canBlockRecipeComments ? this.canBlockRecipeComments = true : this.canBlockRecipeComments = false;
+            canBuy ? this.canBuy = true : this.canBuy = false;
+            canMakeOrder ? this.canMakeOrder : this.canMakeOrder = false;
+            canManageUsers ? this.canManageUsers = true : this.canManageUsers = false;
+            canBlockUserComments ? this.canBlockUserComments = true : this.canBlockUserComments = false;
+
+            // if ( !canManageRecipe ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canLeaveRating ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canBlockRecipeComments ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canBuy ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canMakeOrder ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canManageUsers ) {
+            //     this.router.navigate(['/']);
+            // }
+            // if ( !canBlockUserComments ) {
+            //     this.router.navigate(['/']);
+            // }
         });
     }
 

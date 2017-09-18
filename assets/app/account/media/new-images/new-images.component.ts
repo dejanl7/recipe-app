@@ -54,7 +54,6 @@ export class NewImagesComponent implements OnInit {
     hasBaseDropZoneOver:boolean = false;
 
     fileOverBase(e:any) {
-        console.log('Daj boju');
         this.hasBaseDropZoneOver = e;
     }
 }

@@ -1,3 +1,43 @@
-<p>
-  comments works!
-</p>
+<div class="comments-container col-sm-12 clearfix">
+    <h3 class="comment-headline">Comments</h3>
+    <div class="leave-comment">
+        <form (ngSubmit)="onSubmit()" #cf="ngForm">
+          <div class="form-group">
+              <label for="commentTextarea">Leave Comment</label>
+              <textarea 
+                  class="form-control" 
+                  id="commentTextarea" 
+                  rows="3"
+                  ngModel
+                  name="commentContent"
+                  required
+                  #commentContent="ngModel"
+                  minlength="4"
+                  maxlength="320"
+              ></textarea>
+              <span *ngIf="commentContent.valid && commentContent.value" class="help-block"><small>*Max. content length is 240 characters. ( {{ commentContent.value.length }} )</small></span>
+              <p *ngIf="!commentContent.valid && commentContent.dirty">
+                <span class="help-block help-warning" *ngIf="commentContent.value.length == 0" >Comment can't be empty.</span>
+                <span class="help-block help-warning" *ngIf="commentContent.errors.minlength">Your comment must have at the four (4) characters minimum.</span>
+              </p>
+          </div>
+          <button type="submit" class="btn btn-comment" [disabled]="!cf.valid">Comment</button>
+        </form>
+    </div>
+    <div class="all-comments clearfix">
+        <div class="media" *ngFor="let info of commentInfo" [hidden]="info.commentedBy._id != currentUserId && !info.approve">
+            <div *ngIf="info.approve; else pending" class="col-sm-12" class="comment-container">
+                <img class="d-flex align-self-start mr-3 comment-author-img" [src]="info.commentedBy.profileImage ? info.commentedBy.profileImage : '/images/placeholder64x64.png'" alt="author">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1 posted-by">By: <span class="creator-name">{{ info.commentedBy.username }}</span> <span class="published-time">&nbsp; | &nbsp; <i class="fa fa-clock-o" aria-hidden="true"></i> {{ info.dateCreated | timeAgo }}</span></h5>
+                  <div class="comment-content" [innerHTML]="info.comment"></div>
+                </div>
+            </div>
+            <ng-template #pending>
+                <div *ngIf="info.commentedBy._id == currentUserId; else notVisible">
+                    <p class="pending"><i class="fa fa-pencil-square" aria-hidden="true"></i> Your comment is awaiting to be approved...</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
