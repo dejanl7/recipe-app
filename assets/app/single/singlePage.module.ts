@@ -21,6 +21,7 @@ import { RecipesService } from "../services/recipes.service";
 import { CategoriesService } from "../services/category.service"
 import { UserService } from '../services/user.service';
 import { AdminService } from '../services/admin.service';
+import { PaginationModule } from '../shared/pagination.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AdminService } from '../services/admin.service';
       SinglePageRouting,
       CustomWidgetModule,
       NgbModule.forRoot(),
-      LightboxModule
+      LightboxModule,
+      PaginationModule
   ],
   providers: [
       UserService,

@@ -98,7 +98,7 @@ router.post('/', function (req, res, next) {
             service: 'gmail',
             auth: {
                 user: 'dejan.loncarfx@gmail.com',
-                pass: '#'
+                pass: 'Forextrgovac_29'
             }
         });
         var mailOptions = {

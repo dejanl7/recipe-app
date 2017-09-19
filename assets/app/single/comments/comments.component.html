@@ -25,7 +25,7 @@
         </form>
     </div>
     <div class="all-comments clearfix">
-        <div class="media" *ngFor="let info of commentInfo" [hidden]="info.commentedBy._id != currentUserId && !info.approve">
+        <div class="media" *ngFor="let info of commentInfo | paginate: { itemsPerPage: commentsPerPage, currentPage: p }" [hidden]="info.commentedBy._id != currentUserId && !info.approve">
             <div *ngIf="info.approve; else pending" class="col-sm-12" class="comment-container">
                 <img class="d-flex align-self-start mr-3 comment-author-img" [src]="info.commentedBy.profileImage ? info.commentedBy.profileImage : '/images/placeholder64x64.png'" alt="author">
                 <div class="media-body">
@@ -39,5 +39,12 @@
                 </div>
             </ng-template>
         </div>
+    </div>
+    <div class="pagination-me" *ngIf="commentInfo.length > 2">
+        <pagination-controls
+            (pageChange)="p = $event;"
+            previousLabel= ""
+            nextLabel=""
+        ></pagination-controls>
     </div>
 </div>

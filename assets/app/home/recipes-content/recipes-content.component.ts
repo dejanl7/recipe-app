@@ -41,6 +41,7 @@ export class RecipesContentComponent implements OnInit, OnDestroy {
             if( this.lastId != lastIndex ) {
                 this.publishedRecipes = initialRecipeRecords;
                 this.lastId = lastIndex._id;
+                console.log(this.publishedRecipes);
             }
         });
 

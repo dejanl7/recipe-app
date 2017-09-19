@@ -113,6 +113,16 @@ router.get('/get-last-id', function(req, res, next) {
             });
         }
 
+        for( var i=0; i<recipes.length; i++ ) {
+            var allRatings = recipes[i].recipeRating;
+            if ( recipes[i].recipeRating.length > 0 ) {
+                recipes[i].avgRating = _.meanBy(allRatings, 'rating');  
+            }
+                else {
+                    recipes[i].avgRating = 0;
+                }     
+        }
+
         res.status(200).json({
             title: 'Successfull getting data.',
             obj: recipes

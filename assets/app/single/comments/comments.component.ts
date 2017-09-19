@@ -18,6 +18,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     commentInfo: Array<string> = [];
     currentUserId: string;
     isVisibleComment: boolean = false;
+    commentsPerPage: number = 3;
     
     constructor( private recipeService: RecipesService, private activatedRoute: ActivatedRoute, private loginService: LoginService ) { }
 
@@ -27,7 +28,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
             this.recipeId = params.id;
             this.recipeService.getComments(params.id)
             .subscribe( (recInfo) => {
-                console.log(recInfo);
                 this.commentInfo = recInfo.recipeComments;
             });
         });

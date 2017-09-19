@@ -50,11 +50,6 @@ var Category = require('../models/categories');
 
 
 
-
-
-
-
-
 /*=============================
     Get Popular Categories (4)
 ===============================*/
