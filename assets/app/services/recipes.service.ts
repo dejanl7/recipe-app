@@ -114,6 +114,8 @@ export class RecipesService {
         if( this.userToken){
             return this.http.get(this.recipesUrlAddress + this.userId + token)
                 .map((response: Response) => {
+				
+					console.log(response.json());
                     return response.json().obj;
                 })
                 .catch((error: Response) => {

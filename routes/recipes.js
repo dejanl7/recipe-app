@@ -214,6 +214,7 @@ router.use('/', function(req, res, next) {
 ===========================================*/
 router.get('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
+	console.log(decoded.user._id);
     
     User.findById(req.params.id)
     .select('userRecipes userRole')
